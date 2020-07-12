@@ -1,21 +1,18 @@
 # Installation
 Create virtualenv:
-1.  $ cd my_project_folder
-2.  $ virtualenv -p python3.7 venv
+1.  $ cd my_project_folder/api
+2.  $ python3 -m venv venv
 3.  $ source venv/bin/activate
 4.  $ pip install -r requirements.txt
+5.  $ flask db init
+6.  $ flask db migrate
+7.  $ flask db upgrade
 *   ($ deactivate) Avaktiverar Virtualenvironment
 *   ($ pip freeze > requirements.txt)
 *   ($ pip freeze) get a list of all installed packages and their versions
 
 
-Flask-sqlalchemy
-1.  $ flask db init
-2.  $ flask db migrate
-3.  $ flask db upgrade
-
 # HEROKU
-
 Install the Heroku CLI
 * $ heroku login
 

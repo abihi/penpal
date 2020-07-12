@@ -186,10 +186,10 @@ web/node_modules/
 web/jspm_packages/
 
 # Distribution directories
-dist/
+web/dist/
 
 # Typescript v1 declaration files
-typings/
+web/typings/
 
 # Optional npm cache directory
 .npm
