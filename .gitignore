@@ -136,3 +136,6 @@ api/.pytype/
 
 # Cython debug symbols
 api/cython_debug/
+
+../.DS_Store
+.DS_Store
