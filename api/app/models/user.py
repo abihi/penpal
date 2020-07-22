@@ -20,6 +20,10 @@ class User(db.Model):
     # of the back reference is defined in the country table
     country_of_origin_id = db.Column('country_of_origin_id', db.Integer, db.ForeignKey('countries.id'), nullable=True)
     country_of_recidency_id = db.Column('country_of_recidency_id', db.Integer, db.ForeignKey('countries.id'), nullable=True)
+    # 1-to-m relationship between letter and user. All letters of a user can be
+    # accessed through this attribute. The author of a letter can also be accessed
+    # through back referencing 'letter.author' as defined below
+    letters = db.relationship('Letter', backref='author', lazy=True)
     languages = db.relationship('Language', secondary=user_language_mapping, lazy='subquery',
                            backref=db.backref('users', lazy=True))
     interests = db.relationship('Interest', secondary=user_interest_mapping, lazy='subquery',
