@@ -4,6 +4,8 @@ from app import db
 # used to create the relationship between the user's interest
 # attribute and interest objects
 from app.models.user_interest_mapping import user_interest_mapping
+# m-2-m relationship similar to user and interest
+from app.models.user_language_mapping import user_language_mapping
 
 class User(db.Model):
     __tablename__ = "users"
@@ -11,6 +13,8 @@ class User(db.Model):
     username = db.Column('username', db.String(64), index=True, unique=True)
     email = db.Column('email', db.String(120), index=True, unique=True)
     password_hash = db.Column('password_hash', db.String(128))
+    languages = db.relationship('Language', secondary=user_language_mapping, lazy='subquery',
+                           backref=db.backref('users', lazy=True))
     interests = db.relationship('Interest', secondary=user_interest_mapping, lazy='subquery',
                            backref=db.backref('users', lazy=True))
 
