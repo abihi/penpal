@@ -1,4 +1,7 @@
 from app import db
+from app import login
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # m-2-m relationship table between User and Interest objects
 # used to create the relationship between the user's interest
@@ -10,7 +13,7 @@ from app.models.users.user_language_mapping import user_language_mapping
 from app.models.users.user_penpal_mapping import user_penpal_mapping
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column('id', db.Integer, primary_key=True)
     username = db.Column('username', db.String(64), index=True, unique=True)
@@ -19,19 +22,29 @@ class User(db.Model):
     password_hash = db.Column('password_hash', db.String(128))
     # 1-to-m relationship between country and user. The users can also be back
     # referenced as 'country.residents' and 'country.nationals'.
-    country_of_origin_id = db.Column('country_of_origin_id', db.Integer, db.ForeignKey('countries.id'), nullable=False)
+    country_of_origin_id = db.Column('country_of_origin_id', db.Integer, db.ForeignKey('countries.id'), nullable=True)
     country_of_origin = db.relationship('Country', backref='residents', lazy=True)
     country_of_recidency_id = db.Column('country_of_recidency_id', db.Integer, db.ForeignKey('countries.id'), nullable=False)
     country_of_recidency = db.relationship('Country', backref='nationals', lazy=True)
     languages = db.relationship('Language', secondary=user_language_mapping, lazy='subquery',
-                           backref=db.backref('users', lazy=True))
+                            backref=db.backref('users', lazy=True))
     interests = db.relationship('Interest', secondary=user_interest_mapping, lazy='subquery',
-                           backref=db.backref('users', lazy=True))
+                            backref=db.backref('users', lazy=True))
     penpals = db.relationship('PenPal', secondary=user_penpal_mapping, lazy='subquery',
-                           backref=db.backref('users', lazy=True))
+                            backref=db.backref('users', lazy=True))
 
     def dict(self):
-        return dict(id=self.id, username=self.username, country_of_origin=self.country_of_origin_id)
+        return dict(id=self.id, username=self.username, email=self.email)#, country_of_origin=self.country_of_origin_id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
