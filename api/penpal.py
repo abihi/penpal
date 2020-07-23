@@ -1,3 +1,4 @@
+import os
 from app import app
 
 if 'IN_PRODUCTION' in os.environ:

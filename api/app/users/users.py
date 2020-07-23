@@ -1,7 +1,7 @@
 from app import app
-from flask_restful import reqparse, Resource, Api
+from app import api
+from flask_restful import reqparse, Resource
 
-api = Api(app)
 parser = reqparse.RequestParser()
 
 class Users(Resource):
@@ -14,6 +14,3 @@ class Users(Resource):
         parser.add_argument('password', type=str, location='form')
 
 api.add_resource(Users, '/users')
-
-if __name__ == '__main__':
-    app.run(debug=True)
