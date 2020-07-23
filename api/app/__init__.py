@@ -16,3 +16,8 @@ app.register_blueprint(user_bp, url_prefix='/user')
 
 from app import routes, models
 from app.models.users.user import User
+from app.models.penpals.penpal import PenPal
+from app.models.letters.letter import Letter
+from app.models.countries.country import Country
+from app.models.languages.language import Language
+from app.models.interests.interest import Interest
