@@ -1,7 +1,8 @@
 from app import app
-from flask_restful import Resource, Api
+from flask_restful import Resource
+from app import api
 
-api = Api(app)
+
 
 class Quotes(Resource):
     def get(self):
@@ -16,6 +17,3 @@ class Quotes(Resource):
         }
 
 api.add_resource(Quotes, '/qoutes')
-
-if __name__ == '__main__':
-    app.run(debug=True)
