@@ -7,6 +7,7 @@ Create virtualenv:
 5.  $ flask db init
 6.  $ flask db migrate
 7.  $ flask db upgrade
+8.  $ FLASK_ENV=development flask run
 *   ($ deactivate) Avaktiverar Virtualenvironment
 *   ($ pip freeze > requirements.txt)
 *   ($ pip freeze) get a list of all installed packages and their versions

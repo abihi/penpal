@@ -3,11 +3,11 @@ from app import db
 # m-2-m relationship table between User and Interest objects
 # used to create the relationship between the user's interest
 # attribute and interest objects
-from app.models.user_interest_mapping import user_interest_mapping
+from app.models.users.user_interest_mapping import user_interest_mapping
 # m-2-m relationship similar to user and interest
-from app.models.user_language_mapping import user_language_mapping
+from app.models.users.user_language_mapping import user_language_mapping
 # m-2-m relationship similar to user and interest
-from app.models.user_penpal_mapping import user_penpal_mapping
+from app.models.users.user_penpal_mapping import user_penpal_mapping
 
 
 class User(db.Model):
@@ -29,6 +29,9 @@ class User(db.Model):
                            backref=db.backref('users', lazy=True))
     penpals = db.relationship('PenPal', secondary=user_penpal_mapping, lazy='subquery',
                            backref=db.backref('users', lazy=True))
+
+    def dict(self):
+        return dict(id=self.id, username=self.username, country_of_origin=self.country_of_origin_id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

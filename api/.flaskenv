@@ -1,1 +1,1 @@
-Flask_APP=penpal.py
+FLASK_APP=penpal.py

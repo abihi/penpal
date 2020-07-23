@@ -1,9 +1,11 @@
 import os
 from app import app
 
-if 'IN_PRODUCTION' in os.environ:
+print('os.environ: ', os.environ['FLASK_ENV'])
+
+if os.environ['FLASK_ENV'] == "production":
     app.config.from_object('config.ProductionConfig')
-else:
+elif os.environ['FLASK_ENV'] == "development":
     app.config.from_object('config.DevelopmentConfig')
 
 

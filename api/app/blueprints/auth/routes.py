@@ -6,9 +6,9 @@ from flask import jsonify, request, redirect
 from app import db
 from app.blueprints.auth import bp
 # models
-from app.models.user import User
+from app.models.users.user import User
 
 
-@bp.route('/login', methods=['GET'])
+@bp.route('/', methods=['GET'])
 def login():
     return "Not implemented"

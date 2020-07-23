@@ -13,7 +13,8 @@ api = Api(app)
 # Blueprints
 from app.blueprints.auth import bp as auth_bp
 app.register_blueprint(auth_bp, url_prefix='/auth')
+from app.blueprints.user import bp as user_bp
+app.register_blueprint(user_bp, url_prefix='/user')
 
-
-from app import routes, models, quotes
-from app.models.user import User
+from app import routes, models
+from app.models.users.user import User
