@@ -23,9 +23,9 @@ class User(UserMixin, db.Model):
     # 1-to-m relationship between country and user. The users can also be back
     # referenced as 'country.residents' and 'country.nationals'.
     country_of_origin_id = db.Column('country_of_origin_id', db.Integer, db.ForeignKey('countries.id'), nullable=True)
-    country_of_origin = db.relationship('Country', backref='residents', lazy=True)
     country_of_recidency_id = db.Column('country_of_recidency_id', db.Integer, db.ForeignKey('countries.id'), nullable=False)
-    country_of_recidency = db.relationship('Country', backref='nationals', lazy=True)
+    country_of_origin = db.relationship('Country', foreign_keys=[country_of_origin_id], backref='residents', lazy=True)
+    country_of_recidency = db.relationship('Country', foreign_keys=[country_of_recidency_id], backref='nationals', lazy=True)
     languages = db.relationship('Language', secondary=user_language_mapping, lazy='subquery',
                             backref=db.backref('users', lazy=True))
     interests = db.relationship('Interest', secondary=user_interest_mapping, lazy='subquery',
