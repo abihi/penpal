@@ -1,14 +1,16 @@
 # Installation
 Create virtualenv:
-1.  $ cd my_project_folder/api
-2.  $ python3 -m venv venv
-3.  $ source venv/bin/activate
+1.  $ cd penpal/api
+2.  $ python3 -m venv venv (linux) / py -m venv venv (windows)
+3.  $ source venv/bin/activate (linux) / .\venv\Scripts\activate (windows)
 4.  $ pip install -r requirements.txt
 5.  $ flask db init
 6.  $ flask db migrate
 7.  $ flask db upgrade
-8.  $ FLASK_ENV=development flask run
-*   ($ deactivate) Avaktiverar Virtualenvironment
+
+# Run app & update requirements.txt
+*   $ FLASK_ENV=development flask run
+*   ($ deactivate) deactivates the Virtualenvironment
 *   ($ pip freeze > requirements.txt)
 *   ($ pip freeze) get a list of all installed packages and their versions
 
