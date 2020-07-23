@@ -34,7 +34,8 @@ class User(UserMixin, db.Model):
                             backref=db.backref('users', lazy=True))
 
     def dict(self):
-        return dict(id=self.id, username=self.username, email=self.email)#, country_of_origin=self.country_of_origin_id)
+        return dict(id=self.id, username=self.username, email=self.email, country_of_origin=self.country_of_origin_id,
+                            country_of_recidency=self.country_of_recidency_id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

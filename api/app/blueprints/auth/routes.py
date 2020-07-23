@@ -21,10 +21,13 @@ def login():
     login_user(user, remember=body["rememberMeToggle"])
     return 'Login sucessful', 200
 
+
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    user = User(username=body["username"], email=body["email"])
+    user = User(username=body["username"], email=body["email"], country_of_origin_id=int(body["country_of_origin_id"]),
+                    country_of_recidency_id=int(body["country_of_recidency_id"]))
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
+    return "User created", 200
