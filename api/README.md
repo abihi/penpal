@@ -5,8 +5,8 @@ Create virtualenv:
 3.  $ source venv/bin/activate (linux) / .\venv\Scripts\activate (windows)
 4.  $ pip install -r requirements.txt
 5.  $ flask db init
-6.  $ flask db migrate
 7.  $ flask db upgrade
+
 
 # Run app & update requirements.txt
 *   $ FLASK_ENV=development flask run
@@ -16,13 +16,13 @@ Create virtualenv:
 
 
 # HEROKU
-Install the Heroku CLI
+Install the Heroku CLI:
 * $ heroku login
 
-Add remote dondil application
-* $ heroku git:remote -a dondil
+Add remote penpal application:
+* $ heroku git:remote -a penpal
 
-Deploy your changes
+Deploy your changes:
    1. $ git add .
    2. $ git commit -am "make it better"
    3. $ git push heroku master
@@ -35,7 +35,8 @@ Migrations (both development and local):
 *   $ python manage.py db migrate
 *   $ python manage.py db upgrade
 
-Heroku
+
+# Heroku
 *   $ heroku config:set
 *   $ heroku logs --tail
 *   $ heroku open
