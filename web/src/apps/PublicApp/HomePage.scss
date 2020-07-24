@@ -1,0 +1,56 @@
+@import '../../theme.scss';
+
+.public-home-page {
+  .billboard-container {
+    /* Container for the billboard */
+    width: 100%;
+    height: 440px;
+    border-radius: 5px;
+    box-shadow: -3px -3px 3px hsla(0,0,100%,1), 3px 3px 3px hsla(0,0,0,0.2);
+    display: table;
+    .billboard-message-container {
+      /* Container centering the message of the billboard */
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      h1 {
+        font-size: 32px;
+
+      }
+      p {
+
+      }
+    }
+    .billboard {
+
+
+    }
+  }
+  .button-container {
+    /* Container used for Login and Register buttons */
+    width: 364px;
+    margin: 72px auto;
+    .ant-btn {
+      width: 140px;
+      height: 40px;
+      text-transform: uppercase;
+      background-color: $backgroundColor;
+      box-shadow: -3px -3px 3px hsla(0,0,100%,1), 3px 3px 3px hsla(0,0,0,0.2);
+      border-radius: 5px;
+      border: none;
+      margin: 0 20px;
+      &:last-child {
+        color: hsla(0, 0, 92%, 1);
+        background: linear-gradient(135deg, #FF666A, #CC3D42);
+        &:hover {
+          color: hsla(0, 0, 100%, 1);
+        }
+      }
+      &:hover {
+        box-shadow: -1px -1px 3px hsla(0,0,100%,1), 1px 1px 3px hsla(0,0,0,0.2);
+      }
+    }
+  }
+}
