@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { Modal } from 'antd';
 
-export default class RegistrationModal extends Component {
-  state = { visible: false };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
+class RegistrationModal extends Component {
+  handleOk = () => {
+    // TODO
   };
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
+  handleCancel = () => {
+    const {hideRegistrationModal} = this.props;
+    hideRegistrationModal();
   };
 
   render() {
@@ -29,7 +18,7 @@ export default class RegistrationModal extends Component {
     return (
       <Modal
       title="Register account"
-      visible={this.state.visible}
+      visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
       >
@@ -38,3 +27,19 @@ export default class RegistrationModal extends Component {
     );
   }
 }
+
+const mapStateToProps = store => {
+  return {
+    registrationStep: store.publicApp.registration.flow.step,
+    visible: store.publicApp.registration.modal.visible
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showRegistrationModal: () => dispatch(showRegistrationModal()),
+    hideRegistrationModal: () => dispatch(hideRegistrationModal()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationModal);

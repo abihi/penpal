@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './HomePage.scss';
+import { connect } from 'react-redux';
+import { changeRegistrationFlowStep } from '../../modules/publicApp/registration/flow';
+import { showRegistrationModal, hideRegistrationModal } from '../../modules/publicApp/registration/modal';
+import RegistrationModal from '../../user/registrationModal';
 import { Layout, Button } from 'antd';
 const {Content} = Layout;
 
@@ -30,16 +34,14 @@ class HomePage extends Component {
         </div>
         <div className="button-container">
           <Button>Log in</Button>
-          <Button onClick={}>Sign up</Button>
+          <Button onClick={this.onSingUpClick}>Sign up</Button>
         </div>
+        <RegistrationModal />
       </Content>
     );
   }
 }
 
-import { connect } from 'react-redux';
-import { changeRegistrationFlowStep } from './modules/publicApp/registration/flow';
-import { showRegistrationModal, hideRegistrationModal } from './modules/publicApp/registration/modal';
 
 const mapStateToProps = store => {
   return {
