@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Header.scss';
 import { connect } from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
@@ -6,7 +6,7 @@ import {Layout} from 'antd';
 const {Header} = Layout;
 
 
-class LandingPageHeader extends React.Component {
+class LandingPageHeader extends Component {
   render() {
     const currentPath = this.props.location.pathname;
 

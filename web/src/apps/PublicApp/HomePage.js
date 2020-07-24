@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './HomePage.scss';
 import { Layout, Button } from 'antd';
 const {Content} = Layout;
 
-export default class HomePage extends React.Component {
+export default class HomePage extends Component {
   render() {
 
     return (

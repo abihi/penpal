@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './index.scss';
 
 
-class OnboardingApp extends React.Component {
+class OnboardingApp extends Component {
 
 
   render() {

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class PersonalApp extends React.Component {
+class PersonalApp extends Component {
   render() {
     return (
       <Layout className="personal-app">

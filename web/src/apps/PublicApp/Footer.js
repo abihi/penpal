@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Footer.scss';
 import {Layout} from 'antd';
 const {Footer} = Layout;
 
-export default class LandingPageFooter extends React.Component {
+export default class LandingPageFooter extends Component {
   render() {
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Route} from 'react-router-dom';
 import './index.scss';
@@ -18,7 +18,7 @@ const routes = (
 );
 
 
-class PublicApp extends React.Component {
+class PublicApp extends Component {
   render() {
 
     return (
