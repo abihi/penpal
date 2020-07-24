@@ -7,3 +7,7 @@ class Country(db.Model):
 
     def __repr__(self):
         return '<Country {}>'.format(self.name)
+
+    def dict(self):
+        return dict(id=self.id, name=self.name)
+
