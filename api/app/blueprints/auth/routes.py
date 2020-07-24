@@ -32,8 +32,8 @@ def register():
         email = valid.email
     except EmailNotValidError as e:
         return str(e), 400
-    user = User(username=body["username"], email=email, country_of_origin_id=int(body["country_of_origin_id"]),
-                    country_of_recidency_id=int(body["country_of_recidency_id"]))
+    user = User(username=body["username"], email=email, country_of_origin_id=body["country_of_origin_id"],
+                    country_of_recidency_id=body["country_of_recidency_id"])
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
