@@ -1,0 +1,9 @@
+@import '~antd/dist/antd.css';
+@import './theme.scss';
+
+.app {
+  background-color: $backgroundColor;
+  .ant-layout {
+    background-color: $backgroundColor;
+  }
+}

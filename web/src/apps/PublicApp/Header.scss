@@ -1,0 +1,32 @@
+@import '../../theme.scss';
+
+$innerWidth: 1080px;
+
+.landing-pages-header {
+  height: 72px;
+  background-color: $backgroundColor;
+  padding: 0 calc(calc(100% - 1080px)/2);
+  display: flex;
+  box-shadow: 0 0 0 white, 0 3px 3px hsla(0,0,0,0.2);
+  .left-aligned {
+    /*container occupying left part of header*/
+    width: 180px;
+    text-align: left;
+    a {
+      /* Logo */
+      font-size: 32px;
+      color: black;
+    }
+  }
+  .right-aligned {
+    /*container occupying right part of header*/
+    width: 900px;
+    text-align: right;
+    a {
+      /* Navigation links */
+      font-size: 20px;
+      margin: 0 20px;
+      color: black;
+    }
+  }
+}

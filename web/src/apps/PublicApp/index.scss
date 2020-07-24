@@ -1,0 +1,10 @@
+@import "../../index.scss";
+
+.landing-pages {
+  width: 100vw;
+  height: 100vh;
+}
+
+.public-content-container {
+  padding: 72px calc(calc(100% - 1080px)/2);
+}
