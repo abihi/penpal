@@ -10,4 +10,3 @@ class Language(db.Model):
 
     def dict(self):
         return dict(id=self.id, name=self.name)
-

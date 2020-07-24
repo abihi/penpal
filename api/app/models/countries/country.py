@@ -10,4 +10,3 @@ class Country(db.Model):
 
     def dict(self):
         return dict(id=self.id, name=self.name)
-

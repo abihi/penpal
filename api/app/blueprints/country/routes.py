@@ -19,8 +19,8 @@ def get_countries():
 @bp.route('/<int:id>', methods=['GET'])
 def get_country(id):
     country = Country.query.get(id)
-    if country == None:
-        return "Country with id={id} not found".format(id=id), 404 
+    if country is None:
+        return "Country with id={id} not found".format(id=id), 404
     country_json = jsonify(country.dict())
     return country_json, 200
 

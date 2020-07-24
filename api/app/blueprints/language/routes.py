@@ -19,8 +19,8 @@ def get_languages():
 @bp.route('/<int:id>', methods=['GET'])
 def get_language(id):
     language = Language.query.get(id)
-    if language == None:
-        return "Language with id={id} not found".format(id=id), 404 
+    if language is None:
+        return "Language with id={id} not found".format(id=id), 404
     language_json = jsonify(language.dict())
     return language_json, 200
 

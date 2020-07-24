@@ -19,7 +19,7 @@ def get_users():
 @bp.route('/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
-    if user == None:
+    if user is None:
         return "User with id={id} not found".format(id=id), 404 
     user_json = jsonify(user.dict())
     return user_json, 200
@@ -30,8 +30,10 @@ def update_user(id):
     user = User.query.get(id)
     user.username = request.json.get('username', user.dict()["username"])
     user.email = request.json.get('email', user.dict()["email"])
-    user.country_of_origin_id = request.json.get('country_of_origin', user.dict()["country_of_origin"])
-    user.country_of_recidency_id= request.json.get('country_of_recidency', user.dict()["country_of_recidency"])
+    user.country_of_origin_id = request.json.get('country_of_origin',
+                                                 user.dict()["country_of_origin"])
+    user.country_of_recidency_id = request.json.get('country_of_recidency',
+                                                    user.dict()["country_of_recidency"])
     db.session.commit()
     return "", 204
 
