@@ -19,6 +19,8 @@ def get_users():
 @bp.route('/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
+    if user == None:
+        return "User with id={id} not found".format(id=id), 404 
     user_json = jsonify(user.dict())
     return user_json, 200
 

@@ -7,3 +7,7 @@ class Language(db.Model):
 
     def __repr__(self):
         return '<Language {}>'.format(self.name)
+
+    def dict(self):
+        return dict(id=self.id, name=self.name)
+

@@ -17,6 +17,8 @@ from app.blueprints.user import bp as user_bp
 app.register_blueprint(user_bp, url_prefix='/user')
 from app.blueprints.country import bp as country_bp
 app.register_blueprint(country_bp, url_prefix='/country')
+from app.blueprints.language import bp as language_bp
+app.register_blueprint(language_bp, url_prefix='/language')
 
 from app import routes, models
 from app.models.users.user import User
