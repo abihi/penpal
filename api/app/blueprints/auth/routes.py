@@ -1,4 +1,5 @@
 import datetime
+from email_validator import validate_email, EmailNotValidError
 
 from flask import jsonify, request, redirect, url_for
 from flask_login import current_user, login_user
@@ -25,9 +26,16 @@ def login():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    user = User(username=body["username"], email=body["email"], country_of_origin_id=int(body["country_of_origin_id"]),
+    email = body["email"]
+    try:
+        valid = validate_email(email)
+        email = valid.email
+    except EmailNotValidError as e:
+        return str(e), 400
+    user = User(username=body["username"], email=email, country_of_origin_id=int(body["country_of_origin_id"]),
                     country_of_recidency_id=int(body["country_of_recidency_id"]))
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
-    return "User created", 200
+    
+    return "User created", 201
