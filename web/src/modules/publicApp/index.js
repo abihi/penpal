@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import publicApp from './publicApp';
+import registration from './registration';
 
 export default combineReducers({
-  publicApp,
+  registration,
 })

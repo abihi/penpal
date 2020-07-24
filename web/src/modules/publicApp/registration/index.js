@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import publicApp from './publicApp';
+import flow from './flow';
 
 export default combineReducers({
-  publicApp,
+  flow,
 })
