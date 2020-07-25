@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { Modal, Form, Input, Checkbox, Select } from 'antd';
+import countries from '../mockdata/countries';
 
 class RegistrationModal extends Component {
   /* Layout settings for form */
@@ -16,11 +17,11 @@ class RegistrationModal extends Component {
   };
 
   validateMessages = {
-  required: '${label} is required',
-  types: {
-    email: 'Not a valid email address'
-  }
-};
+    required: '${label} is required',
+    types: {
+      email: 'Not a valid email address'
+    }
+  };
 
   handleOk = () => {
     // TODO
@@ -64,16 +65,22 @@ class RegistrationModal extends Component {
       <Input />
       </Form.Item>
       <Form.Item
+      label="Country"
+      name="country"
+      rules={[{ required: true}]}
+      >
+      <Select>
+        {
+          countries.map(country => <Select.Option key={country.code} value={country.name}>{country.name}</Select.Option>)
+        }
+      </Select>
+      </Form.Item>
+      <Form.Item
       label="Email"
       name="email"
       rules={[{ required: true, type: 'email' }]}
       >
       <Input />
-      </Form.Item>
-      <Form.Item>
-      <Select>
-      
-      </Select>
       </Form.Item>
       <Form.Item
       label="Password"
