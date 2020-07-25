@@ -6,19 +6,6 @@ import { Modal, Form, Input, Checkbox, Select } from 'antd';
 import countries from '../mockdata/countries';
 
 class RegistrationModal extends Component {
-  /* Layout settings for form */
-  layout = {
-    wrapperCol: { span: 16 },
-  };
-
-  /* Form validation rules */
-  validateMessages = {
-    required: '${label} is required',
-    types: {
-      email: 'Not a valid email address'
-    }
-  };
-
   handleOk = () => {
     // TODO
   };
@@ -40,53 +27,41 @@ class RegistrationModal extends Component {
 
     return (
       <Modal
-      title="Sign up"
       visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
+      closable={false}
+      footer={null}
       className="registration-modal"
+      width="1080px"
       >
-      <Form
-      {...this.layout}
-      name="form"
-      validateMessages={this.validateMessages}
-      initialValues={{ remember: true }}
-      onFinish={this.onFinish}
-      onFinishFailed={this.onFinishFailed}
-      >
-      <Form.Item
-      name="username"
-      rules={[{ required: true}]}
-      >
-      <label>Username</label>
-      <input className="neumorphic-text-input" />
-      </Form.Item>
-      <Form.Item
-      name="country"
-      rules={[{ required: true}]}
-      >
-      <label>Country</label>
-      <select className="neumorphic-select-input">
-        {
-          countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
-        }
-      </select>
-      </Form.Item>
-      <Form.Item
-      name="email"
-      rules={[{ required: true, type: 'email' }]}
-      >
-      <label>Email</label>
-      <input className="neumorphic-text-input" />
-      </Form.Item>
-      <Form.Item
-      name="password"
-      rules={[{ required: true}]}
-      >
-      <label>Password</label>
-      <input className="neumorphic-text-input" />
-      </Form.Item>
-      </Form>
+        <div className="image-art-container">
+          <h1>Discover penpals from all over the world.</h1>
+          <div className="image-art" />
+          <p className="art-credit">Art by <a href="https://dribbble.com/tarka">Peter Tarka</a></p>
+        </div>
+        <div className="form">
+          <div className="row">
+            <label>Username</label>
+            <input className="clean-text-input" />
+          </div>
+          <div className="row">
+          <label>Country</label>
+            <select className="clean-text-input">
+            {
+              countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
+            }
+            </select>
+          </div>
+          <div className="row">
+            <label>Email</label>
+            <input className="clean-text-input" />
+          </div>
+          <div className="row">
+            <label>Password</label>
+            <input className="clean-text-input" placeholder="6+ characters" />
+          </div>
+        </div>
       </Modal>
     );
   }

@@ -1,6 +1,53 @@
 @import "../theme.scss";
 .ant-modal.registration-modal {
-  .ant-modal-content {
-      background-color: $backgroundColor;
+  .ant-modal-body {
+    height: 640px;
+    display: flex;
+    padding: 0;
+    .image-art-container {
+      width: 50%;
+      height: 100%;
+      background-color: #79c8fc;
+      h1 {
+        padding: 40px 70px 0 70px;
+        color: #2a5b7b;
+        font-size: 36px;
+        font-weight: 700;
+      }
+      .image-art {
+        width: 100%;
+        height: 420px;
+        background-image: url("https://cdn.dribbble.com/users/76454/screenshots/9513561/01a.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .art-credit {
+        position: absolute;
+        color: #2a5b7b;
+        padding-left: 70px;
+        font-size: 16px;
+        bottom: 30px;
+        a {
+          color: inherit;
+          text-decoration: underline;
+        }
+      }
+    }
+    .form {
+      margin: auto;
+      .row {
+        display: block;
+        label {
+          font-size: 14px;
+          font-weight: bold;
+          display: block;
+        }
+        input, select {
+          margin: 4px 0 14px 0;
+          display: block;
+        }
+      }
+    }
   }
 }
