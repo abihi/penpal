@@ -8,6 +8,7 @@ import countries from '../mockdata/countries';
 class RegistrationModal extends Component {
   handleOk = () => {
     // TODO
+    alert("OK");
   };
 
   handleCancel = () => {
@@ -28,7 +29,6 @@ class RegistrationModal extends Component {
     return (
       <Modal
       visible={this.props.visible}
-      onOk={this.handleOk}
       onCancel={this.handleCancel}
       closable={false}
       footer={null}
@@ -48,7 +48,7 @@ class RegistrationModal extends Component {
           </div>
           <div className="row">
           <label>Country</label>
-            <select className="clean-text-input">
+            <select className="clean-select">
             {
               countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
             }
@@ -61,6 +61,9 @@ class RegistrationModal extends Component {
           <div className="row">
             <label>Password</label>
             <input className="clean-text-input" placeholder="6+ characters" />
+          </div>
+          <div className="row">
+            <button className="clean-button-primary" onClick={this.handleOk}>Create Account</button>
           </div>
         </div>
       </Modal>
