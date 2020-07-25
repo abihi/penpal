@@ -41,6 +41,7 @@ class RegistrationModal extends Component {
           <p className="art-credit">Art by <a href="https://dribbble.com/tarka">Peter Tarka</a></p>
         </div>
         <div className="form">
+        <h2>Welcome to Snigel =)</h2>
           <div className="row">
             <label>Username</label>
             <input className="clean-text-input" />

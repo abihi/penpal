@@ -10,6 +10,7 @@
       background-color: #79c8fc;
       h1 {
         padding: 40px 70px 0 70px;
+        margin: 0;
         color: #2a5b7b;
         font-size: 36px;
         font-weight: 700;
@@ -36,6 +37,11 @@
     }
     .form {
       margin: auto;
+      h2 {
+        margin-bottom: 56px;
+        font-size: 24px;
+        font-weight: 700;
+      }
       .row {
         display: block;
         label {
