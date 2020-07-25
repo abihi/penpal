@@ -25,7 +25,7 @@ class HomePage extends Component {
 
     return (
       <Content className="public-home-page">
-        <div className="billboard-container">
+        <div className="billboard-container neumorphic-billboard">
           <div className="billboard-message-container">
             <h1>Find penpals across the world</h1>
             <p>Build meaningful relations with people from all over the world. Partake in the story of other’s lives and share yours.</p>
@@ -33,8 +33,8 @@ class HomePage extends Component {
           <div className="billboard"></div>
         </div>
         <div className="button-container">
-          <Button>Log in</Button>
-          <Button onClick={this.onSingUpClick}>Sign up</Button>
+          <Button className="neumorphic-button">Log in</Button>
+          <Button className="neumorphic-button-primary" onClick={this.onSingUpClick}>Sign up</Button>
         </div>
         <RegistrationModal />
       </Content>
