@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './registrationModal.scss';
 import { connect } from 'react-redux';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { Modal, Form, Input, Checkbox, Select } from 'antd';
@@ -7,15 +8,10 @@ import countries from '../mockdata/countries';
 class RegistrationModal extends Component {
   /* Layout settings for form */
   layout = {
-    labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
 
-  /* Layout settings for remember me checkbox */
-  tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-
+  /* Form validation rules */
   validateMessages = {
     required: '${label} is required',
     types: {
@@ -48,6 +44,7 @@ class RegistrationModal extends Component {
       visible={this.props.visible}
       onOk={this.handleOk}
       onCancel={this.handleCancel}
+      className="registration-modal"
       >
       <Form
       {...this.layout}
@@ -58,39 +55,36 @@ class RegistrationModal extends Component {
       onFinishFailed={this.onFinishFailed}
       >
       <Form.Item
-      label="Username"
       name="username"
       rules={[{ required: true}]}
       >
-      <Input />
+      <label>Username</label>
+      <input className="neumorphic-text-input" />
       </Form.Item>
       <Form.Item
-      label="Country"
       name="country"
       rules={[{ required: true}]}
       >
-      <Select>
+      <label>Country</label>
+      <select className="neumorphic-select-input">
         {
-          countries.map(country => <Select.Option key={country.code} value={country.name}>{country.name}</Select.Option>)
+          countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
         }
-      </Select>
+      </select>
       </Form.Item>
       <Form.Item
-      label="Email"
       name="email"
       rules={[{ required: true, type: 'email' }]}
       >
-      <Input />
+      <label>Email</label>
+      <input className="neumorphic-text-input" />
       </Form.Item>
       <Form.Item
-      label="Password"
       name="password"
       rules={[{ required: true}]}
       >
-      <Input.Password />
-      </Form.Item>
-      <Form.Item {...this.tailLayout} name="remember" valuePropName="checked">
-      <Checkbox>Remember me</Checkbox>
+      <label>Password</label>
+      <input className="neumorphic-text-input" />
       </Form.Item>
       </Form>
       </Modal>

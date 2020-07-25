@@ -1,0 +1,6 @@
+@import "../theme.scss";
+.ant-modal.registration-modal {
+  .ant-modal-content {
+      background-color: $backgroundColor;
+  }
+}
