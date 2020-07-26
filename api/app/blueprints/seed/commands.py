@@ -3,7 +3,7 @@ import click
 
 from app import db
 from app.models.countries.country import Country
-from seed import bp as seedbp
+from app.blueprints.seed import bp as seedbp
 
 @seedbp.cli.command('countries')
 @click.argument('file', type=click.File())
