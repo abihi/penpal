@@ -21,6 +21,11 @@ class RegistrationModal extends Component {
     password: {value: null, valid: false, validating: false},
   };
 
+  componentDidMount = async () => {
+    const result = await axios.get('/country/');
+    console.log(result.data);
+  }
+
   handleOk = () => {
     // TODO
     alert("OK");
