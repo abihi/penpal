@@ -11,6 +11,7 @@ login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 fake = Faker()
+Faker.seed(0)
 
 # Blueprints
 from app.blueprints.auth import bp as auth_bp

@@ -1,7 +1,10 @@
 import csv
 import click
+from random import randrange
 
 from app import db
+from app import fake
+from app.models.users.user import User
 from app.models.countries.country import Country
 from app.blueprints.seed import bp as seedbp
 
@@ -26,5 +29,26 @@ def drop_countries():
     countries = Country.query.all()
     for country in countries:
         db.session.delete(country)
+    db.session.commit()
+    click.echo('Done.')
+
+@seedbp.cli.command('add_users')
+@click.argument('count')
+def add_users(count):
+    click.echo('Seeding user table with users.')
+    for _ in range(int(count)):
+        user = User(username=fake.name(), email=fake.email(), country_id=randrange(1, 249))
+        user.set_password(fake.text(max_nb_chars=20))
+        db.session.add(user)
+
+    db.session.commit()
+    click.echo('Done.')
+
+@seedbp.cli.command('drop_users')
+def drop_users():
+    click.echo('Removing all users in user table.')
+    users = User.query.all()
+    for user in users:
+        db.session.delete(user)
     db.session.commit()
     click.echo('Done.')
