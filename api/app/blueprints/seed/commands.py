@@ -1,12 +1,15 @@
 import csv
-import click
 from random import randrange
+
+import click
+from sqlalchemy import exc
 
 from app import db
 from app import fake
 from app.models.users.user import User
 from app.models.countries.country import Country
 from app.blueprints.seed import bp as seedbp
+
 
 @seedbp.cli.command('add_countries')
 def add_countries():
@@ -23,6 +26,7 @@ def add_countries():
     db.session.commit()
     click.echo('Done.')
 
+
 @seedbp.cli.command('drop_countries')
 def drop_countries():
     click.echo('Removing all countries in country table.')
@@ -32,6 +36,7 @@ def drop_countries():
     db.session.commit()
     click.echo('Done.')
 
+
 @seedbp.cli.command('add_users')
 @click.argument('count')
 def add_users(count):
@@ -39,10 +44,14 @@ def add_users(count):
     for _ in range(int(count)):
         user = User(username=fake.name(), email=fake.email(), country_id=randrange(1, 249))
         user.set_password(fake.text(max_nb_chars=20))
-        db.session.add(user)
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except exc.IntegrityError:
+            db.session.rollback()
 
-    db.session.commit()
     click.echo('Done.')
+
 
 @seedbp.cli.command('drop_users')
 def drop_users():
