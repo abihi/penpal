@@ -43,16 +43,16 @@ export default (state = initialState, action) => {
   }
 };
 
-export const fetchUserCredentials = () => {
+export const fetchCountries = () => {
   return async(dispatch) => {
-    dispatch({type: FETCH_USER_CREDENTIALS});
+    dispatch({type: FETCH_COUNTRIES});
     try {
-      const result = await axios.get('/auth');
+      const result = await axios.get('/country/');
 
       const countries = result.data;
 
       dispatch({
-        type: FETCH_USER_CREDENTIALS_SUCCESS,
+        type: FETCH_COUNTRIES_SUCCESS,
         payload: countries,
         });
 

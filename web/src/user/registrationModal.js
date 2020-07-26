@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './registrationModal.scss';
 import { connect } from 'react-redux';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
+import { fetchCountries } from '../modules/country/list';
 import { Modal, Form, Input, Checkbox, Select } from 'antd';
 import {
   CheckCircleOutlined,
   InfoCircleOutlined,
   LoadingOutlined
 } from '@ant-design/icons';
-import countries from '../mockdata/countries';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
@@ -21,9 +21,9 @@ class RegistrationModal extends Component {
     password: {value: null, valid: false, validating: false},
   };
 
-  componentDidMount = async () => {
-    const result = await axios.get('/country/');
-    console.log(result.data);
+  componentDidMount = () => {
+    const {fetchCountries} = this.props;
+    fetchCountries();
   }
 
   handleOk = () => {
@@ -151,7 +151,8 @@ class RegistrationModal extends Component {
           <label>Country</label>
             <select className="clean-select" onChange={this.onCountryChange}>
             {
-              countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
+              !this.props.countriesFetched ? null :
+              this.props.countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
             }
             </select>
           </div>
@@ -183,7 +184,10 @@ class RegistrationModal extends Component {
 const mapStateToProps = store => {
   return {
     registrationStep: store.publicApp.registration.flow.step,
-    visible: store.publicApp.registration.modal.visible
+    visible: store.publicApp.registration.modal.visible,
+    countries: store.country.list.countries,
+    countriesFetching: store.country.list.fetching,
+    countriesFetched: store.country.list.fetched,
   };
 };
 
@@ -191,6 +195,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showRegistrationModal: () => dispatch(showRegistrationModal()),
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
+    fetchCountries: () => dispatch(fetchCountries()),
   };
 };
 
