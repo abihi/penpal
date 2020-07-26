@@ -5,7 +5,7 @@ Create virtualenv:
 3.  $ source venv/bin/activate (linux) / .\venv\Scripts\activate (windows)
 4.  $ pip install -r requirements.txt
 5.  $ flask db init
-7.  $ flask db upgrade
+6.  $ flask db upgrade
 
 
 # Run app & update requirements.txt
