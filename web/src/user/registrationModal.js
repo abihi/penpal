@@ -149,12 +149,15 @@ class RegistrationModal extends Component {
           </div>
           <div className="row">
           <label>Country</label>
-            <select className="clean-select" onChange={this.onCountryChange}>
-            {
-              !this.props.countriesFetched ? null :
-              this.props.countries.map(country => <option key={country.id} value={country.name}>{country.name}</option>)
-            }
-            </select>
+            <div className="input-container">
+              <select className="clean-select" onChange={this.onCountryChange}>
+              {
+                !this.props.countriesFetched ? null :
+                this.props.countries.map(country => <option key={country.id} value={country.name}>{country.name}</option>)
+              }
+              </select>
+              {this.props.countriesFetching ? <LoadingOutlined className="input-validating-icon" /> : null}              
+            </div>
           </div>
           <div className="row">
             <label>Email</label>
