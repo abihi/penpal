@@ -6,6 +6,13 @@ import { Modal, Form, Input, Checkbox, Select } from 'antd';
 import countries from '../mockdata/countries';
 
 class RegistrationModal extends Component {
+  state = {
+    username: {value: null, valid: false, validating: false},
+    country: {value: 'Afghanistan', valid: true, validating: false},
+    email: {value: null, valid: false, validating: false},
+    password: {value: null, valid: false, validating: false},
+  };
+
   handleOk = () => {
     // TODO
     alert("OK");
@@ -22,6 +29,41 @@ class RegistrationModal extends Component {
 
   onFinishFailed = () => {
 
+  };
+
+  onUsernameChange = e => {
+    console.log(e.target.value);
+  };
+
+  onCountryChange = e => {
+    console.log(e.target.value);
+  };
+
+  onEmailChange = e => {
+    let email = {...this.state.email};
+
+    email.value = e.target.value;
+
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
+      email.valid = true;
+    } else {
+      email.valid = false;
+    }
+
+    this.setState({email: email});
+  };
+
+  onPasswordChange = e => {
+    let password = {...this.state.password};
+
+    password.value = e.target.value;
+    if (e.target.value.length >= 6) {
+      password.valid = true;
+    } else {
+      password.valid = false;
+    }
+
+    this.setState({password: password});
   };
 
   render() {
@@ -44,11 +86,11 @@ class RegistrationModal extends Component {
         <h2>Welcome to Snigel =)</h2>
           <div className="row">
             <label>Username</label>
-            <input className="clean-text-input" />
+            <input className="clean-text-input" onChange={this.onUsernameChange} />
           </div>
           <div className="row">
           <label>Country</label>
-            <select className="clean-select">
+            <select className="clean-select" onChange={this.onCountryChange}>
             {
               countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
             }
@@ -56,11 +98,11 @@ class RegistrationModal extends Component {
           </div>
           <div className="row">
             <label>Email</label>
-            <input className="clean-text-input" />
+            <input type="email" className="clean-text-input" onChange={this.onEmailChange} />
           </div>
           <div className="row">
             <label>Password</label>
-            <input className="clean-text-input" placeholder="6+ characters" />
+            <input type="password" className="clean-text-input" placeholder="6+ characters" onChange={this.onPasswordChange} />
           </div>
           <div className="row">
             <button className="clean-button-primary" onClick={this.handleOk}>Create Account</button>
