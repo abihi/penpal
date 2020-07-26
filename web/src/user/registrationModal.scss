@@ -1,4 +1,5 @@
 @import "../theme.scss";
+
 .ant-modal.registration-modal {
   .ant-modal-body {
     height: 640px;
@@ -49,9 +50,26 @@
           font-weight: bold;
           display: block;
         }
-        input, select {
+        .input-container {
           margin: 4px 0 14px 0;
+          position: relative;
           display: block;
+          .anticon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translate(0, -50%);
+            font-size: 16px;
+          }
+          .input-valid-icon {
+            color: #44b300;
+          }
+          .input-invalid-icon {
+            color: #737373;
+          }
+          .input-validating-icon {
+            color: #1e96ff;
+          }
         }
         button {
           margin-top: 22px;

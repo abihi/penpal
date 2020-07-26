@@ -3,7 +3,15 @@ import './registrationModal.scss';
 import { connect } from 'react-redux';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { Modal, Form, Input, Checkbox, Select } from 'antd';
+import {
+  CheckCircleOutlined,
+  InfoCircleOutlined,
+  LoadingOutlined
+} from '@ant-design/icons';
 import countries from '../mockdata/countries';
+const axios = require('axios');
+axios.defaults.withCredentials = true;
+
 
 class RegistrationModal extends Component {
   state = {
@@ -31,29 +39,71 @@ class RegistrationModal extends Component {
 
   };
 
-  onUsernameChange = e => {
-    console.log(e.target.value);
+  isUsernameUnique = async username => {
+      try {
+        // wait for HTTP request and state change
+        const result = await axios.post('/auth/register/username', {username});
+        return result.data;
+      } catch (error) {
+        return false;
+      }
+  };
+
+  onUsernameChange = async e => {
+    let username = {...this.state.username};
+    /* Set validating to true before actual validation to
+    visualize loading icon while validation is pending*/
+    username.validating = true;
+    this.setState({username: username});
+
+    /* initiate validation */
+    username.value = e.target.value;
+
+    let unique = await this.isUsernameUnique(e.target.value);
+    unique ? username.valid = true : username.valid = false;
+    console.log(unique, username.valid);
+
+    username.validating = false;
+    this.setState({username: username});
   };
 
   onCountryChange = e => {
     console.log(e.target.value);
   };
 
-  onEmailChange = e => {
-    let email = {...this.state.email};
+  isEmailUnique = async email => {
+      try {
+        // wait for HTTP request and state change
+        const result = await axios.post('/auth/register/email', {email});
+        return result.data;
+      } catch (error) {
+        return false;
+      }
+  };
 
+  onEmailChange = async e => {
+    let email = {...this.state.email};
+    /* Set validating to true before actual validation to
+    visualize loading icon while validation is pending*/
+    email.validating = true;
+    this.setState({email: email});
+
+    /* initiate validation */
     email.value = e.target.value;
 
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
-      email.valid = true;
+      let unique = await this.isEmailUnique(e.target.value);
+      unique ? email.valid = true : email.valid = false;
+      console.log(unique, email.valid);
     } else {
       email.valid = false;
     }
 
+    email.validating = false;
     this.setState({email: email});
   };
 
-  onPasswordChange = e => {
+  onPasswordChange = async e => {
     let password = {...this.state.password};
 
     password.value = e.target.value;
@@ -86,7 +136,11 @@ class RegistrationModal extends Component {
         <h2>Welcome to Snigel =)</h2>
           <div className="row">
             <label>Username</label>
-            <input className="clean-text-input" onChange={this.onUsernameChange} />
+            <div className="input-container">
+              <input className="clean-text-input" onChange={this.onUsernameChange} />
+              {!this.state.username.validating && this.state.username.valid ? <CheckCircleOutlined className="input-valid-icon" /> : <InfoCircleOutlined className="input-invalid-icon" />}
+              {this.state.username.validating ? <LoadingOutlined className="input-validating-icon" /> : null}
+            </div>
           </div>
           <div className="row">
           <label>Country</label>
@@ -98,11 +152,19 @@ class RegistrationModal extends Component {
           </div>
           <div className="row">
             <label>Email</label>
-            <input type="email" className="clean-text-input" onChange={this.onEmailChange} />
+            <div className="input-container">
+              <input type="email" className="clean-text-input" onChange={this.onEmailChange} />
+              {!this.state.email.validating && this.state.email.valid ? <CheckCircleOutlined className="input-valid-icon" /> : <InfoCircleOutlined className="input-invalid-icon" />}
+              {this.state.email.validating ? <LoadingOutlined className="input-validating-icon" /> : null}
+            </div>
           </div>
           <div className="row">
             <label>Password</label>
-            <input type="password" className="clean-text-input" placeholder="6+ characters" onChange={this.onPasswordChange} />
+            <div className="input-container">
+              <input type="password" className="clean-text-input" placeholder="6+ characters" onChange={this.onPasswordChange} />
+              {!this.state.password.validating && this.state.password.valid ? <CheckCircleOutlined className="input-valid-icon" /> : <InfoCircleOutlined className="input-invalid-icon" />}
+              {this.state.password.validating ? <LoadingOutlined className="input-validating-icon" /> : null}
+            </div>
           </div>
           <div className="row">
             <button className="clean-button-primary" onClick={this.handleOk}>Create Account</button>
