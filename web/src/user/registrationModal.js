@@ -3,7 +3,7 @@ import './registrationModal.scss';
 import { connect } from 'react-redux';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { fetchCountries } from '../modules/country/list';
-import { Modal, Form, Input, Checkbox, Select } from 'antd';
+import { Modal } from 'antd';
 import {
   CheckCircleOutlined,
   InfoCircleOutlined,
@@ -152,7 +152,7 @@ class RegistrationModal extends Component {
             <select className="clean-select" onChange={this.onCountryChange}>
             {
               !this.props.countriesFetched ? null :
-              this.props.countries.map(country => <option key={country.code} value={country.name}>{country.name}</option>)
+              this.props.countries.map(country => <option key={country.id} value={country.name}>{country.name}</option>)
             }
             </select>
           </div>

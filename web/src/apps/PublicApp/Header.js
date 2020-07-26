@@ -9,7 +9,7 @@ const {Header} = Layout;
 class LandingPageHeader extends Component {
   render() {
     const currentPath = this.props.location.pathname;
-
+    console.log(currentPath);
     return (
 
       <Header className="landing-pages-header">

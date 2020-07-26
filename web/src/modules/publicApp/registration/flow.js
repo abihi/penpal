@@ -1,4 +1,3 @@
-const axios = require('axios');
 export const CHANGE_REGISTRATION_FLOW_STEP = 'flow/CHANGE_REGISTRATION_FLOW_STEP';
 
 /* Registration flow starts with step 0, implying that the flow
@@ -25,6 +24,6 @@ export default (state = initialState, action) => {
 
 export const changeRegistrationFlowStep = (step = 0) => {
   return async(dispatch) => {
-    dispatch({type: CHANGE_REGISTRATION_FLOW_STEP, payload: step});    
+    dispatch({type: CHANGE_REGISTRATION_FLOW_STEP, payload: step});
   };
 };
