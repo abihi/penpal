@@ -1,5 +1,157 @@
 $backgroundColor: hsl(0, 0, 96);
+$themeRed: hsla(358, 100%, 70%, 1);
+$themeBlue: hsla(205, 100%, 70%, 1);
+$themeGreen: hsla(150, 100%, 70%, 1);
 
-$themeRed: hsla(358, 70, 100, 1);
-$themeBlue: hsla(205, 70, 100, 1);
-$themeGreen: hsla(150, 70, 100, 1);
+$themeBlue90: hsla(205, 100%, 50%, 1);
+
+/* Neumorphism styling classes */
+
+.neumorphic-billboard {
+  /* Flat up effect used for larger object. Should be used for larger
+  items that ought to be emphasized.*/
+  background-color: $backgroundColor;
+  box-shadow: -3px -3px 3px hsla(0,0,100%,1), 3px 3px 3px hsla(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+
+/* BUTTONS */
+.neumorphic-button {
+  /* Button with flat up effect. Should be used for regular buttons. */
+  background-color: $backgroundColor;
+  box-shadow: -3px -3px 3px hsla(0,0,100%,1), 3px 3px 3px hsla(0,0,0,0.2);
+  border-radius: 8px;
+  border: none;
+  &:hover {
+    box-shadow: -1px -1px 3px hsla(0,0,100%,1), 1px 1px 3px hsla(0,0,0,0.2);
+    background-color: $backgroundColor;
+  }
+}
+
+.neumorphic-button-primary {
+  /* Button with convex up effect. Should be used to emphasize actions as
+  button uses the the primary theme red color. */
+  color: hsla(0, 0, 92%, 1);
+  background: linear-gradient(135deg, #ff8386, #CC3D42);
+  box-shadow: -3px -3px 3px hsla(0,0,100%,1), 3px 3px 3px hsla(0,0,0,0.2);
+  border-radius: 8px;
+  border: none;
+  &:hover {
+    color: hsla(0, 0, 100%, 1);
+    box-shadow: -1px -1px 3px hsla(0,0,100%,1), 1px 1px 3px hsla(0,0,0,0.2);
+    background: linear-gradient(135deg, #ff8386, #CC3D42);
+  }
+}
+
+/* INPUT */
+.neumorphic-text-input {
+  width: 360px;
+  height: 40px;
+  line-height: 24px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: $backgroundColor;
+  box-shadow: inset 2px 2px 2px hsla(0,0,0,0.2), inset -2px -2px 2px hsla(0,0,100%,1);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  &:focus {
+    background-color: white;
+    border: 1px solid hsla(358, 100%, 70%, 0.7);
+    box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+  }
+}
+
+.neumorphic-select-input {
+  width: 360px;
+  height: 40px;
+  line-height: 24px;
+  padding: 10px 16px;
+  background-color: $backgroundColor;
+  box-shadow: -2px -2px 2px hsla(0,0,100%,1), 2px 2px 2px hsla(0,0,0,0.2);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+  }
+}
+
+/* MODERN CLEAN STYLE */
+/* BUTTON */
+.clean-button-primary {
+  width: 168px;
+  height: 20px;
+  line-height: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: $themeRed;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  box-sizing: content-box;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  &:hover, &:focus, &:active {
+    box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+    opacity: 0.9;
+  }
+  transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
+}
+
+/* SELECT */
+.clean-select {
+  width: 328px;
+  height: 20px;
+  line-height: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #f3f3f4;
+  color: grey;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 8px;
+  box-sizing: content-box;
+  border: none;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  &:focus {
+    border-color: hsla(358, 100%, 70%, 0.7);
+  }
+  &:hover, &:focus, &:active {
+    background-color: white;
+    box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+    color: black;
+  }
+  option {
+
+  }
+  transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
+}
+
+/* INPUT */
+.clean-text-input {
+  width: 328px;
+  height: 20px;
+  line-height: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #f3f3f4;
+  color: grey;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 8px;
+  box-sizing: content-box;
+  border: none;
+  outline: none;
+  &:focus {
+    border-color: hsla(358, 100%, 70%, 0.7);
+  }
+  &:hover, &:focus, &:active {
+    background-color: white;
+    box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+    color: black;
+  }
+  transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
+}
