@@ -25,18 +25,40 @@ def login():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    email = body["email"]
-    try:
-        valid = validate_email(email)
-        email = valid.email
-    except EmailNotValidError as error:
-        return str(error), 400
-
-    user = User(username=body["username"], email=email,
-                country_of_origin_id=body["country_of_origin_id"],
-                country_of_recidency_id=body["country_of_recidency_id"])
+    user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
 
     return "User created", 201
+
+
+@bp.route('/register/username', methods=['POST'])
+def username_validation():
+    username = request.json.get('username')
+    user = User.query.filter_by(username=username).first()
+    if user is not None:
+        return "Username already exists", 400
+    return "True", 200
+
+
+@bp.route('/register/email', methods=['POST'])
+def email_validation():
+    email = request.json.get('email')
+    user = User.query.filter_by(email=email).first()
+    if user is not None:
+        return "Email already exists", 400
+    try:
+        valid = validate_email(email)
+        email = valid.email
+    except EmailNotValidError as error:
+        return str(error), 400
+    return "True", 200
+
+
+@bp.route('/register/password', methods=['POST'])
+def password_validation():
+    password = request.json.get('password')
+    if len(password) <= 6:
+        return "Password must be longer than 6 characters", 400
+    return "True", 200
