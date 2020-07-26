@@ -3,12 +3,14 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from faker import Faker
 
 app = Flask(__name__)
 app.config.from_object(Config)
 login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+fake = Faker()
 
 # Blueprints
 from app.blueprints.auth import bp as auth_bp
@@ -19,6 +21,8 @@ from app.blueprints.country import bp as country_bp
 app.register_blueprint(country_bp, url_prefix='/country')
 from app.blueprints.language import bp as language_bp
 app.register_blueprint(language_bp, url_prefix='/language')
+from app.blueprints.seed import bp as seed_bp
+app.register_blueprint(seed_bp)
 
 from app import routes, models
 from app.models.users.user import User
