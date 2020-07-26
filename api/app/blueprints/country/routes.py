@@ -9,10 +9,10 @@ from app.models.countries.country import Country
 @bp.route('/', methods=['GET'])
 def get_countries():
     countries = Country.query.all()
-    countries_dict = {}
+    countries_list = list()
     for country in countries:
-        countries_dict["country" + str(country.dict()["id"])] = country.dict()
-    countries_json = jsonify(countries_dict)
+        countries_list.append(country.dict())
+    countries_json = jsonify(countries_list)
     return countries_json, 200
 
 

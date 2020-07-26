@@ -9,10 +9,10 @@ from app.models.languages.language import Language
 @bp.route('/', methods=['GET'])
 def get_languages():
     languages = Language.query.all()
-    languages_dict = {}
+    languages_list = list()
     for language in languages:
-        languages_dict["language" + str(language.dict()["id"])] = language.dict()
-    languages_json = jsonify(languages_dict)
+        languages_list.append(language.dict())
+    languages_json = jsonify(languages_list)
     return languages_json, 200
 
 

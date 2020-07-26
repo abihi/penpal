@@ -9,10 +9,10 @@ from app.models.users.user import User
 @bp.route('/', methods=['GET'])
 def get_users():
     users = User.query.all()
-    users_dict = {}
+    users_list = list()
     for user in users:
-        users_dict["User" + str(user.dict()["id"])] = user.dict()
-    users_json = jsonify(users_dict)
+        users_list.append(user.dict())
+    users_json = jsonify(users_list)
     return users_json, 200
 
 
