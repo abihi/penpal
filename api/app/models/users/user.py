@@ -23,14 +23,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column('password_hash', db.String(128))
     # 1-to-m relationship between country and user. The users can also be back
     # referenced as 'country.residents' and 'country.nationals'.
-    country_of_origin_id = db.Column('country_of_origin_id', db.Integer,
-                                     db.ForeignKey('countries.id'), nullable=True)
-    country_of_recidency_id = db.Column('country_of_recidency_id', db.Integer,
-                                        db.ForeignKey('countries.id'), nullable=False)
-    country_of_origin = db.relationship('Country', foreign_keys=[country_of_origin_id],
-                                        backref='residents', lazy=True)
-    country_of_recidency = db.relationship('Country', foreign_keys=[country_of_recidency_id],
-                                           backref='nationals', lazy=True)
+    country_id = db.Column('country_id', db.Integer, db.ForeignKey('countries.id'), nullable=True)
+    country = db.relationship('Country', foreign_keys=[country_id], backref='residents', lazy=True)
     languages = db.relationship('Language', secondary=user_language_mapping, lazy='subquery',
                                 backref=db.backref('users', lazy=True))
     interests = db.relationship('Interest', secondary=user_interest_mapping, lazy='subquery',
@@ -39,9 +33,7 @@ class User(UserMixin, db.Model):
                               backref=db.backref('users', lazy=True))
 
     def dict(self):
-        return dict(id=self.id, username=self.username, email=self.email, 
-                    country_of_origin=self.country_of_origin_id,
-                    country_of_recidency=self.country_of_recidency_id)
+        return dict(id=self.id, username=self.username, email=self.email, country=self.country_id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

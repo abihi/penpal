@@ -30,10 +30,7 @@ def update_user(id):
     user = User.query.get(id)
     user.username = request.json.get('username', user.dict()["username"])
     user.email = request.json.get('email', user.dict()["email"])
-    user.country_of_origin_id = request.json.get('country_of_origin',
-                                                 user.dict()["country_of_origin"])
-    user.country_of_recidency_id = request.json.get('country_of_recidency',
-                                                    user.dict()["country_of_recidency"])
+    user.country_id = request.json.get('country', user.dict()["country"])
     db.session.commit()
     return "", 204
 
