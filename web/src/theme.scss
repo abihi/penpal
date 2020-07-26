@@ -81,8 +81,8 @@ $themeBlue90: hsla(205, 100%, 50%, 1);
 /* MODERN CLEAN STYLE */
 /* BUTTON */
 .clean-button-primary {
-  width: 200px;
-  height: 40px;
+  width: 168px;
+  height: 20px;
   line-height: 20px;
   padding: 10px 16px;
   font-size: 14px;
@@ -90,6 +90,7 @@ $themeBlue90: hsla(205, 100%, 50%, 1);
   color: white;
   font-weight: 500;
   border-radius: 8px;
+  box-sizing: content-box;
   cursor: pointer;
   border: none;
   outline: none;
@@ -102,20 +103,22 @@ $themeBlue90: hsla(205, 100%, 50%, 1);
 
 /* SELECT */
 .clean-select {
-  width: 360px;
-  height: 40px;
+  width: 328px;
+  height: 20px;
   line-height: 20px;
   padding: 10px 16px;
   font-size: 14px;
   background-color: #f3f3f4;
   color: grey;
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
+  box-sizing: content-box;
   border: none;
   outline: none;
   appearance: none;
   cursor: pointer;
   &:focus {
-    border: 1px solid hsla(358, 100%, 70%, 0.7);
+    border-color: hsla(358, 100%, 70%, 0.7);
   }
   &:hover, &:focus, &:active {
     background-color: white;
@@ -130,18 +133,20 @@ $themeBlue90: hsla(205, 100%, 50%, 1);
 
 /* INPUT */
 .clean-text-input {
-  width: 360px;
-  height: 40px;
+  width: 328px;
+  height: 20px;
   line-height: 20px;
   padding: 10px 16px;
   font-size: 14px;
   background-color: #f3f3f4;
   color: grey;
+  border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
+  box-sizing: content-box;
   border: none;
   outline: none;
   &:focus {
-    border: 1px solid hsla(358, 100%, 70%, 0.7);
+    border-color: hsla(358, 100%, 70%, 0.7);
   }
   &:hover, &:focus, &:active {
     background-color: white;
