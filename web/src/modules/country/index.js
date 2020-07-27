@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import list from './list';
+import fetchAll from './fetchAll';
 
 export default combineReducers({
-  list,
+  fetchAll,
 })

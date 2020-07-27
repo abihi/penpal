@@ -1,3 +1,6 @@
+import {normalize} from 'normalizr'
+import {country} from '../entities';
+
 export const FETCH_COUNTRIES = 'list/FETCH_COUNTRIES';
 export const FETCH_COUNTRIES_SUCCESS = 'list/FETCH_COUNTRIES_SUCCESS';
 export const FETCH_COUNTRIES_FAIL = 'list/FETCH_COUNTRIES_FAIL';
@@ -26,7 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: action.payload,
+        countries: action.payload.result,
       };
     }
     case FETCH_COUNTRIES_FAIL:
@@ -49,11 +52,9 @@ export const fetchCountries = () => {
     try {
       const result = await axios.get('/country/');
 
-      const countries = result.data;
-
       dispatch({
         type: FETCH_COUNTRIES_SUCCESS,
-        payload: countries,
+        payload: normalize(result.data, [country]),
         });
 
 

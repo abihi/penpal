@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './registrationModal.scss';
 import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
+import { country } from '../modules/entities';
 import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
-import { fetchCountries } from '../modules/country/list';
+import { fetchCountries } from '../modules/country/fetchAll';
 import { Modal } from 'antd';
 import {
   CheckCircleOutlined,
@@ -156,7 +158,7 @@ class RegistrationModal extends Component {
                 this.props.countries.map(country => <option key={country.id} value={country.name}>{country.name}</option>)
               }
               </select>
-              {this.props.countriesFetching ? <LoadingOutlined className="input-validating-icon" /> : null}              
+              {this.props.countriesFetching ? <LoadingOutlined className="input-validating-icon" /> : null}
             </div>
           </div>
           <div className="row">
@@ -188,9 +190,9 @@ const mapStateToProps = store => {
   return {
     registrationStep: store.publicApp.registration.flow.step,
     visible: store.publicApp.registration.modal.visible,
-    countries: store.country.list.countries,
-    countriesFetching: store.country.list.fetching,
-    countriesFetched: store.country.list.fetched,
+    countries: denormalize(store.country.fetchAll.countries, [country], store.entities),
+    countriesFetching: store.country.fetchAll.fetching,
+    countriesFetched: store.country.fetchAll.fetched,
   };
 };
 
