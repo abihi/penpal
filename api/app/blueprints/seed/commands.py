@@ -17,7 +17,7 @@ def add_countries():
     with open('countries.csv', newline='') as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
-        countryreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        countryreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         if has_header:
             next(countryreader)
         for country in countryreader:
