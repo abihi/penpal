@@ -3,7 +3,7 @@ import './registrationModal.scss';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 import { country } from '../modules/entities';
-import { showRegistrationModal, hideRegistrationModal } from '../modules/publicApp/registration/modal';
+import { hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { fetchCountries } from '../modules/country/fetchAll';
 import { Modal } from 'antd';
 import {
@@ -198,7 +198,6 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showRegistrationModal: () => dispatch(showRegistrationModal()),
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
     fetchCountries: () => dispatch(fetchCountries()),
   };

@@ -1,0 +1,80 @@
+@import "../theme.scss";
+
+.ant-modal.login-modal {
+  .ant-modal-body {
+    height: 640px;
+    display: flex;
+    padding: 0;
+    .image-art-container {
+      width: 50%;
+      height: 100%;
+      background-color: #f5d38c;
+      h1 {
+        padding: 40px 70px 0 70px;
+        margin: 0;
+        color: #714d01;
+        font-size: 36px;
+        font-weight: 700;
+      }
+      .image-art {
+        width: 100%;
+        height: 420px;
+        background-image: url("https://cdn.dribbble.com/users/76454/screenshots/6596459/drbbb.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .art-credit {
+        position: absolute;
+        color: #714d01;
+        padding-left: 70px;
+        font-size: 16px;
+        bottom: 30px;
+        a {
+          color: inherit;
+          text-decoration: underline;
+        }
+      }
+    }
+    .form {
+      margin: auto;
+      h2 {
+        margin-bottom: 56px;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .row {
+        display: block;
+        label {
+          font-size: 14px;
+          font-weight: bold;
+          display: block;
+        }
+        .input-container {
+          margin: 4px 0 14px 0;
+          position: relative;
+          display: block;
+          .anticon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translate(0, -50%);
+            font-size: 16px;
+          }
+          .input-valid-icon {
+            color: #44b300;
+          }
+          .input-invalid-icon {
+            color: #737373;
+          }
+          .input-validating-icon {
+            color: #1e96ff;
+          }
+        }
+        button {
+          margin-top: 22px;
+        }
+      }
+    }
+  }
+}

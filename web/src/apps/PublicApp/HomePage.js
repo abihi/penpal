@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import './HomePage.scss';
 import { connect } from 'react-redux';
 import { changeRegistrationFlowStep } from '../../modules/publicApp/registration/flow';
+import { showLoginModal } from '../../modules/publicApp/login/modal';
 import { showRegistrationModal, hideRegistrationModal } from '../../modules/publicApp/registration/modal';
+import LoginModal from '../../user/loginModal';
 import RegistrationModal from '../../user/registrationModal';
 import { Layout, Button } from 'antd';
 const {Content} = Layout;
 
 class HomePage extends Component {
+  onSignInClick = () => {
+    const { showLoginModal } = this.props;
+    showLoginModal();
+  };
+
   onSingUpClick = () => {
     const { changeRegistrationFlowStep, step, showRegistrationModal } = this.props;
     /*
@@ -19,7 +26,7 @@ class HomePage extends Component {
     if (step === 0) {
       changeRegistrationFlowStep(1);
     }
-  }
+  };
 
   render() {
 
@@ -33,9 +40,10 @@ class HomePage extends Component {
           <div className="billboard"></div>
         </div>
         <div className="button-container">
-          <Button className="neumorphic-button">Log in</Button>
+          <Button className="neumorphic-button" onClick={this.onSignInClick}>Log in</Button>
           <Button className="neumorphic-button-primary" onClick={this.onSingUpClick}>Sign up</Button>
         </div>
+        <LoginModal />
         <RegistrationModal />
       </Content>
     );
@@ -51,6 +59,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    showLoginModal: () => dispatch(showLoginModal()),
     showRegistrationModal: () => dispatch(showRegistrationModal()),
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
     changeRegistrationFlowStep: (step) => dispatch(changeRegistrationFlowStep(step))
