@@ -178,7 +178,7 @@ class RegistrationModal extends Component {
             </div>
           </div>
           <div className="row">
-            <button className="clean-button-primary" onClick={this.handleOk}>Create Account</button>
+            <button className="clean-button-primary" onClick={this.handleOk}>Sign up</button>
           </div>
         </div>
       </Modal>
