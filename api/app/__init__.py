@@ -19,6 +19,10 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 from app.blueprints.user import bp as user_bp
 app.register_blueprint(user_bp, url_prefix='/user')
 from app.blueprints.country import bp as country_bp
+from app.blueprints.letter import bp as letter_bp
+app.register_blueprint(letter_bp, url_prefix='/letter')
+from app.blueprints.penpal import bp as penpal_bp
+app.register_blueprint(penpal_bp, url_prefix='/penpal')
 app.register_blueprint(country_bp, url_prefix='/country')
 from app.blueprints.language import bp as language_bp
 app.register_blueprint(language_bp, url_prefix='/language')

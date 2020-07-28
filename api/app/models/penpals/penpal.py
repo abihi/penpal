@@ -8,3 +8,6 @@ class PenPal(db.Model):
 
     def __repr__(self):
         return '<PenPal {}>'.format(self.id)
+
+    def dict(self):
+        return dict(id=self.id, created_date=self.created_date)

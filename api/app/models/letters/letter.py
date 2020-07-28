@@ -13,3 +13,7 @@ class Letter(db.Model):
 
     def __repr__(self):
         return '<Letter {}>'.format(self.id)
+
+    def dict(self):
+        return dict(id=self.id, text=self.text, sent_date=self.sent_date,
+                    penpal_id=self.penpal_id, user_id=self.user_id)
