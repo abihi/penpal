@@ -8,6 +8,8 @@ from app import db
 from app import fake
 from app.models.users.user import User
 from app.models.countries.country import Country
+from app.models.languages.language import Language
+from app.models.interests.interest import Interest
 from app.blueprints.seed import bp as seedbp
 
 
@@ -17,12 +19,11 @@ def add_countries():
     with open('countries.csv', newline='') as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
-        countryreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        country_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         if has_header:
-            next(countryreader)
-        for country in countryreader:
+            next(country_reader)
+        for country in country_reader:
             db.session.add(Country(name=country[0]))
-
     db.session.commit()
     click.echo('Done.')
 
@@ -33,6 +34,56 @@ def drop_countries():
     countries = Country.query.all()
     for country in countries:
         db.session.delete(country)
+    db.session.commit()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('add_languages')
+def add_languages():
+    click.echo('Seeding language table with languages.')
+    with open('languages.csv', newline='') as csvfile:
+        has_header = csv.Sniffer().has_header(csvfile.read(1024))
+        csvfile.seek(0)
+        language_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        if has_header:
+            next(language_reader)
+        for language in language_reader:
+            db.session.add(Language(name=language[3]))
+    db.session.commit()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('drop_languages')
+def drop_languages():
+    click.echo('Removing all languages in language table.')
+    languages = Language.query.all()
+    for language in languages:
+        db.session.delete(language)
+    db.session.commit()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('add_interests')
+def add_interests():
+    click.echo('Seeding interest table with interests.')
+    with open('interests.csv', newline='') as csvfile:
+        has_header = csv.Sniffer().has_header(csvfile.read(1024))
+        csvfile.seek(0)
+        interest_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        if has_header:
+            next(interest_reader)
+        for interest in interest_reader:
+            db.session.add(Interest(activity=interest[0]))
+    db.session.commit()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('drop_interests')
+def drop_interests():
+    click.echo('Removing all countries in country table.')
+    interests = Interest.query.all()
+    for interest in interests:
+        db.session.delete(interest)
     db.session.commit()
     click.echo('Done.')
 
@@ -49,7 +100,6 @@ def add_users(count):
             db.session.commit()
         except exc.IntegrityError:
             db.session.rollback()
-
     click.echo('Done.')
 
 
