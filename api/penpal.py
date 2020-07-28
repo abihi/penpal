@@ -8,5 +8,6 @@ elif os.environ['FLASK_ENV'] == "development":
 
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key' # put somewhere else - like the config file????
+    # put somewhere else - like the config file????
+    app.secret_key = 'super secret key'
     app.run(port=app.config['PORT'], host=app.config['HOST'], debug=True)

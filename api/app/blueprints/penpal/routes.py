@@ -1,6 +1,6 @@
 import datetime
 
-from flask import jsonify, request
+from flask import jsonify
 # app dependencies
 from app import db
 from app.blueprints.penpal import bp

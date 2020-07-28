@@ -1,0 +1,8 @@
+[MASTER]
+init-hook='import sys; sys.path.append("api")'
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    R0903, # Too few public methods
+ignored-classes=SQLAlchemy,SQLObject,Registrant,scoped_session
