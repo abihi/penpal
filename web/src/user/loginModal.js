@@ -89,7 +89,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = (dispatch) => {
   return {
     hideLoginModal: () => dispatch(hideLoginModal()),
-    loginUser: (username, password) => dispatch(loginUser(username, password)),
+    loginUser: (username, password, remember_me) => dispatch(loginUser(username, password, remember_me)),
   };
 };
 

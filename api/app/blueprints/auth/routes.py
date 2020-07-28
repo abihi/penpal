@@ -18,7 +18,7 @@ def login():
     user = User.query.filter_by(username=body["username"]).first()
     if user is None or not user.check_password(body["password"]):
         return 'Invalid username or password', 401
-    login_user(user, remember=body["rememberMeToggle"])
+    login_user(user, remember=body["remember_me"])
     return 'Login sucessful', 200
 
 

@@ -34,7 +34,7 @@ class RegistrationModal extends Component {
     const { username, country, email, password } = this.state;
     /* Check that all provided values are valid*/
     if(username.valid && country.valid && email.valid && password.valid) {
-      registerUser(username.value, country.value, email.value.id, password.value);
+      registerUser(username.value, country.value.id, email.value, password.value);
     } else {
       console.error("Provided values are not valid");
     }
