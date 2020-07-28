@@ -5,4 +5,5 @@ disable=
     C0115, # missing-class-docstring
     C0116, # missing-function-docstring
     R0903, # Too few public methods
+    wrong-import-position, # Module level import not at top of file
 ignored-classes=SQLAlchemy,SQLObject,Registrant,scoped_session
