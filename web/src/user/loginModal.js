@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './loginModal.scss';
 import { connect } from 'react-redux';
 import { hideLoginModal } from '../modules/publicApp/login/modal';
+import { loginUser } from '../modules/user/login';
 import { Modal } from 'antd';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
@@ -84,6 +85,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = (dispatch) => {
   return {
     hideLoginModal: () => dispatch(hideLoginModal()),
+    loginUser: () => dispatch(loginUser()),
   };
 };
 

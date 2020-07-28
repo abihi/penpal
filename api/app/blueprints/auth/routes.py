@@ -25,6 +25,7 @@ def login():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
+    print(body)
     user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
     user.set_password(body["password"])
     db.session.add(user)

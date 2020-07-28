@@ -1,9 +1,9 @@
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
-export const USER_REGISTER_INIT = 'register/USER_REGISTER_INIT';
-export const USER_REGISTER_SUCCESS = 'register/USER_REGISTER_SUCCESS';
-export const USER_REGISTER_FAIL = 'register/USER_REGISTER_FAIL';
+export const USER_LOGIN_INIT = 'login/USER_LOGIN_INIT';
+export const USER_LOGIN_SUCCESS = 'login/USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAIL = 'login/USER_LOGIN_FAIL';
 
 
 const initialState = {
@@ -14,14 +14,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case USER_REGISTER_INIT:
+    case USER_LOGIN_INIT:
     {
       return {
         ...state,
         fetching: true
       };
     }
-    case USER_REGISTER_SUCCESS:
+    case USER_LOGIN_SUCCESS:
     {
       return {
         ...state,
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         fetched: true,
       };
     }
-    case USER_REGISTER_FAIL:
+    case USER_LOGIN_FAIL:
     {
       return {
         ...state,
@@ -42,17 +42,17 @@ export default (state = initialState, action) => {
   }
 };
 
-export const registerUser = (username = '', country_id='', email='', password='') => {
+export const loginUser = (username = '', email='', password='') => {
   return async(dispatch) => {
-    dispatch({type: USER_REGISTER_INIT});
+    dispatch({type: USER_LOGIN_INIT});
     try {
       // wait for HTTP request and state change
-      await axios.post('/auth/register', {username, country_id, email, password});
-      await dispatch({type: USER_REGISTER_SUCCESS});
+      await axios.post('/auth/login', {username, email, password});
+      await dispatch({type: USER_LOGIN_SUCCESS});
       // fetch user credentials
       //await dispatch(fetchUserCredentials());
     } catch (error) {
-      dispatch({type: USER_REGISTER_FAIL, payload: error});
+      dispatch({type: USER_LOGIN_FAIL, payload: error});
     }
   };
 };

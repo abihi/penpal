@@ -5,6 +5,7 @@ import { denormalize } from 'normalizr';
 import { country } from '../modules/entities';
 import { hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { fetchCountries } from '../modules/country/fetchAll';
+import { registerUser } from '../modules/user/register';
 import { Modal } from 'antd';
 import {
   CheckCircleOutlined,
@@ -18,7 +19,7 @@ axios.defaults.withCredentials = true;
 class RegistrationModal extends Component {
   state = {
     username: {value: null, valid: false, validating: false},
-    country: {value: 'Afghanistan', valid: true, validating: false},
+    country: {value: {id: 1, name: 'Afghanistan'}, valid: true, validating: false},
     email: {value: null, valid: false, validating: false},
     password: {value: null, valid: false, validating: false},
   };
@@ -29,8 +30,14 @@ class RegistrationModal extends Component {
   }
 
   handleOk = () => {
-    // TODO
-    alert("OK");
+    const { registerUser } = this.props;
+    const { username, country, email, password } = this.state;
+    /* Check that all provided values are valid*/
+    if(username.valid && country.valid && email.valid && password.valid) {
+      registerUser(username.value, country.value, email.value.id, password.value);
+    } else {
+      console.error("Provided values are not valid");
+    }
   };
 
   handleCancel = () => {
@@ -75,6 +82,8 @@ class RegistrationModal extends Component {
   };
 
   onCountryChange = e => {
+    const { countries } = this.props;
+    console.log(countries);
     console.log(e.target.value);
   };
 
@@ -200,6 +209,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
     fetchCountries: () => dispatch(fetchCountries()),
+    registerUser: (username, country_id, email, password) => dispatch(registerUser(username, country_id, email, password)),
   };
 };
 
