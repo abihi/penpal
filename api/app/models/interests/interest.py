@@ -8,3 +8,6 @@ class Interest(db.Model):
 
     def __repr__(self):
         return '<Interest {}>'.format(self.activity)
+
+    def dict(self):
+        return dict(id=self.id, activity=self.activity, img=self.img)

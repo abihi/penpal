@@ -22,6 +22,8 @@ from app.blueprints.country import bp as country_bp
 app.register_blueprint(country_bp, url_prefix='/country')
 from app.blueprints.language import bp as language_bp
 app.register_blueprint(language_bp, url_prefix='/language')
+from app.blueprints.interest import bp as interest_bp
+app.register_blueprint(interest_bp, url_prefix='/interest')
 from app.blueprints.seed import bp as seed_bp
 app.register_blueprint(seed_bp)
 
