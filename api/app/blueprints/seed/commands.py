@@ -1,12 +1,15 @@
+import datetime
 import csv
 from random import randrange
 
 import click
-from sqlalchemy import exc
+from sqlalchemy import exc, func
 
 from app import db
 from app import fake
 from app.models.users.user import User
+from app.models.letters.letter import Letter
+from app.models.penpals.penpal import PenPal
 from app.models.countries.country import Country
 from app.models.languages.language import Language
 from app.models.interests.interest import Interest
@@ -109,5 +112,33 @@ def drop_users():
     users = User.query.all()
     for user in users:
         db.session.delete(user)
+    db.session.commit()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('add_letters')
+@click.argument('count')
+def add_letters(count):
+    click.echo('Seeding letter table with letters.')
+    for _ in range(int(count)):
+        sent_date = datetime.datetime.now(datetime.timezone.utc)
+        penpal = PenPal.query.order_by(func.random()).first()
+        user = User.query.order_by(func.random()).first()
+        letter = Letter(text=fake.text(), sent_date=sent_date,
+                        penpal_id=penpal.id, user_id=user.id)
+        try:
+            db.session.add(letter)
+            db.session.commit()
+        except exc.IntegrityError:
+            db.session.rollback()
+    click.echo('Done.')
+
+
+@seedbp.cli.command('drop_letters')
+def drop_letters():
+    click.echo('Removing all letters in letter table.')
+    letters = Letter.query.all()
+    for letter in letters:
+        db.session.delete(letter)
     db.session.commit()
     click.echo('Done.')
