@@ -19,6 +19,12 @@ class LoginModal extends Component {
     hideLoginModal();
   };
 
+  handleOk = () => {
+    const { loginUser } = this.props;
+    const { username, password } = this.state;
+    loginUser(username, password);
+  };
+
   onFinish = () => {
 
   };
@@ -27,13 +33,11 @@ class LoginModal extends Component {
 
   };
 
-  onUsernameChange = async e => {
-    let username = {...this.state.username};
+  onUsernameChange = e => {
     this.setState({username: e.target.value});
   };
 
-  onPasswordChange = async e => {
-    let password = {...this.state.password};
+  onPasswordChange = e => {
     this.setState({password: e.target.value});
   };
 
@@ -85,7 +89,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = (dispatch) => {
   return {
     hideLoginModal: () => dispatch(hideLoginModal()),
-    loginUser: () => dispatch(loginUser()),
+    loginUser: (username, password) => dispatch(loginUser(username, password)),
   };
 };
 

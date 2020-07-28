@@ -83,8 +83,19 @@ class RegistrationModal extends Component {
 
   onCountryChange = e => {
     const { countries } = this.props;
-    console.log(countries);
-    console.log(e.target.value);
+    let country = {...this.state.country};
+
+    /* Find country object in list of countries based on name */
+    country.value = countries.find(c => c.name === e.target.value);
+
+    /* If no country with same name is found in list undefined is returned */
+    if(country.value !== undefined) {
+      country.valid = true;
+    } else {
+      country.valid = false;
+    }
+
+    this.setState({country: country});
   };
 
   isEmailUnique = async email => {
