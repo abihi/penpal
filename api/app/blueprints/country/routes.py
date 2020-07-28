@@ -16,11 +16,11 @@ def get_countries():
     return countries_json, 200
 
 
-@bp.route('/<int:id>', methods=['GET'])
-def get_country(id):
-    country = Country.query.get(id)
+@bp.route('/<int:_id>', methods=['GET'])
+def get_country(_id):
+    country = Country.query.get(_id)
     if country is None:
-        return "Country with id={id} not found".format(id=id), 404
+        return "Country with id={id} not found".format(id=_id), 404
     country_json = jsonify(country.dict())
     return country_json, 200
 
@@ -33,9 +33,9 @@ def create_country():
     return "Country {name} created".format(name=country.name), 201
 
 
-@bp.route('/<int:id>', methods=['DELETE'])
-def delete_country(id):
-    country = Country.query.get(id)
+@bp.route('/<int:_id>', methods=['DELETE'])
+def delete_country(_id):
+    country = Country.query.get(_id)
     db.session.delete(country)
     db.session.commit()
     return "", 204

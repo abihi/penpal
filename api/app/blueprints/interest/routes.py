@@ -20,7 +20,7 @@ def get_interests():
 def get_interest(_id):
     interest = Interest.query.get(_id)
     if interest is None:
-        return "Interest with id={_id} not found".format(_id=_id), 404
+        return "Interest with id={id} not found".format(id=_id), 404
     interest_json = jsonify(interest.dict())
     return interest_json, 200
 

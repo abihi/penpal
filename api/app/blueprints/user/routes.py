@@ -16,18 +16,18 @@ def get_users():
     return users_json, 200
 
 
-@bp.route('/<int:id>', methods=['GET'])
-def get_user(id):
-    user = User.query.get(id)
+@bp.route('/<int:_id>', methods=['GET'])
+def get_user(_id):
+    user = User.query.get(_id)
     if user is None:
-        return "User with id={id} not found".format(id=id), 404 
+        return "User with id={id} not found".format(id=_id), 404
     user_json = jsonify(user.dict())
     return user_json, 200
 
 
-@bp.route('/<int:id>', methods=['PUT'])
-def update_user(id):
-    user = User.query.get(id)
+@bp.route('/<int:_id>', methods=['PUT'])
+def update_user(_id):
+    user = User.query.get(_id)
     user.username = request.json.get('username', user.dict()["username"])
     user.email = request.json.get('email', user.dict()["email"])
     user.country_id = request.json.get('country', user.dict()["country"])
@@ -35,9 +35,9 @@ def update_user(id):
     return "", 204
 
 
-@bp.route('/<int:id>', methods=['DELETE'])
-def delete_user(id):
-    user = User.query.get(id)
+@bp.route('/<int:_id>', methods=['DELETE'])
+def delete_user(_id):
+    user = User.query.get(_id)
     db.session.delete(user)
     db.session.commit()
     return "", 204

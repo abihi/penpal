@@ -16,11 +16,11 @@ def get_languages():
     return languages_json, 200
 
 
-@bp.route('/<int:id>', methods=['GET'])
-def get_language(id):
-    language = Language.query.get(id)
+@bp.route('/<int:_id>', methods=['GET'])
+def get_language(_id):
+    language = Language.query.get(_id)
     if language is None:
-        return "Language with id={id} not found".format(id=id), 404
+        return "Language with id={id} not found".format(id=_id), 404
     language_json = jsonify(language.dict())
     return language_json, 200
 
@@ -33,9 +33,9 @@ def create_language():
     return "Language {name} created".format(name=language.name), 201
 
 
-@bp.route('/<int:id>', methods=['DELETE'])
-def delete_language(id):
-    language = Language.query.get(id)
+@bp.route('/<int:_id>', methods=['DELETE'])
+def delete_language(_id):
+    language = Language.query.get(_id)
     db.session.delete(language)
     db.session.commit()
     return "", 204
