@@ -1,6 +1,6 @@
 from email_validator import validate_email, EmailNotValidError
 
-from flask import request
+from flask import jsonify, request
 from flask_login import current_user, login_user
 
 # app dependencies
@@ -19,7 +19,12 @@ def login():
     if user is None or not user.check_password(body["password"]):
         return 'Invalid username or password', 401
     login_user(user, remember=body["rememberMeToggle"])
-    return 'Login sucessful', 200
+    response = {"currentUser": current_user.get_id(),
+                "isAnonymous": current_user.is_anonymous,
+                "isActive": current_user.is_active,
+                "isAuthenticated": current_user.is_authenticated}
+    response_json = jsonify(response)
+    return response_json, 200
 
 
 @bp.route('/register', methods=['POST'])
@@ -29,8 +34,13 @@ def register():
     user.set_password(body["password"])
     db.session.add(user)
     db.session.commit()
-
-    return "User created", 201
+    login_user(user)
+    response = {"currentUser": current_user.get_id(),
+                "isAnonymous": current_user.is_anonymous,
+                "isActive": current_user.is_active,
+                "isAuthenticated": current_user.is_authenticated}
+    response_json = jsonify(response)
+    return response_json, 201
 
 
 @bp.route('/register/username', methods=['POST'])
