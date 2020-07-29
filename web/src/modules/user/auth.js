@@ -120,26 +120,3 @@ export const logoutUser = () => {
     }
   };
 };
-
-
-
-export const authorizeOauth2 = (provider) => {
-  return async(dispatch) => {
-    dispatch({type: FETCH_USER_CREDENTIALS});
-    try {
-      let result = await axios.get(`/auth/authorize/${provider}`);
-      dispatch({
-        type: FETCH_USER_CREDENTIALS_SUCCESS,
-        payload: {
-          user: result.data.user,
-          isAnonymous: result.data.is_anonymous,
-          isActive: result.data.is_active,
-          isAuthenticated: result.data.is_authenticated
-        }
-      });
-    } catch (error) {
-      dispatch({type: FETCH_USER_CREDENTIALS_FAIL, payload: error});
-      console.error(error);
-    }
-  };
-};

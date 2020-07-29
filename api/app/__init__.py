@@ -7,6 +7,10 @@ from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
+# put somewhere else - like the config file????
+# important that the secret key is set before the LoginManager
+# wraps the app variable. 
+app.secret_key = 'super secret key'
 login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
