@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_cors import CORS
 from faker import Faker
 from flask import Flask
 from config import Config
@@ -14,6 +15,9 @@ app.secret_key = 'super secret key'
 login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+# cors settings needs to become more secure
+# this is only temporary solution
+cors = CORS(app, supports_credentials=True)
 fake = Faker()
 Faker.seed(0)
 
