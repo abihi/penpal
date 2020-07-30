@@ -5,7 +5,7 @@ import { denormalize } from 'normalizr';
 import { country } from '../modules/entities';
 import { hideRegistrationModal } from '../modules/publicApp/registration/modal';
 import { fetchCountries } from '../modules/country/fetchAll';
-import { registerUser } from '../modules/user/register';
+import { registerUser } from '../modules/auth/register';
 import { Modal } from 'antd';
 import {
   CheckCircleOutlined,

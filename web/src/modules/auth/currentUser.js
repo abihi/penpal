@@ -1,6 +1,7 @@
 import {normalize} from 'normalizr'
-import {user} from '../entities';
 import {switchAppMode} from '../mode';
+const axios = require('axios');
+axios.defaults.withCredentials = true;
 
 export const FETCH_USER_CREDENTIALS = 'auth/FETCH_USER_CREDENTIALS';
 export const FETCH_USER_CREDENTIALS_SUCCESS = 'auth/FETCH_USER_CREDENTIALS_SUCCESS';
@@ -16,9 +17,6 @@ const initialState = {
   fetched: false,
   error: null
 };
-
-const axios = require('axios');
-axios.defaults.withCredentials = true;
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -67,24 +65,20 @@ export const authenticateUser = () => {
     try {
       const result = await axios.get('/auth');
 
-      // if user is anonymous return a null object
-      // {result: null} is due to reducer reading action.payload.result
-      // which is the format in which normalizr formats objects
-      const currentUser = result.data.is_authenticated ? normalize(result.data.user, user) : {result: null};
-
       dispatch({
         type: FETCH_USER_CREDENTIALS_SUCCESS,
-        payload: currentUser,
+        payload: result.data.current_user,
         isAnonymous: result.data.is_anonymous,
         isActive: result.data.is_active,
         isAuthenticated: result.data.is_authenticated
         });
 
+
       // Set the current application mode
       // depending on user status
       if(result.data.is_anonymous) {
         dispatch(switchAppMode('public'));
-      } else if (result.data.user.onboarded === false) {
+      } else if (result.data.current_user.onboarded === false) {
         dispatch(switchAppMode('onboarding'));
       } else if (result.data.is_authenticated) {
         dispatch(switchAppMode('private'));

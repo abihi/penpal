@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { connect } from 'react-redux';
-import { authenticateUser } from './modules/user/auth';
+import { authenticateUser } from './modules/auth/currentUser';
 import { Spin } from 'antd';
 import LandingPageMain from './apps/PublicApp/index';
 
 class App extends Component {
   componentDidMount() {
     const { user, authenticateUser } = this.props;
-    if (!user.auth.isAuthenticated) {
+    if (!user.isAuthenticated) {
       authenticateUser();
     }
 
@@ -31,7 +31,7 @@ class App extends Component {
 
 const mapStateToProps = store => {
   return {
-    user: store.user,
+    user: store.auth.currentUser,
   };
 };
 

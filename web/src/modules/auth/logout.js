@@ -1,4 +1,5 @@
-import { clearAuthenticationState } from './auth';
+import { clearAuthenticationState } from './currentUser';
+import { switchAppMode } from '../mode';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
