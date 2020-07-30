@@ -1,3 +1,4 @@
+import validators
 from email_validator import validate_email, EmailNotValidError
 
 from flask import jsonify, request
@@ -30,6 +31,26 @@ def login():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
+    # Check if username is unique
+    user = User.query.filter_by(username=body["username"]).first()
+    if user is not None:
+        return "Username {username} already exists".format(username=body["username"]), 400
+    # Validate and verify email
+    email = body["email"]
+    user = User.query.filter_by(email=email).first()
+    if user is not None:
+        return "Email {email} already exists".format(email=email), 400
+    try:
+        valid = validate_email(email)
+        email = valid.email
+    except EmailNotValidError as error:
+        return str(error), 400
+    if not validators.domain(email.split('@')[1]):
+        return "Email domain {domain} does not exist".format(domain=email.split('@')[1]), 400
+    # Check password length
+    if not validators.length(body["password"], min=6):
+        return "Password must be longer than 6 characters", 400
+    # Add user to DB and set password then login user
     user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
     user.set_password(body["password"])
     db.session.add(user)
@@ -63,12 +84,14 @@ def email_validation():
         email = valid.email
     except EmailNotValidError as error:
         return str(error), 400
+    if not validators.domain(email.split('@')[1]):
+        return "Email domain {domain} does not exist".format(domain=email.split('@')[1]), 400
     return "True", 200
 
 
 @bp.route('/register/password', methods=['POST'])
 def password_validation():
     password = request.json.get('password')
-    if len(password) <= 6:
+    if not validators.length(password, min=6):
         return "Password must be longer than 6 characters", 400
     return "True", 200
