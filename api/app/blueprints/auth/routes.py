@@ -10,6 +10,14 @@ from app.blueprints.auth import bp
 # models
 from app.models.users.user import User
 
+@bp.route('/', methods=['GET'])
+def auth():
+    response = {"current_user": current_user.get_id(),
+                "is_anonymous": current_user.is_anonymous,
+                "is_active": current_user.is_active,
+                "is_authenticated": current_user.is_authenticated}
+    response_json = jsonify(response)
+    return response_json, 200
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
