@@ -1,3 +1,4 @@
+import { authenticateUser } from './auth';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
@@ -50,7 +51,7 @@ export const registerUser = (username = '', country_id='', email='', password=''
       await axios.post('/auth/register', {username, country_id, email, password});
       await dispatch({type: USER_REGISTER_SUCCESS});
       // fetch user credentials
-      //await dispatch(fetchUserCredentials());
+      await dispatch(authenticateUser());
     } catch (error) {
       dispatch({type: USER_REGISTER_FAIL, payload: error});
     }

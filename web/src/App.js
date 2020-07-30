@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { connect } from 'react-redux';
+import { authenticateUser } from './modules/user/auth';
 import { Spin } from 'antd';
 import LandingPageMain from './apps/PublicApp/index';
 
 class App extends Component {
   componentDidMount() {
-    //const { user, fetchUserCredentials } = this.props;
-    //if (!user.authenticate.isAuthenticated) {
-      //fetchUserCredentials();
-    //}
+    const { user, authenticateUser } = this.props;
+    if (!user.auth.isAuthenticated) {
+      authenticateUser();
+    }
+
   }
 
   render() {
@@ -29,13 +31,13 @@ class App extends Component {
 
 const mapStateToProps = store => {
   return {
-
+    user: store.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    authenticateUser: () => dispatch(authenticateUser()),
   };
 };
 

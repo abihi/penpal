@@ -61,7 +61,7 @@ export default (state = initialState, action) => {
   }
 };
 
-export const fetchUserCredentials = () => {
+export const authenticateUser = () => {
   return async(dispatch) => {
     dispatch({type: FETCH_USER_CREDENTIALS});
     try {
@@ -98,25 +98,8 @@ export const fetchUserCredentials = () => {
   };
 };
 
-export const logoutUser = () => {
+export const clearAuthenticationState = () => {
   return async(dispatch) => {
-    dispatch({type: FETCH_USER_CREDENTIALS});
-    try {
-      await axios.get('/auth/logout');
-      // if login successful -> change app mode
-      await dispatch(switchAppMode('public'));
-      dispatch({
-        type: FETCH_USER_CREDENTIALS_SUCCESS,
-        payload: {
-          user: null,
-          isAnonymous: true,
-          isActive: false,
-          isAuthenticated: false
-        }
-      });
-    } catch (error) {
-      dispatch({type: FETCH_USER_CREDENTIALS_FAIL, payload: error});
-      console.error(error);
-    }
+      dispatch({type: CLEAR_AUTHENTICATION_STATE});
   };
 };
