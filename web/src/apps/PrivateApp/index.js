@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import PrivateAppHeader from './Header';
 import {Layout} from 'antd';
 const {Content} = Layout;
 
@@ -15,6 +16,7 @@ class PrivateApp extends Component {
     return (
       <Layout className="personal-app">
         <Layout style={{ minHeight: '100vh' }}>
+          <PrivateAppHeader />
           <Content className="private-content-container">
             {routes}
           </Content>
