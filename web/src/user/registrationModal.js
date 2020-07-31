@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 import { country } from '../modules/entities';
 import { hideRegistrationModal } from '../modules/publicApp/registration/modal';
-import { fetchCountries } from '../modules/country/fetchAll';
+import { getCountries } from '../modules/country/get';
 import { registerUser } from '../modules/auth/register';
 import { Modal } from 'antd';
 import {
@@ -25,8 +25,8 @@ class RegistrationModal extends Component {
   };
 
   componentDidMount = () => {
-    const {fetchCountries} = this.props;
-    fetchCountries();
+    const {getCountries} = this.props;
+    getCountries();
   }
 
   handleOk = () => {
@@ -210,16 +210,16 @@ const mapStateToProps = store => {
   return {
     registrationStep: store.publicApp.registration.flow.step,
     visible: store.publicApp.registration.modal.visible,
-    countries: denormalize(store.country.fetchAll.countries, [country], store.entities),
-    countriesFetching: store.country.fetchAll.fetching,
-    countriesFetched: store.country.fetchAll.fetched,
+    countries: denormalize(store.country.get.countries, [country], store.entities),
+    countriesFetching: store.country.get.fetching,
+    countriesFetched: store.country.get.fetched,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
-    fetchCountries: () => dispatch(fetchCountries()),
+    getCountries: () => dispatch(getCountries()),
     registerUser: (username, country_id, email, password) => dispatch(registerUser(username, country_id, email, password)),
   };
 };

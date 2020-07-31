@@ -1,5 +1,5 @@
-import {normalize} from 'normalizr'
 import {switchAppMode} from '../mode';
+import {getUser} from '../user/get';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
@@ -64,6 +64,9 @@ export const authenticateUser = () => {
     dispatch({type: FETCH_USER_CREDENTIALS});
     try {
       const result = await axios.get('/auth');
+
+      /* get user object */
+      await dispatch(getUser(result.data.current_user));
 
       dispatch({
         type: FETCH_USER_CREDENTIALS_SUCCESS,

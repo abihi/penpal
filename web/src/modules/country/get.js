@@ -1,9 +1,9 @@
 import {normalize} from 'normalizr'
 import {country} from '../entities';
 
-export const FETCH_COUNTRIES = 'list/FETCH_COUNTRIES';
-export const FETCH_COUNTRIES_SUCCESS = 'list/FETCH_COUNTRIES_SUCCESS';
-export const FETCH_COUNTRIES_FAIL = 'list/FETCH_COUNTRIES_FAIL';
+export const FETCH_COUNTRIES = 'get/FETCH_COUNTRIES';
+export const FETCH_COUNTRIES_SUCCESS = 'get/FETCH_COUNTRIES_SUCCESS';
+export const FETCH_COUNTRIES_FAIL = 'get/FETCH_COUNTRIES_FAIL';
 
 const initialState = {
   countries: [],
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
   }
 };
 
-export const fetchCountries = () => {
+export const getCountries = () => {
   return async(dispatch) => {
     dispatch({type: FETCH_COUNTRIES});
     try {
