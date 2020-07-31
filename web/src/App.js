@@ -3,7 +3,8 @@ import './App.scss';
 import { connect } from 'react-redux';
 import { authenticateUser } from './modules/auth/currentUser';
 import { Spin } from 'antd';
-import LandingPageMain from './apps/PublicApp/index';
+import PublicApp from './apps/PublicApp/index';
+import PrivateApp from './apps/PrivateApp/index';
 
 class App extends Component {
   componentDidMount() {
@@ -15,15 +16,15 @@ class App extends Component {
   }
 
   render() {
+    const { mode } = this.props;
     const showLoadingScreen = false;
-    const currentMode = 'public';
 
     return (
       <div className="app">
         {showLoadingScreen ? <div className="filler"><Spin size="large" /></div> : null}
-        {currentMode === 'public' ? <LandingPageMain /> : null }
-        {currentMode === 'private' ? null : null }
-        {currentMode === 'onboarding' ? null : null}
+        {mode.currentMode === 'public' ? <PublicApp /> : null }
+        {mode.currentMode === 'private' ? <PrivateApp /> : null }
+        {mode.currentMode === 'onboarding' ? null : null}
       </div>
     );
   }
@@ -31,6 +32,7 @@ class App extends Component {
 
 const mapStateToProps = store => {
   return {
+    mode: store.mode,
     user: store.auth.currentUser,
   };
 };

@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import {Route} from 'react-router-dom';
+import {Layout} from 'antd';
+const {Content} = Layout;
 
-class PersonalApp extends Component {
+// routes
+const routes = (
+  <Route path="" component={null}>
+    <Route exact path="/" component={null}/>
+  </Route>
+);
+
+class PrivateApp extends Component {
   render() {
     return (
       <Layout className="personal-app">
         <Layout style={{ minHeight: '100vh' }}>
-          <PrivateAppHeader />
           <Content className="private-content-container">
             {routes}
           </Content>
@@ -15,4 +24,4 @@ class PersonalApp extends Component {
   }
 }
 
-export default PersonalApp;
+export default PrivateApp;
