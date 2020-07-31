@@ -1,0 +1,23 @@
+@import "../../theme.scss";
+
+.ant-popover-inner-content {
+  padding: 0;
+}
+.user-action-menu {
+  width: 245px;
+  padding: 30px 0;
+  color: $colorLight;
+  .action-line {
+    padding: 7px 32px;
+    cursor: pointer;
+    &:hover {
+      background-color: hsl(0, 0, 98);
+    }
+  }
+  .ant-divider {
+    margin: 13px 32px;
+    width: calc(100% - 64px);
+    min-width: calc(100% - 64px);
+    box-sizing: border-box;
+  }
+}
