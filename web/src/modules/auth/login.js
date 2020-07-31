@@ -43,12 +43,12 @@ export default (state = initialState, action) => {
   }
 };
 
-export const loginUser = (username='', password='', remember_me=true) => {
+export const loginUser = (username='', password='', remember_me_toggle=true) => {
   return async(dispatch) => {
     dispatch({type: USER_LOGIN_INIT});
     try {
       // wait for HTTP request and state change
-      await axios.post('/auth/login', {username, password, remember_me});
+      await axios.post('/auth/login', {username, password, remember_me_toggle});
       await dispatch({type: USER_LOGIN_SUCCESS});
       // fetch user credentials
       await dispatch(authenticateUser());
