@@ -12,7 +12,7 @@ app.config.from_object(Config)
 # important that the secret key is set before the LoginManager
 # wraps the app variable.
 app.secret_key = 'super secret key'
-login = LoginManager(app)
+login_manager = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 # cors settings needs to become more secure

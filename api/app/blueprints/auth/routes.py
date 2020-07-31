@@ -2,13 +2,18 @@ import validators
 from email_validator import validate_email, EmailNotValidError
 
 from flask import jsonify, request
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 
 # app dependencies
 from app import db
+from app import login_manager
 from app.blueprints.auth import bp
 # models
 from app.models.users.user import User
+
+@login_manager.user_loader
+def load_user(_id):
+    return User.query.get(_id)
 
 @bp.route('/', methods=['GET'])
 def auth():
@@ -35,6 +40,15 @@ def login():
     response_json = jsonify(response)
     return response_json, 200
 
+@bp.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    response = {"current_user": current_user.get_id(),
+                "is_anonymous": current_user.is_anonymous,
+                "is_active": current_user.is_active,
+                "is_authenticated": current_user.is_authenticated}
+    response_json = jsonify(response)
+    return response_json, 200
 
 @bp.route('/register', methods=['POST'])
 def register():
