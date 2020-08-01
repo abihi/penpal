@@ -10,6 +10,7 @@ from app import login_manager
 from app.blueprints.auth import bp
 # models
 from app.models.users.user import User
+from app.models.countries.country import Country
 
 @login_manager.user_loader
 def load_user(_id):
@@ -33,10 +34,10 @@ def login():
     if user is None or not user.check_password(body["password"]):
         return 'Invalid username or password', 401
     login_user(user, remember=body["remember_me_toggle"])
-    response = {"current_user": current_user.get_id(),
-                "is_anonymous": current_user.is_anonymous,
-                "is_active": current_user.is_active,
-                "is_authenticated": current_user.is_authenticated}
+    response = {"current_user": user.get_id(),
+                "is_anonymous": user.is_anonymous,
+                "is_active": user.is_active,
+                "is_authenticated": user.is_authenticated}
     response_json = jsonify(response)
     return response_json, 200
 
@@ -53,37 +54,25 @@ def logout():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    # Check if username is unique
-    user = User.query.filter_by(username=body["username"]).first()
-    if user is not None:
-        return "Username {username} already exists".format(username=body["username"]), 400
-    # Validate and verify email
-    email = body["email"]
-    user = User.query.filter_by(email=email).first()
-    if user is not None:
-        return "Email {email} already exists".format(email=email), 400
-    try:
-        valid = validate_email(email)
-        email = valid.email
-    except EmailNotValidError as error:
-        return str(error), 400
-    if not validators.domain(email.split('@')[1]):
-        return "Email domain {domain} does not exist".format(domain=email.split('@')[1]), 400
-    # Check password length
-    if not validators.length(body["password"], min=6):
-        return "Password must be longer than 6 characters", 400
-    # Add user to DB and set password then login user
     user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
-    user.set_password(body["password"])
-    db.session.add(user)
-    db.session.commit()
-    login_user(user)
-    response = {"current_user": current_user.get_id(),
-                "is_anonymous": current_user.is_anonymous,
-                "is_active": current_user.is_active,
-                "is_authenticated": current_user.is_authenticated}
-    response_json = jsonify(response)
-    return response_json, 201
+    try:
+        user.set_password(body["password"])
+    except AssertionError as exception_message:
+        return jsonify(msg='Error: {}. '.format(exception_message)), 400
+    try:
+        db.session.add(user)
+        db.session.commit()
+        response = {"msg": 'User created sucessfully',
+                    "user_email": user.email,
+                    "user_country": Country.query.filter_by(id=user.country_id).first().dict(),
+                    "current_user": user.get_id(),
+                    "is_anonymous": user.is_anonymous,
+                    "is_active": user.is_active,
+                    "is_authenticated": user.is_authenticated}
+        login_user(user)
+        return jsonify(response), 201
+    except AssertionError as exception_message:
+        return jsonify(msg='Error: {}. '.format(exception_message)), 400
 
 
 @bp.route('/register/username', methods=['POST'])

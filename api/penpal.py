@@ -1,5 +1,8 @@
 import os
-from app import app
+from app import create_app
+from config import Config
+
+app = create_app(Config)
 
 if os.environ['FLASK_ENV'] == "production":
     app.config.from_object('config.ProductionConfig')

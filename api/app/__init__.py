@@ -4,40 +4,55 @@ from flask_login import LoginManager
 from flask_cors import CORS
 from faker import Faker
 from flask import Flask
-from config import Config
 
-app = Flask(__name__)
-app.config.from_object(Config)
-# put somewhere else - like the config file????
-# important that the secret key is set before the LoginManager
-# wraps the app variable.
-app.secret_key = 'super secret key'
-login_manager = LoginManager(app)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
+login_manager = LoginManager()
+db = SQLAlchemy()
+migrate = Migrate()
 # cors settings needs to become more secure
 # this is only temporary solution
-cors = CORS(app, supports_credentials=True)
+cors = CORS()
 fake = Faker()
 Faker.seed(0)
 
-# Blueprints
-from app.blueprints.auth import bp as auth_bp
-app.register_blueprint(auth_bp, url_prefix='/auth')
-from app.blueprints.user import bp as user_bp
-app.register_blueprint(user_bp, url_prefix='/user')
-from app.blueprints.country import bp as country_bp
-from app.blueprints.letter import bp as letter_bp
-app.register_blueprint(letter_bp, url_prefix='/letter')
-from app.blueprints.penpal import bp as penpal_bp
-app.register_blueprint(penpal_bp, url_prefix='/penpal')
-app.register_blueprint(country_bp, url_prefix='/country')
-from app.blueprints.language import bp as language_bp
-app.register_blueprint(language_bp, url_prefix='/language')
-from app.blueprints.interest import bp as interest_bp
-app.register_blueprint(interest_bp, url_prefix='/interest')
-from app.blueprints.seed import bp as seed_bp
-app.register_blueprint(seed_bp)
+
+# Application factory function
+def create_app(config_object):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object(config_object)
+    # put somewhere else - like the config file????
+    # important that the secret key is set before the LoginManager
+    # wraps the app variable.
+    app.secret_key = 'super secret key'
+    initialize_extensions(app)
+    register_blueprints(app)
+    return app
+
+
+def initialize_extensions(app):
+    login_manager.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    cors.init_app(app, supports_credentials=True)
+
+
+def register_blueprints(app):
+    from app.blueprints.auth import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    from app.blueprints.user import bp as user_bp
+    app.register_blueprint(user_bp, url_prefix='/user')
+    from app.blueprints.country import bp as country_bp
+    app.register_blueprint(country_bp, url_prefix='/country')
+    from app.blueprints.letter import bp as letter_bp
+    app.register_blueprint(letter_bp, url_prefix='/letter')
+    from app.blueprints.penpal import bp as penpal_bp
+    app.register_blueprint(penpal_bp, url_prefix='/penpal')
+    from app.blueprints.language import bp as language_bp
+    app.register_blueprint(language_bp, url_prefix='/language')
+    from app.blueprints.interest import bp as interest_bp
+    app.register_blueprint(interest_bp, url_prefix='/interest')
+    from app.blueprints.seed import bp as seed_bp
+    app.register_blueprint(seed_bp)
 
 from app import models
 from app.models.users.user import User
