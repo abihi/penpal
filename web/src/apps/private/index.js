@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './index.scss';
 import {Route} from 'react-router-dom';
 import PrivateAppHeader from './Header';
-import MainPrivatePage from '../../pages/private/MainPage';
+import DiscoverPage from '../../pages/private/Discover';
 import {Layout} from 'antd';
 const {Content} = Layout;
 
 // routes
 const routes = (
   <Route path="" component={null}>
-    <Route exact path="/" component={MainPrivatePage}/>
+    <Route exact path="/" component={DiscoverPage}/>
   </Route>
 );
 
