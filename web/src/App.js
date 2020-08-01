@@ -3,8 +3,8 @@ import './App.scss';
 import { connect } from 'react-redux';
 import { authenticateUser } from './modules/auth/currentUser';
 import { Spin } from 'antd';
-import PublicApp from './apps/PublicApp/index';
-import PrivateApp from './apps/PrivateApp/index';
+import PublicApp from './apps/public/index';
+import PrivateApp from './apps/private/index';
 
 class App extends Component {
   componentDidMount() {
