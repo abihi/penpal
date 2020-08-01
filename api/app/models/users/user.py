@@ -1,4 +1,8 @@
+import validators
+
 from flask_login import UserMixin
+from sqlalchemy.orm import validates
+from email_validator import validate_email, EmailNotValidError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
@@ -38,7 +42,34 @@ class User(UserMixin, db.Model):
         return '<User {}>'.format(self.username)
 
     def set_password(self, password):
+        if not password:
+            raise AssertionError('Password not provided')
+        if not validators.length(password, min=6):
+            raise AssertionError('Password must be longer than 6 characters')
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    @validates('username')
+    def validate_username(self, key, username):
+        if not username:
+            raise AssertionError('No username provided')
+        if User.query.filter(User.username == username).first():
+            raise AssertionError('Username already exists')
+        return username
+
+    @validates('email')
+    def validate_email(self, key, email):
+        if not email:
+            raise AssertionError('No email provided')
+        if User.query.filter(User.email == email).first():
+            raise AssertionError('Email already exists')
+        try:
+            valid = validate_email(email)
+            email = valid.email
+        except EmailNotValidError as error:
+            raise AssertionError(error)
+        if not validators.domain(email.split('@')[1]):
+            return AssertionError(domain=email.split('@')[1])
+        return email
