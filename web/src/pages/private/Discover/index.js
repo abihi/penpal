@@ -83,8 +83,9 @@ class DiscoverPage extends React.Component {
                 {
                   mock.interests.map((interest, i) => {
                     return(
-                      <div key={i} className="neumorphic-billboard">
+                      <div key={i} className="interest">
                         <img src={interest.img}></img>
+                        <Paragraph ellipsis>{interest.name}</Paragraph>
                       </div>
                     )
                   })
