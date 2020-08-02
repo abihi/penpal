@@ -68,6 +68,16 @@ def test_update_user(test_client, init_database):
     assert response.json["country"] == 12
 
 
+def test_update_user_nonexistant_id(test_client, init_database):
+    data = {
+        "username": "newUsername",
+        "email": "newEmail@gmail.com",
+        "country": "12"
+    }
+    response = test_client.put('/user/100', json=data)
+    assert response.status_code == 404
+
+
 def test_update_user_username_exists(test_client, init_database):
     user = User.query.all()[0]
     url = '/user/' + str(user.id)
@@ -122,6 +132,7 @@ def test_delete_user(test_client, init_database):
     response = test_client.delete(url)
     assert response.status_code == 204
     assert User.query.get(user.id) is None
+
 
 def test_delete_nonexistent_user(test_client, init_database):
     user_id = 100

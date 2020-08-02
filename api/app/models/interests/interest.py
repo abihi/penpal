@@ -1,3 +1,4 @@
+from sqlalchemy.orm import validates
 from app import db
 
 class Interest(db.Model):
@@ -11,3 +12,11 @@ class Interest(db.Model):
 
     def dict(self):
         return dict(id=self.id, activity=self.activity, img=self.img)
+
+    @validates('activity')
+    def validate_activity(self, key, activity):
+        if not activity:
+            raise AssertionError('No interest activity provided')
+        if Interest.query.filter(Interest.activity == activity).first():
+            raise AssertionError('Interest already exists')
+        return activity

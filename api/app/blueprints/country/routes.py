@@ -23,8 +23,7 @@ def get_country(_id):
     country = Country.query.get(_id)
     if country is None:
         return "Country with id={id} not found".format(id=_id), 404
-    country_json = jsonify(country.dict())
-    return country_json, 200
+    return make_response(jsonify(country.dict()), 200)
 
 
 @bp.route('', methods=['POST'])
@@ -41,6 +40,8 @@ def create_country():
 @bp.route('/<int:_id>', methods=['PUT'])
 def update_country(_id):
     country = Country.query.get(_id)
+    if country is None:
+        return "Country with id={id} not found".format(id=_id), 404
     try:
         country.name = request.json.get('name', country.dict()["name"])
         db.session.commit()

@@ -28,6 +28,8 @@ def get_user(_id):
 @bp.route('/<int:_id>', methods=['PUT'])
 def update_user(_id):
     user = User.query.get(_id)
+    if user is None:
+        return make_response("User with id={id} not found".format(id=_id), 404)
     try:
         user.username = request.json.get('username', user.dict()["username"])
         user.email = request.json.get('email', user.dict()["email"])

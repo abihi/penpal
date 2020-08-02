@@ -77,6 +77,14 @@ def test_update_country(test_client, init_database):
     assert response.json["name"] == "newCountry"
 
 
+def test_update_country_with_nonexistant_id(test_client, init_database):
+    data = {
+        "name": "newCountry"
+    }
+    response = test_client.put('/country/100', json=data)
+    assert response.status_code == 404
+
+
 def test_update_country_country_name_exists(test_client, init_database):
     country = Country.query.all()[0]
     url = '/country/' + str(country.id)
