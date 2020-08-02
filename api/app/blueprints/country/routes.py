@@ -1,4 +1,6 @@
-from flask import jsonify, request
+from flask import jsonify, request, make_response
+from sqlalchemy import exc
+
 # app dependencies
 from app import db
 from app.blueprints.country import bp
@@ -27,15 +29,32 @@ def get_country(_id):
 
 @bp.route('', methods=['POST'])
 def create_country():
-    country = Country(name=request.json.get('name'))
+    try:
+        country = Country(name=request.json.get('name'))
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     db.session.add(country)
     db.session.commit()
-    return "Country {name} created".format(name=country.name), 201
+    return make_response(jsonify(country.dict()), 201)
+
+
+@bp.route('/<int:_id>', methods=['PUT'])
+def update_country(_id):
+    country = Country.query.get(_id)
+    try:
+        country.name = request.json.get('name', country.dict()["name"])
+        db.session.commit()
+        return make_response(jsonify(country.dict()), 200)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
 
 
 @bp.route('/<int:_id>', methods=['DELETE'])
 def delete_country(_id):
-    country = Country.query.get(_id)
-    db.session.delete(country)
-    db.session.commit()
+    try:
+        country = Country.query.get(_id)
+        db.session.delete(country)
+        db.session.commit()
+    except exc.SQLAlchemyError as exception_message:
+        make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     return "", 204

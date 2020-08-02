@@ -40,8 +40,8 @@ class User(UserMixin, db.Model):
         penpals = [p.id for p in self.penpals]
         languages = [l.id for l in self.languages]
         return dict(
-            id=self.id, username=self.username, email=self.email, 
-            email_verified=self.email_verified, country=self.country_id, 
+            id=self.id, username=self.username, email=self.email,
+            email_verified=self.email_verified, country=self.country_id,
             interests=interests, penapls=penpals, languages=languages
         )
 

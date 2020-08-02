@@ -1,3 +1,4 @@
+from sqlalchemy.orm import validates
 from app import db
 
 class Country(db.Model):
@@ -10,3 +11,11 @@ class Country(db.Model):
 
     def dict(self):
         return dict(id=self.id, name=self.name)
+
+    @validates('name')
+    def validate_username(self, key, name):
+        if not name:
+            raise AssertionError('No country name provided')
+        if Country.query.filter(Country.name == name).first():
+            raise AssertionError('Country already exists')
+        return name

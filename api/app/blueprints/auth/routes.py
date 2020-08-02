@@ -52,25 +52,26 @@ def logout():
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
+    try:
+        user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     try:
         user.set_password(body["password"])
     except AssertionError as exception_message:
-        return jsonify(msg='Error: {}. '.format(exception_message)), 400
-    try:
-        db.session.add(user)
-        db.session.commit()
-        data = {"msg": 'User created sucessfully',
-                "user_email": user.email,
-                "user_country": Country.query.filter_by(id=user.country_id).first().dict(),
-                "current_user": user.get_id(),
-                "is_anonymous": user.is_anonymous,
-                "is_active": user.is_active,
-                "is_authenticated": user.is_authenticated}
-        login_user(user)
-        return make_response(jsonify(data), 201)
-    except AssertionError as exception_message:
         return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+    db.session.add(user)
+    db.session.commit()
+    data = {"msg": 'User created sucessfully',
+            "username": user.username,
+            "email": user.email,
+            "user_country": Country.query.filter_by(id=user.country_id).first().dict(),
+            "current_user": user.get_id(),
+            "is_anonymous": user.is_anonymous,
+            "is_active": user.is_active,
+            "is_authenticated": user.is_authenticated}
+    login_user(user)
+    return make_response(jsonify(data), 201)
 
 
 @bp.route('/register/username', methods=['POST'])
