@@ -1,7 +1,7 @@
 export const SWITCH_APP_MODE = 'mode/SWITCH_APP_MODE';
 
 const initialState = {
-  currentMode: 'public',
+  currentMode: 'initial',
 };
 
 export default (state = initialState, action) => {

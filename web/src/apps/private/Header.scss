@@ -4,10 +4,10 @@ $innerWidth: 1080px;
 
 .private-app-header {
   height: 72px;
-  background-color: $backgroundColor;
   padding: 0 calc(calc(100% - 1080px)/2);
   display: flex;
-  box-shadow: 0 0 0 white, 0 3px 3px hsla(0,0,0,0.2);
+  background-color: white;
+  box-shadow: inset 0px -1px 0px #f3f3f4;
   .left-aligned {
     /*container occupying left part of header*/
     width: 180px;

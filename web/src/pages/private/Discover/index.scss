@@ -1,0 +1,112 @@
+@import "../../../theme.scss";
+
+.discover-page {
+  display: flex;
+  .lef-panel {
+    width: 340px;
+  }
+  .user-stack {
+    width: calc(100vw - 340px);
+    background-color: $backgroundColor;
+    .user-cover {
+      height: 240px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      position: relative;
+      .cover-details {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        display: flex;
+        h1 {
+          font-size: 46px;
+          margin: 0;
+          line-height: 72px;
+        }
+        h4 {
+          font-size: 32px;
+          margin: 0 0 0 12px;
+          line-height: 72px;
+        }
+      }
+    }
+    .information-section {
+      display: flex;
+      .text-wall {
+        width: 280px;
+        min-width: 280px;
+        padding: 20px;
+        margin-right: 140px;
+        .about-me {
+
+        }
+        .looking-for {
+
+        }
+      }
+    }
+    .user-gallery {
+      .user-interest-tabs {
+        .ant-tabs-nav {
+          .ant-tabs-tab {
+            margin-right: 40px;
+            &:hover {
+              color: red;
+            }
+            .ant-tabs-tab-btn {
+              &:focus {
+                color: red;
+              }
+              &:active {
+                color: red;
+              }
+            }
+          }
+          &::before {
+            border: none;
+          }
+          .ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: red;
+          }
+          .ant-tabs-ink-bar {
+            background: red;
+          }
+        }
+        .ant-tabs-tabpane {
+          width: calc(100vw - 760px);
+          height: 280px;
+          .carousel-container {
+            height: 100%;
+            width: 100%;
+            .react-multi-carousel-track {
+              .carousel-item {
+                width: 320px;
+                height: 240px;
+                padding: 20px;
+                &:first-child {
+                  padding-left: 0;
+                }
+                &:last-child {
+                  padding-right: 0;
+                }
+                .neumorphic-billboard {
+                  padding: 5px;
+                  width: 100%;
+                  height: 100%;
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .user-location {
+
+      }
+    }
+  }
+}

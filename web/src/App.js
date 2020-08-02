@@ -3,8 +3,8 @@ import './App.scss';
 import { connect } from 'react-redux';
 import { authenticateUser } from './modules/auth/currentUser';
 import { Spin } from 'antd';
-import PublicApp from './apps/PublicApp/index';
-import PrivateApp from './apps/PrivateApp/index';
+import PublicApp from './apps/public/index';
+import PrivateApp from './apps/private/index';
 
 class App extends Component {
   componentDidMount() {
@@ -17,11 +17,10 @@ class App extends Component {
 
   render() {
     const { mode } = this.props;
-    const showLoadingScreen = false;
 
     return (
       <div className="app">
-        {showLoadingScreen ? <div className="filler"><Spin size="large" /></div> : null}
+        {mode === 'initial' ? <div className="filler"><Spin size="large" /></div> : null}
         {mode.currentMode === 'public' ? <PublicApp /> : null }
         {mode.currentMode === 'private' ? <PrivateApp /> : null }
         {mode.currentMode === 'onboarding' ? null : null}
