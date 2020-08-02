@@ -39,7 +39,7 @@ def create_interest():
 
 
 @bp.route('/<int:_id>', methods=['PUT'])
-def update_country(_id):
+def update_interest(_id):
     interest = Interest.query.get(_id)
     if interest is None:
         return "Interest with id={id} not found".format(id=_id), 404

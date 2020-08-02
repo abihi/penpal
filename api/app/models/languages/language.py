@@ -1,3 +1,4 @@
+from sqlalchemy.orm import validates
 from app import db
 
 class Language(db.Model):
@@ -10,3 +11,11 @@ class Language(db.Model):
 
     def dict(self):
         return dict(id=self.id, name=self.name)
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name:
+            raise AssertionError('No language name provided')
+        if Language.query.filter(Language.name == name).first():
+            raise AssertionError('Language already exists')
+        return name
