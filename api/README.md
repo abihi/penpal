@@ -13,6 +13,8 @@ Create virtualenv:
 *   ($ pip freeze > requirements.txt)
 *   ($ pip freeze) get a list of all installed packages and their versions
 
+# Run tests 
+*  $ python -m pytest
 
 # HEROKU
 Install the Heroku CLI:
