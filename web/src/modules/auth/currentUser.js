@@ -1,5 +1,5 @@
 import {switchAppMode} from '../mode';
-import {getUser} from '../user/get';
+import {getUser} from '../users/get';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 import { country } from '../modules/entities';
 import { hideRegistrationModal } from '../modules/publicApp/registration/modal';
-import { getCountries } from '../modules/country/get';
+import { getCountries } from '../modules/countries/get';
 import { registerUser } from '../modules/auth/register';
 import { Modal } from 'antd';
 import {
@@ -210,9 +210,9 @@ const mapStateToProps = store => {
   return {
     registrationStep: store.publicApp.registration.flow.step,
     visible: store.publicApp.registration.modal.visible,
-    countries: denormalize(store.country.get.countries, [country], store.entities),
-    countriesFetching: store.country.get.fetching,
-    countriesFetched: store.country.get.fetched,
+    countries: denormalize(store.countries.get.countries, [country], store.entities),
+    countriesFetching: store.countries.get.fetching,
+    countriesFetched: store.countries.get.fetched,
   };
 };
 
