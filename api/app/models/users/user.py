@@ -36,7 +36,10 @@ class User(UserMixin, db.Model):
                               backref=db.backref('users', lazy=True))
 
     def dict(self):
-        return dict(id=self.id, username=self.username, email=self.email, country=self.country_id)
+        interests = [i.id for i in self.interests]
+        penpals = [p.id for p in self.penpals]
+        languages = [l.id for l in self.languages]
+        return dict(id=self.id, username=self.username, email=self.email, email_verified=self.email_verified, country=self.country_id, interests=interests, penapls=penpals, languages=languages)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
