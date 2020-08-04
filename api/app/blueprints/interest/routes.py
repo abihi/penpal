@@ -60,5 +60,5 @@ def delete_interest(_id):
         db.session.delete(interest)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:
-        make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     return "", 204
