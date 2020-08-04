@@ -1,4 +1,4 @@
-import datetime
+import time
 
 from flask import jsonify
 # app dependencies
@@ -29,8 +29,7 @@ def get_penpal(_id):
 
 @bp.route('', methods=['POST'])
 def create_penpal():
-    created_datetime = datetime.datetime.now(datetime.timezone.utc)
-    penpal = PenPal(created_date=created_datetime)
+    penpal = PenPal(created_date=time.time())
     db.session.add(penpal)
     db.session.commit()
     return "Penpal with id={id} created".format(id=penpal.id), 201

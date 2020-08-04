@@ -1,4 +1,4 @@
-import datetime
+import time
 import csv
 from random import randrange
 
@@ -121,10 +121,9 @@ def drop_users():
 def add_letters(count):
     click.echo('Seeding letter table with letters.')
     for _ in range(int(count)):
-        sent_date = datetime.datetime.now(datetime.timezone.utc)
         penpal = PenPal.query.order_by(func.random()).first()
         user = User.query.order_by(func.random()).first()
-        letter = Letter(text=fake.text(), sent_date=sent_date,
+        letter = Letter(text=fake.text(), sent_date=time.time(),
                         penpal_id=penpal.id, user_id=user.id)
         try:
             db.session.add(letter)

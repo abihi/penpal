@@ -22,15 +22,18 @@ def test_client():
 def init_database():
     db.create_all()
 
-    user1 = User(username="testsson", email='test@gmail.com', country_id="1")
+    country1 = Country(name="Chad")
+    db.session.add(country1)
+    country2 = Country(name="Sweden")
+    db.session.add(country2)
+    db.session.commit()
+
+    user1 = User(username="authTester", email='authTester@gmail.com', country_id="1")
     user1.set_password('testPassword')
     db.session.add(user1)
-    user2 = User(username="testare", email='testare@gmail.com', country_id="1")
-    user2.set_password('testarePassword')
+    user2 = User(username="authTester2", email='authTester2@gmail.com', country_id="1")
+    user2.set_password('authTester2Password')
     db.session.add(user2)
-    country1 = Country(name="chad")
-    db.session.add(country1)
-
     db.session.commit()
 
     yield db
@@ -90,7 +93,7 @@ def test_register_user_with_too_short_password(test_client, init_database):
 
 def test_login_and_logout_user_sucessfully(test_client, init_database):
     data = {
-        "username": "testsson",
+        "username": "authTester",
         "password": "testPassword",
         "remember_me_toggle": "True"
     }
@@ -121,7 +124,7 @@ def test_auth(test_client, init_database):
 
 
 def test_username_already_exists(test_client, init_database):
-    data = {"username": "testsson"}
+    data = {"username": "authTester"}
     response = test_client.post('/auth/register/username', json=data)
     assert response.status_code == 400
 
@@ -133,7 +136,7 @@ def test_with_valid_username(test_client, init_database):
 
 
 def test_email_already_exists(test_client, init_database):
-    data = {"email": "test@gmail.com"}
+    data = {"email": "authTester@gmail.com"}
     response = test_client.post('/auth/register/email', json=data)
     assert response.status_code == 400
 
@@ -165,7 +168,7 @@ def test_with_valid_email(test_client, init_database):
 @pytest.mark.parametrize(
     "email_data, expected_status, expected_data",
     [
-        ({"email": "test@gmail.com"}, 400, {}),
+        ({"email": "authTester@gmail.com"}, 400, {}),
         ({"email": "testgmail.com"}, 400, {}),
         ({"email": "test@gmailcom"}, 400, {}),
         ({"email": "test@bihiii.com"}, 400, {}),

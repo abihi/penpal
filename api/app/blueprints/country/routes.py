@@ -54,6 +54,8 @@ def update_country(_id):
 def delete_country(_id):
     try:
         country = Country.query.get(_id)
+        if country is None:
+            return make_response("Country with id={id} not found".format(id=_id), 404)
         db.session.delete(country)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:
