@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 import {Avatar, Divider, Layout, Popover} from 'antd';
 import { logoutUser } from '../../modules/auth/logout';
+import {
+  BulbFilled
+} from '@ant-design/icons';
+
 class UserActionMenu extends Component {
   onSignOut = () => {
     const { logoutUser } = this.props;
@@ -13,7 +17,13 @@ class UserActionMenu extends Component {
   render() {
     return (
       <div className="user-action-menu">
-        <div className="action-line">Profile</div>
+        <Link to="/profile">
+          <div className="action-line">Profile</div>
+        </Link>
+        <Divider />
+        <Link to="/discover">
+          <div className="action-line"><BulbFilled /> Discover</div>
+        </Link>
         <Divider />
         <div className="action-line">Account Settings</div>
         <div className="action-line" onClick={this.onSignOut}>Sign Out</div>

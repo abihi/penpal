@@ -3,13 +3,16 @@ import './index.scss';
 import {Route} from 'react-router-dom';
 import PrivateAppHeader from './Header';
 import DiscoverPage from '../../pages/private/Discover';
+import ProfilePage from '../../pages/private/Profile';
 import {Layout} from 'antd';
 const {Content} = Layout;
 
 // routes
 const routes = (
-  <Route path="" component={null}>
+  <Route path="" component={DiscoverPage}>
     <Route exact path="/" component={DiscoverPage}/>
+    <Route exact path="/discover" component={DiscoverPage}/>
+    <Route exact path="/profile" component={ProfilePage}/>
   </Route>
 );
 
