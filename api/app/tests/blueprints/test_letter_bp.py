@@ -65,7 +65,7 @@ def init_database():
 def test_get_all_letters_from_penpal(test_client, init_database):
     penpal = PenPal.query.all()[0]
     url = '/letter/penpal/' + str(penpal.id)
-    response = test_client.get(url, follow_redirects=True)
+    response = test_client.get(url)
     assert response.status_code == 200
     assert response.json[0]['text'] == "Hi I'm letterTester"
     assert response.json[0]["penpal_id"] == 1
@@ -73,6 +73,11 @@ def test_get_all_letters_from_penpal(test_client, init_database):
     assert response.json[1]['text'] == "Hi I'm letterTester2"
     assert response.json[1]["penpal_id"] == 1
     assert response.json[1]["user_id"] == 2
+
+
+def test_get_all_letters_from_penpal_non_existant_penpal_id(test_client, init_database):
+    response = test_client.get('/letter/penpal/100')
+    assert response.status_code == 404
 
 
 def test_get_specific_letter(test_client, init_database):

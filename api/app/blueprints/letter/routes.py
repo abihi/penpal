@@ -15,7 +15,7 @@ from app.models.penpals.penpal import PenPal
 @bp.route('/penpal/<int:_id>', methods=['GET'])
 def get_letters_from_penpal(_id):
     letters = Letter.query.filter(Letter.penpal_id == _id).all()
-    if letters is None:
+    if not letters:
         return "Letter from penpal id={id} not found".format(id=_id), 404
     letters_list = list()
     for letter in letters:
