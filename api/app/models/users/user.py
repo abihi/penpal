@@ -87,5 +87,5 @@ class User(UserMixin, db.Model):
         except EmailNotValidError as error:
             raise AssertionError(error)
         if not validators.domain(email.split('@')[1]):
-            return AssertionError(domain=email.split('@')[1])
+            raise AssertionError(domain=email.split('@')[1])
         return email
