@@ -6,7 +6,7 @@ class Country(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(64), index=True, unique=True)
     latitude = db.Column('latitude', db.Float)
-    longitude = db.Column('longitude', db.Float) 
+    longitude = db.Column('longitude', db.Float)
 
     def __repr__(self):
         return '<Country {}>'.format(self.name)
