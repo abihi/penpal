@@ -184,7 +184,7 @@ def test_login_wrong_username_or_password(test_client, init_database):
     assert response.status_code == 401
 
 
-def test_auth(test_client, init_database):
+def test_get_auth_route(test_client, init_database):
     response = test_client.get('/auth/')
     assert response.status_code == 200
 
