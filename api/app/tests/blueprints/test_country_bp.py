@@ -117,5 +117,5 @@ def test_delete_nonexistent_country(test_client, init_database):
     country_id = 100
     url = '/country/' + str(country_id)
     response = test_client.delete(url)
-    assert response.status_code == 204
+    assert response.status_code == 404
     assert Country.query.get(country_id) is None

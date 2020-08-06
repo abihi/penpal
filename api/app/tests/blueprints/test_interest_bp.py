@@ -117,5 +117,5 @@ def test_delete_nonexistent_interest(test_client, init_database):
     interest_id = 100
     url = '/interest/' + str(interest_id)
     response = test_client.delete(url)
-    assert response.status_code == 204
+    assert response.status_code == 404
     assert Interest.query.get(interest_id) is None

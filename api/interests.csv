@@ -1,308 +1,477 @@
-Aircraft Spotting
-Airbrushing
-Airsofting
-Acting
-Aeromodeling
-Amateur Astronomy
-Amateur Radio
-Animals/pets/dogs
-Archery
-Arts
-Aquarium (Freshwater & Saltwater)
-Astrology
-Astronomy
-Backgammon
-Badminton
-Baseball
-Base Jumping
-Basketball
-Beach/Sun tanning
-Beachcombing
-Beadwork
-Beatboxing
-Becoming A Child Advocate
-Bell Ringing
-Belly Dancing
-Bicycling
-Bicycle Polo
-Bird watching
-Birding
-BMX
-Blacksmithing
-Blogging
-BoardGames
-Boating
-Body Building
-Bonsai Tree
-Bookbinding
-Boomerangs
-Bowling
-Brewing Beer
-Bridge Building
-Bringing Food To The Disabled
-Building A House For Habitat For Humanity
-Building Dollhouses
-Butterfly Watching
-Button Collecting
-Cake Decorating
-Calligraphy
-Camping
-Candle Making
-Canoeing
-Cartooning
-Car Racing
-Casino Gambling
-Cave Diving
-Ceramics
-Cheerleading
-Chess
-Church/church activities
-Cigar Smoking
-Cloud Watching
-Coin Collecting
-Collecting
-Collecting Antiques
-Collecting Artwork
-Collecting Hats
-Collecting Music Albums
-Collecting RPM Records
-Collecting Sports Cards (Baseball, Football, Basketball, Hockey)
-Collecting Swords
-Coloring
-Compose Music
-Computer activities
-Conworlding
-Cooking
-Cosplay
-Crafts
-Crafts (unspecified)
-Crochet
-Crocheting
-Cross-Stitch
-Crossword Puzzles
-Dancing
-Darts
-Diecast Collectibles
-Digital Photography
-Dodgeball
-Dolls
-Dominoes
-Drawing
-Dumpster Diving
-Eating out
-Educational Courses
-Electronics
-Embroidery
-Entertaining
-Exercise (aerobics, weights)
-Falconry
-Fast cars
-Felting
-Fencing
-Fire Poi
-Fishing
-Floorball
-Floral Arrangements
-Fly Tying
-Football
-Four Wheeling
-Freshwater Aquariums
-Frisbee Golf – Frolf
-Games
-Gardening
-Garage Saleing
-Genealogy
-Geocaching
-Ghost Hunting
-Glowsticking
-Gnoming
-Going to movies
-Golf
-Go Kart Racing
-Grip Strength
-Guitar
-Gunsmithing
-Gun Collecting
-Gymnastics
-Gyotaku
-Handwriting Analysis
-Hang gliding
-Herping
-Hiking
-Home Brewing
-Home Repair
-Home Theater
-Horse riding
-Hot air ballooning
-Hula Hooping
-Hunting
-Iceskating
-Illusion
-Impersonations
-Internet
-Inventing
-Jet Engines
-Jewelry Making
-Jigsaw Puzzles
-Juggling
-Keep A Journal
-Jump Roping
-Kayaking
-Kitchen Chemistry
-Kites
-Kite Boarding
-Knitting
-Knotting
-Lasers
-Lawn Darts
-Learn to Play Poker
-Learning A Foreign Language
-Learning An Instrument
-Learning To Pilot A Plane
-Leathercrafting
-Legos
-Letterboxing
-Listening to music
-Locksport
-Lacrosse
-Macramé
-Magic
-Making Model Cars
-Marksmanship
-Martial Arts
-Matchstick Modeling
-Meditation
-Microscopy
-Metal Detecting
-Model Railroading
-Model Rockets
-Modeling Ships
-Models
-Motorcycles
-Mountain Biking
-Mountain Climbing
-Musical Instruments
-Nail Art
-Needlepoint
-Owning An Antique Car
-Origami
-Painting
-Paintball
-Papermaking
-Papermache
-Parachuting
-Paragliding or Power Paragliding
-Parkour
-People Watching
-Photography
-Piano
-Pinochle
-Pipe Smoking
-Planking
-Playing music
-Playing team sports
-Pole Dancing
-Pottery
-Powerboking
-Protesting
-Puppetry
-Pyrotechnics
-Quilting
-Racing Pigeons
-Rafting
-Railfans
-Rapping
-R/C Boats
-R/C Cars
-R/C Helicopters
-R/C Planes
-Reading
-Reading To The Elderly
-Relaxing
-Renaissance Faire
-Renting movies
-Rescuing Abused Or Abandoned Animals
-Robotics
-Rock Balancing
-Rock Collecting
-Rockets
-Rocking AIDS Babies
-Roleplaying
-Running
-Saltwater Aquariums
-Sand Castles
-Scrapbooking
-Scuba Diving
-Self Defense
-Sewing
-Shark Fishing
-Skeet Shooting
-Skiing
-Shopping
-Singing In Choir
-Skateboarding
-Sketching
-Sky Diving
-Slack Lining
-Sleeping
-Slingshots
-Slot Car Racing
-Snorkeling
-Snowboarding
-Soap Making
-Soccer
-Socializing with friends/neighbors
-Speed Cubing (rubix cube)
-Spelunkering
-Spending time with family/kids
-Stamp Collecting
-Storm Chasing
-Storytelling
-String Figures
-Surfing
-Surf Fishing
-Survival
-Swimming
-Tatting
-Taxidermy
-Tea Tasting
-Tennis
-Tesla Coils
-Tetris
-Texting
-Textiles
-Tombstone Rubbing
-Tool Collecting
-Toy Collecting
-Train Collecting
-Train Spotting
-Traveling
-Treasure Hunting
-Trekkie
-Tutoring Children
-TV watching
-Ultimate Frisbee
-Urban Exploration
-Video Games
-Violin
-Volunteer
-Walking
-Warhammer
-Watching sporting events
-Weather Watcher
-Weightlifting
-Windsurfing
-Wine Making
-Wingsuit Flying
-Woodworking
-Working In A Food Pantry
-Working on cars
-World Record Breaking
-Wrestling
-Writing
-Writing Music
-Writing Songs
-Yoga
-YoYo
-Ziplining
-Zumba
+Hobby,Class,Type,img
+3D printing,General,Indoors,
+Acrobatics,General,Indoors,
+Acting,General,Indoors,
+Amateur radio,General,Indoors,
+Animation,General,Indoors,
+Aquascaping,General,Indoors,
+Astrology,General,Indoors,
+Astronomy,General,Indoors,
+Baking,General,Indoors,
+Baton twirling,General,Indoors,
+Blogging,General,Indoors,
+Building,General,Indoors,
+Board/tabletop games,General,Indoors,
+Book discussion clubs,General,Indoors,
+Book restoration,General,Indoors,
+Bowling,General,Indoors,
+Brazilian jiu-jitsu,General,Indoors,
+Breadmaking,General,Indoors,
+Bullet journaling,General,Indoors,
+Cabaret,General,Indoors,
+Calligraphy,General,Indoors,
+Candle making,General,Indoors,
+Candy making,General,Indoors,
+Car fixing & building,General,Indoors,
+Card games,General,Indoors,
+Cheesemaking,General,Indoors,
+Cleaning,General,Indoors,
+Clothesmaking,General,Indoors,
+Coffee roasting,General,Indoors,
+Collecting,General,Indoors,
+Coloring,General,Indoors,
+Computer programming,General,Indoors,
+Confectionery,General,Indoors,
+Cooking,General,Indoors,
+Cosplaying,General,Indoors,
+Couponing,General,Indoors,
+Craft,General,Indoors,
+Creative writing,General,Indoors,
+Crocheting,General,Indoors,
+Cross-stitch,General,Indoors,
+Crossword puzzles,General,Indoors,
+Cryptography,General,Indoors,
+Cue sports,General,Indoors,
+Dance,General,Indoors,
+Digital arts,General,Indoors,
+Distro Hopping,General,Indoors,
+DJing,General,Indoors,
+Do it yourself,General,Indoors,
+Drama,General,Indoors,
+Drawing,General,Indoors,
+Drink mixing,General,Indoors,
+Electronic games,General,Indoors,
+Electronics,General,Indoors,
+Embroidery,General,Indoors,
+Experimenting,General,Indoors,
+Fantasy sports,General,Indoors,
+Fashion,General,Indoors,
+Fashion design,General,Indoors,
+Fishkeeping,General,Indoors,
+Filmmaking,General,Indoors,
+Flower arranging,General,Indoors,
+Fly tying,General,Indoors,
+Foreign language learning,General,Indoors,
+Furniture building,General,Indoors,
+Gaming (tabletop games and role-playing games),General,Indoors,
+Genealogy,General,Indoors,
+Gingerbread house making,General,Indoors,
+Glassblowing,General,Indoors,
+Graphic design,General,Indoors,
+Gunsmithing,General,Indoors,
+Gymnastics,General,Indoors,
+Hacking,General,Indoors,
+Herp keeping,General,Indoors,
+Home improvement,General,Indoors,
+Homebrewing,General,Indoors,
+Houseplant care,General,Indoors,
+Hula hooping,General,Indoors,
+Humor,General,Indoors,
+Hydroponics,General,Indoors,
+Ice skating,General,Indoors,
+Jewelry making,General,Indoors,
+Jigsaw puzzles,General,Indoors,
+Journaling,General,Indoors,
+Juggling,General,Indoors,
+Karaoke,General,Indoors,
+Karate,General,Indoors,
+Kendama,General,Indoors,
+Knife making,General,Indoors,
+Knitting,General,Indoors,
+Knot tying,General,Indoors,
+Kombucha brewing,General,Indoors,
+Lace making,General,Indoors,
+Lapidary,General,Indoors,
+Leather crafting,General,Indoors,
+Lego building,General,Indoors,
+Lock picking,General,Indoors,
+Listening to music,General,Indoors,
+Listening to podcasts,General,Indoors,
+Machining,General,Indoors,
+Macrame,General,Indoors,
+Magic,General,Indoors,
+Makeup,General,Indoors,
+Mazes (indoor/outdoor),General,Indoors,
+Metalworking,General,Indoors,
+Model building,General,Indoors,
+Model engineering,General,Indoors,
+Nail art,General,Indoors,
+Needlepoint,General,Indoors,
+Origami,General,Indoors,
+Painting,General,Indoors,
+Palmistry,General,Indoors,
+Pet adoption & fostering,General,Indoors,
+Philately,General,Indoors,
+Photography,General,Indoors,
+Practical jokes,General,Indoors,
+Pressed flower craft,General,Indoors,
+Playing musical instruments,General,Indoors,
+Poi,General,Indoors,
+Pottery,General,Indoors,
+Powerlifting,General,Indoors,
+Puzzles,General,Indoors,
+Quilling,General,Indoors,
+Quilting,General,Indoors,
+Quizzes,General,Indoors,
+Radio-controlled model,General,Indoors,
+Rail transport modeling,General,Indoors,
+Rapping,General,Indoors,
+Reading,General,Indoors,
+Refinishing,General,Indoors,
+Reiki,General,Indoors,
+Robot combat,General,Indoors,
+Rubik's Cube,General,Indoors,
+Scrapbooking,General,Indoors,
+Sculpting,General,Indoors,
+Sewing,General,Indoors,
+Shoemaking,General,Indoors,
+Singing,General,Indoors,
+Sketching,General,Indoors,
+Skipping rope,General,Indoors,
+Slot car,General,Indoors,
+Soapmaking,General,Indoors,
+Social media,General,Indoors,
+Spreadsheets,General,Indoors,
+Stand-up comedy,General,Indoors,
+Stamp collecting,General,Indoors,
+Table tennis,General,Indoors,
+Tarot,General,Indoors,
+Taxidermy,General,Indoors,
+Thrifting,General,Indoors,
+Video editing,General,Indoors,
+Video game developing,General,Indoors,
+Video gaming,General,Indoors,
+Watching movies,General,Indoors,
+Watching television,General,Indoors,
+Videography,General,Indoors,
+Virtual reality,General,Indoors,
+Waxing,General,Indoors,
+Weaving,General,Indoors,
+Weight training,General,Indoors,
+Welding,General,Indoors,
+Whittling,General,Indoors,
+Wikipedia editing,General,Indoors,
+Winemaking,General,Indoors,
+Wood carving,General,Indoors,
+Woodworking,General,Indoors,
+Worldbuilding,General,Indoors,
+Writing,General,Indoors,
+Word searches,General,Indoors,
+Yo-yoing,General,Indoors,
+Yoga,General,Indoors,
+Zumba,General,Indoors,
+Amusement park visiting,General,Outdoors,
+Air sports,General,Outdoors,
+Airsoft,General,Outdoors,
+Amateur geology,General,Outdoors,
+Archery,General,Outdoors,
+Astronomy,General,Outdoors,
+Backpacking,General,Outdoors,
+Badminton,General,Outdoors,
+BASE jumping,General,Outdoors,
+Baseball,General,Outdoors,
+Basketball,General,Outdoors,
+Beekeeping,General,Outdoors,
+Birdwatching,General,Outdoors,
+Blacksmithing,General,Outdoors,
+BMX,General,Outdoors,
+Board sports,General,Outdoors,
+Bodybuilding,General,Outdoors,
+Bonsai,General,Outdoors,
+Butterfly watching,General,Outdoors,
+Bus riding,General,Outdoors,
+Camping,General,Outdoors,
+Canoeing,General,Outdoors,
+Canyoning,General,Outdoors,
+Car riding,General,Outdoors,
+Caving,General,Outdoors,
+Composting,General,Outdoors,
+Cycling,General,Outdoors,
+Dowsing,General,Outdoors,
+Driving,General,Outdoors,
+Farming,General,Outdoors,
+Fishing,General,Outdoors,
+Flag football,General,Outdoors,
+Flower growing,General,Outdoors,
+Flying,General,Outdoors,
+Flying disc,General,Outdoors,
+Foraging,General,Outdoors,
+Fossicking,General,Outdoors,
+Freestyle football,General,Outdoors,
+Gardening,General,Outdoors,
+Geocaching,General,Outdoors,
+Ghost hunting,General,Outdoors,
+Gold prospecting,General,Outdoors,
+Graffiti,General,Outdoors,
+Handball,General,Outdoors,
+Herbalism,General,Outdoors,
+Herping,General,Outdoors,
+High-power rocketry,General,Outdoors,
+Hiking,General,Outdoors,
+Hobby horsing,General,Outdoors,
+Hobby tunneling,General,Outdoors,
+Hooping,General,Outdoors,
+Horseback riding,General,Outdoors,
+Hunting,General,Outdoors,
+Inline skating,General,Outdoors,
+Jogging,General,Outdoors,
+Jumping rope,General,Outdoors,
+Kayaking,General,Outdoors,
+Kite flying,General,Outdoors,
+Kitesurfing,General,Outdoors,
+Lacrosse,General,Outdoors,
+LARPing,General,Outdoors,
+Letterboxing,General,Outdoors,
+Longboarding,General,Outdoors,
+Martial arts,General,Outdoors,
+Metal detecting,General,Outdoors,
+Meteorology,General,Outdoors,
+Motor sports,General,Outdoors,
+Mountain biking,General,Outdoors,
+Mountaineering,General,Outdoors,
+Museum visiting,General,Outdoors,
+Mushroom hunting/mycology,General,Outdoors,
+Netball,General,Outdoors,
+Nordic skating,General,Outdoors,
+Orienteering,General,Outdoors,
+Paintball,General,Outdoors,
+Parkour,General,Outdoors,
+Photography,General,Outdoors,
+Podcast hosting,General,Outdoors,
+Polo,General,Outdoors,
+Public transport riding,General,Outdoors,
+Rafting,General,Outdoors,
+Railway journeys,General,Outdoors,
+Rappelling,General,Outdoors,
+Road biking,General,Outdoors,
+Rock climbing,General,Outdoors,
+Roller skating,General,Outdoors,
+Rugby,General,Outdoors,
+Running,General,Outdoors,
+Radio-controlled model,General,Outdoors,
+Sailing,General,Outdoors,
+Sand art,General,Outdoors,
+Scouting,General,Outdoors,
+Scuba diving,General,Outdoors,
+Sculling or rowing,General,Outdoors,
+Shooting,General,Outdoors,
+Shopping,General,Outdoors,
+Shuffleboard,General,Outdoors,
+Skateboarding,General,Outdoors,
+Skiing,General,Outdoors,
+Skimboarding,General,Outdoors,
+Skydiving,General,Outdoors,
+Slacklining,General,Outdoors,
+Snowboarding,General,Outdoors,
+Snowmobiling,General,Outdoors,
+Snowshoeing,General,Outdoors,
+Soccer,General,Outdoors,
+Stone skipping,General,Outdoors,
+Sun bathing,General,Outdoors,
+Surfing,General,Outdoors,
+Survivalism,General,Outdoors,
+Swimming,General,Outdoors,
+Taekwondo,General,Outdoors,
+Tai chi,General,Outdoors,
+Tennis,General,Outdoors,
+Topiary,General,Outdoors,
+Tourism,General,Outdoors,
+Thru-hiking,General,Outdoors,
+Trade fair visiting,General,Outdoors,
+Travel,General,Outdoors,
+Urban exploration,General,Outdoors,
+Vacation,General,Outdoors,
+Vegetable farming,General,Outdoors,
+Videography,General,Outdoors,
+Vehicle restoration,General,Outdoors,
+Walking,General,Outdoors,
+Water sports,General,Outdoors,
+Astronomy,General,Educational,
+Science and technology studies,General,Educational,
+Biology,General,Educational,
+Chemistry,General,Educational,
+Electrochemistry,General,Educational,
+Physics,General,Educational,
+Psychology,General,Educational,
+Sports science,General,Educational,
+Social studies,General,Educational,
+Geography,General,Educational,
+History,General,Educational,
+Mathematics,General,Educational,
+Railway studies,General,Educational,
+Action figure,Collection,Indoors,
+Antiquing,Collection,Indoors,
+Ant-keeping,Collection,Indoors,
+Art collecting,Collection,Indoors,
+Book collecting,Collection,Indoors,
+Button collecting,Collection,Indoors,
+Cartophily (card collecting),Collection,Indoors,
+Coin collecting,Collection,Indoors,
+Comic book collecting,Collection,Indoors,
+Deltiology (postcard collecting),Collection,Indoors,
+Die-cast toy,Collection,Indoors,
+Dolls,Collection,Indoors,
+Element collecting,Collection,Indoors,
+Ephemera collecting,Collection,Indoors,
+Fusilately (phonecard collecting),Collection,Indoors,
+Knife collecting,Collection,Indoors,
+Lotology (lottery ticket collecting),Collection,Indoors,
+Movie and movie memorabilia collecting,Collection,Indoors,
+Fingerprint collecting,Collection,Indoors,
+Perfume,Collection,Indoors,
+Phillumeny,Collection,Indoors,
+Pin (lapel),Collection,Indoors,
+Radio-controlled model,Collection,Indoors,
+Rail transport modelling,Collection,Indoors,
+Record collecting,Collection,Indoors,
+Rock tumbling,Collection,Indoors,
+Scutelliphily,Collection,Indoors,
+Shoes,Collection,Indoors,
+Slot car,Collection,Indoors,
+Sports memorabilia,Collection,Indoors,
+Stamp collecting,Collection,Indoors,
+Stuffed toy collecting,Collection,Indoors,
+Tea bag collecting,Collection,Indoors,
+Ticket collecting,Collection,Indoors,
+Toys,Collection,Indoors,
+Transit map collecting,Collection,Indoors,
+Video game collecting,Collection,Indoors,
+Vintage cars,Collection,Indoors,
+Vintage clothing,Collection,Indoors,
+Vinyl Records,Collection,Indoors,
+Antiquities,Collection,Outdoors,
+Auto audiophilia,Collection,Outdoors,
+Flower collecting and pressing,Collection,Outdoors,
+Fossil hunting,Collection,Outdoors,
+Insect collecting,Collection,Outdoors,
+Magnet fishing,Collection,Outdoors,
+Metal detecting,Collection,Outdoors,
+Mineral collecting,Collection,Outdoors,
+Rock balancing,Collection,Outdoors,
+Sea glass collecting,Collection,Outdoors,
+Seashell collecting,Collection,Outdoors,
+Stone collecting,Collection,Outdoors,
+Animal fancy,Competitive,Indoors,
+Axe throwing,Competitive,Indoors,
+Backgammon,Competitive,Indoors,
+Badminton,Competitive,Indoors,
+Baton twirling,Competitive,Indoors,
+Beauty pageants,Competitive,Indoors,
+Billiards,Competitive,Indoors,
+Bowling,Competitive,Indoors,
+Boxing,Competitive,Indoors,
+Bridge,Competitive,Indoors,
+Checkers (draughts),Competitive,Indoors,
+Cheerleading,Competitive,Indoors,
+Chess,Competitive,Indoors,
+Color guard,Competitive,Indoors,
+Cribbage,Competitive,Indoors,
+Curling,Competitive,Indoors,
+Dancing,Competitive,Indoors,
+Darts,Competitive,Indoors,
+Debate,Competitive,Indoors,
+Dominoes,Competitive,Indoors,
+Eating,Competitive,Indoors,
+Esports,Competitive,Indoors,
+Fencing,Competitive,Indoors,
+Go,Competitive,Indoors,
+Gymnastics,Competitive,Indoors,
+Ice hockey,Competitive,Indoors,
+Ice skating,Competitive,Indoors,
+Judo,Competitive,Indoors,
+Jujitsu,Competitive,Indoors,
+Kabaddi,Competitive,Indoors,
+Knowledge/word games,Competitive,Indoors,
+Laser tag,Competitive,Indoors,
+Longboarding,Competitive,Indoors,
+Mahjong,Competitive,Indoors,
+Marbles,Competitive,Indoors,
+Martial arts,Competitive,Indoors,
+Model racing,Competitive,Indoors,
+Model United Nations,Competitive,Indoors,
+Poker,Competitive,Indoors,
+Pool,Competitive,Indoors,
+Role-playing games,Competitive,Indoors,
+Shogi,Competitive,Indoors,
+Slot car racing,Competitive,Indoors,
+Speedcubing,Competitive,Indoors,
+Sport stacking,Competitive,Indoors,
+Table football,Competitive,Indoors,
+Table tennis,Competitive,Indoors,
+Volleyball,Competitive,Indoors,
+Weightlifting,Competitive,Indoors,
+Wrestling,Competitive,Indoors,
+Airsoft,Competitive,Outdoors,
+Archery,Competitive,Outdoors,
+Association football,Competitive,Outdoors,
+Australian rules football,Competitive,Outdoors,
+Auto racing,Competitive,Outdoors,
+Baseball,Competitive,Outdoors,
+Beach volleyball,Competitive,Outdoors,
+Breakdancing,Competitive,Outdoors,
+Climbing,Competitive,Outdoors,
+Cricket,Competitive,Outdoors,
+Croquet,Competitive,Outdoors,
+Cycling,Competitive,Outdoors,
+Disc golf,Competitive,Outdoors,
+Dog sport,Competitive,Outdoors,
+Equestrianism,Competitive,Outdoors,
+Exhibition drill,Competitive,Outdoors,
+Field hockey,Competitive,Outdoors,
+Figure skating,Competitive,Outdoors,
+Fishing,Competitive,Outdoors,
+Footbag,Competitive,Outdoors,
+Frisbee,Competitive,Outdoors,
+Golfing,Competitive,Outdoors,
+Handball,Competitive,Outdoors,
+Horseback riding,Competitive,Outdoors,
+Horseshoes,Competitive,Outdoors,
+Iceboat racing,Competitive,Outdoors,
+Jukskei,Competitive,Outdoors,
+Kart racing,Competitive,Outdoors,
+Knife throwing,Competitive,Outdoors,
+Lacrosse,Competitive,Outdoors,
+Longboarding,Competitive,Outdoors,
+Long-distance running,Competitive,Outdoors,
+Marching band,Competitive,Outdoors,
+Model aircraft,Competitive,Outdoors,
+Orienteering,Competitive,Outdoors,
+Pickleball,Competitive,Outdoors,
+Powerboat racing,Competitive,Outdoors,
+Quidditch,Competitive,Outdoors,
+Race walking,Competitive,Outdoors,
+Racquetball,Competitive,Outdoors,
+Radio-controlled car racing,Competitive,Outdoors,
+Roller derby,Competitive,Outdoors,
+Rugby league football,Competitive,Outdoors,
+Sculling or rowing,Competitive,Outdoors,
+Shooting sport,Competitive,Outdoors,
+Skateboarding,Competitive,Outdoors,
+Skiing,Competitive,Outdoors,
+Sled dog racing,Competitive,Outdoors,
+Softball,Competitive,Outdoors,
+Speed skating,Competitive,Outdoors,
+Squash,Competitive,Outdoors,
+Surfing,Competitive,Outdoors,
+Swimming,Competitive,Outdoors,
+Table tennis,Competitive,Outdoors,
+Tennis,Competitive,Outdoors,
+Tennis polo,Competitive,Outdoors,
+Tether car,Competitive,Outdoors,
+Tour skating,Competitive,Outdoors,
+Tourism,Competitive,Outdoors,
+Trapshooting,Competitive,Outdoors,
+Triathlon,Competitive,Outdoors,
+Ultimate frisbee,Competitive,Outdoors,
+Volleyball,Competitive,Outdoors,
+Water polo,Competitive,Outdoors,

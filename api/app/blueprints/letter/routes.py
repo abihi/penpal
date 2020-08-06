@@ -1,16 +1,22 @@
-import datetime
+import time
 
-from flask import jsonify, request
+from flask import jsonify, request, make_response
+from sqlalchemy import exc
+
 # app dependencies
 from app import db
 from app.blueprints.letter import bp
 # models
+from app.models.users.user import User
 from app.models.letters.letter import Letter
+from app.models.penpals.penpal import PenPal
 
 
-@bp.route('/', methods=['GET'])
-def get_letters():
-    letters = Letter.query.all()
+@bp.route('/penpal/<int:_id>', methods=['GET'])
+def get_letters_from_penpal(_id):
+    letters = Letter.query.filter(Letter.penpal_id == _id).all()
+    if not letters:
+        return "Letter from penpal id={id} not found".format(id=_id), 404
     letters_list = list()
     for letter in letters:
         letters_list.append(letter.dict())
@@ -30,18 +36,50 @@ def get_letter(_id):
 @bp.route('', methods=['POST'])
 def create_letter():
     body = request.get_json()
-    sent_datetime = datetime.datetime.now(datetime.timezone.utc)
-    letter = Letter(text=body["text"], sent_date=sent_datetime,
-                    penpal_id=body["penpal_id"], penpal=body["penpal"],
-                    user_id=body["user_id"], user=body["user"])
-    db.session.add(letter)
-    db.session.commit()
-    return "Letter with id={id} created".format(id=letter.id), 201
+    try:
+        letter = Letter(
+            text=body["text"], sent_date=time.time(),
+            penpal_id=body["penpal_id"], user_id=body["user_id"],
+            penpal=PenPal.query.get(body["penpal_id"]),
+            user=User.query.get(body["user_id"])
+        )
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+    try:
+        db.session.add(letter)
+        db.session.commit()
+    except exc.SQLAlchemyError as exception_message:
+        make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+    return make_response(jsonify(letter.dict()), 201)
+
+
+@bp.route('/<int:_id>', methods=['PUT'])
+def update_letter(_id):
+    letter = Letter.query.get(_id)
+    if letter is None:
+        return "Letter with id={id} not found".format(id=_id), 404
+    try:
+        letter.text = request.json.get('text', letter.text)
+        letter.sent_date = letter.sent_date
+        letter.edited_date = request.json.get('edited_date', letter.edited_date)
+        letter.penpal_id = request.json.get('penpal_id', letter.penpal_id)
+        letter.user_id = request.json.get('user_id', letter.user_id)
+        letter.penpal = PenPal.query.get(letter.penpal_id)
+        letter.user = User.query.get(letter.user_id)
+        db.session.commit()
+        return make_response(jsonify(letter.dict()), 200)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
 
 
 @bp.route('/<int:_id>', methods=['DELETE'])
 def delete_letter(_id):
-    letter = Letter.query.get(_id)
-    db.session.delete(letter)
-    db.session.commit()
+    try:
+        letter = Letter.query.get(_id)
+        if letter is None:
+            return "Letter with id={id} not found".format(id=_id), 404
+        db.session.delete(letter)
+        db.session.commit()
+    except exc.SQLAlchemyError as exception_message:
+        make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     return "", 204

@@ -44,6 +44,8 @@ def update_user(_id):
 def delete_user(_id):
     try:
         user = User.query.get(_id)
+        if user is None:
+            return make_response("User with id={id} not found".format(id=_id), 404)
         db.session.delete(user)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:

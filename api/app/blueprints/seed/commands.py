@@ -1,4 +1,4 @@
-import datetime
+import time
 import csv
 from random import randrange
 
@@ -26,7 +26,12 @@ def add_countries():
         if has_header:
             next(country_reader)
         for country in country_reader:
-            db.session.add(Country(name=country[0]))
+            try:
+                latitude = float(country[1])
+                longitude = float(country[2])
+                db.session.add(Country(name=country[3], latitude=latitude, longitude=longitude))
+            except AssertionError:
+                pass # Skips the line in csv
     db.session.commit()
     click.echo('Done.')
 
@@ -51,7 +56,10 @@ def add_languages():
         if has_header:
             next(language_reader)
         for language in language_reader:
-            db.session.add(Language(name=language[3]))
+            try:
+                db.session.add(Language(name=language[3]))
+            except AssertionError:
+                pass
     db.session.commit()
     click.echo('Done.')
 
@@ -76,7 +84,10 @@ def add_interests():
         if has_header:
             next(interest_reader)
         for interest in interest_reader:
-            db.session.add(Interest(activity=interest[0]))
+            try:
+                db.session.add(Interest(activity=interest[0]))
+            except AssertionError:
+                pass
     db.session.commit()
     click.echo('Done.')
 
@@ -96,13 +107,13 @@ def drop_interests():
 def add_users(count):
     click.echo('Seeding user table with users.')
     for _ in range(int(count)):
-        user = User(username=fake.name(), email=fake.email(), country_id=randrange(1, 249))
-        user.set_password(fake.text(max_nb_chars=20))
         try:
+            user = User(username=fake.name(), email=fake.email(), country_id=randrange(1, 249))
+            user.set_password(fake.text(max_nb_chars=20))
             db.session.add(user)
-            db.session.commit()
-        except exc.IntegrityError:
-            db.session.rollback()
+        except AssertionError:
+            pass # Skips that user e.g. faker randomizes user with same name
+    db.session.commit()
     click.echo('Done.')
 
 
@@ -121,10 +132,9 @@ def drop_users():
 def add_letters(count):
     click.echo('Seeding letter table with letters.')
     for _ in range(int(count)):
-        sent_date = datetime.datetime.now(datetime.timezone.utc)
         penpal = PenPal.query.order_by(func.random()).first()
         user = User.query.order_by(func.random()).first()
-        letter = Letter(text=fake.text(), sent_date=sent_date,
+        letter = Letter(text=fake.text(), sent_date=time.time(),
                         penpal_id=penpal.id, user_id=user.id)
         try:
             db.session.add(letter)

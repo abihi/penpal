@@ -15,6 +15,7 @@ from app.models.users.user_interest_mapping import user_interest_mapping
 from app.models.users.user_language_mapping import user_language_mapping
 # m-2-m relationship similar to user and interest
 from app.models.users.user_penpal_mapping import user_penpal_mapping
+from app.models.countries.country import Country
 
 
 class User(UserMixin, db.Model):
@@ -66,6 +67,14 @@ class User(UserMixin, db.Model):
             raise AssertionError('Username already exists')
         return username
 
+    @validates('country_id')
+    def validate_country_id(self, key, country_id):
+        if not country_id:
+            raise AssertionError('No country_id provided')
+        if Country.query.get(country_id) is None:
+            raise AssertionError('No country with id={id} exists'.format(id=country_id))
+        return country_id
+
     @validates('email')
     def validate_email(self, key, email):
         if not email:
@@ -78,5 +87,5 @@ class User(UserMixin, db.Model):
         except EmailNotValidError as error:
             raise AssertionError(error)
         if not validators.domain(email.split('@')[1]):
-            return AssertionError(domain=email.split('@')[1])
+            raise AssertionError(domain=email.split('@')[1])
         return email

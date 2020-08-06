@@ -117,5 +117,5 @@ def test_delete_nonexistent_language(test_client, init_database):
     language_id = 100
     url = '/language/' + str(language_id)
     response = test_client.delete(url)
-    assert response.status_code == 204
+    assert response.status_code == 404
     assert Language.query.get(language_id) is None

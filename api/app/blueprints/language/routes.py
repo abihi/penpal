@@ -55,6 +55,8 @@ def update_language(_id):
 def delete_language(_id):
     try:
         language = Language.query.get(_id)
+        if language is None:
+            return make_response("Language with id={id} not found".format(id=_id), 404)
         db.session.delete(language)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:
