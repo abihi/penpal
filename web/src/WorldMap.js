@@ -35,7 +35,7 @@ const WorldMap = () => {
               key={geo.rsmKey}
               geography={geo}
               stroke="#EAEAEC"
-              fill={countriesMailed.includes(geo.properties.NAME) ? "tomato" : 'white'}
+              fill={countriesMailed.includes(geo.properties.NAME) ? "tomato" : '#d9dce0'}
               strokeWidth={0}
             />)}
           )

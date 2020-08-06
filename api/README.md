@@ -13,7 +13,12 @@ Create virtualenv:
 *   ($ pip freeze > requirements.txt)
 *   ($ pip freeze) get a list of all installed packages and their versions
 
-# Run tests 
+# Seed the database
+*   $ flask seed add_countries
+*   $ flask seed add_languages
+*   $ flask seed add_interests
+
+# Run tests
 *  $ python -m pytest
 
 # HEROKU
