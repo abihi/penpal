@@ -9,7 +9,7 @@ export const FETCH_USER_CREDENTIALS_FAIL = 'auth/FETCH_USER_CREDENTIALS_FAIL';
 export const CLEAR_AUTHENTICATION_STATE = 'auth/CLEAR_AUTHENTICATION_STATE';
 
 const initialState = {
-  currentUser: null,
+  id: null,
   isAnonymous: true,
   isActive: false,
   isAuthenticated: false,
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        currentUser: action.currentUser,
+        id: action.currentUser,
         isAnonymous: action.isAnonymous,
         isActive: action.isActive,
         isAuthenticated: action.isAuthenticated

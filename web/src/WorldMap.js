@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
+import { user } from './modules/entities';
 
 import {
   ComposableMap,
@@ -14,10 +17,12 @@ const geoUrl =
 "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 
-const WorldMap = () => {
-  const [data, setData] = useState([]);
+class WorldMap extends React.Component {
+  render() {
+    const { currentUser } = this.props;
+    console.log('currentUser', currentUser);
 
-  return (
+    return (
     <ComposableMap
       projection="geoEqualEarth"
       projectionConfig={{
@@ -47,7 +52,7 @@ const WorldMap = () => {
             textAnchor="middle"
             style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
           >
-            {"You"}
+            {currentUser.username}
           </text>
         </Marker>
       <Line
@@ -86,7 +91,21 @@ const WorldMap = () => {
           </text>
         </Marker>
     </ComposableMap>
-);
+    );
+  }
+}
+
+
+const mapStateToProps = store => {
+  return {
+    currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
+  };
 };
 
-export default WorldMap;
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorldMap);
