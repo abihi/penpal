@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        currentUser: action.payload.result,
+        currentUser: action.currentUser,
         isAnonymous: action.isAnonymous,
         isActive: action.isActive,
         isAuthenticated: action.isAuthenticated
@@ -64,13 +64,16 @@ export const authenticateUser = () => {
     dispatch({type: FETCH_USER_CREDENTIALS});
     try {
       const result = await axios.get('/auth');
+      console.log(result);
+      /* get user object if user is not anonymous */
+      if (!result.data.is_anonymous) {
+          await dispatch(getUser(result.data.current_user));
+      }
 
-      /* get user object */
-      await dispatch(getUser(result.data.current_user));
 
       dispatch({
         type: FETCH_USER_CREDENTIALS_SUCCESS,
-        payload: result.data.current_user,
+        currentUser: result.data.current_user,
         isAnonymous: result.data.is_anonymous,
         isActive: result.data.is_active,
         isAuthenticated: result.data.is_authenticated
