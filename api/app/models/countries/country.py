@@ -12,7 +12,7 @@ class Country(db.Model):
         return '<Country {}>'.format(self.name)
 
     def dict(self):
-        return dict(id=self.id, name=self.name)
+        return dict(id=self.id, name=self.name, latitude=self.latitude, longitude=self.longitude)
 
     @validates('name')
     def validate_name(self, key, name):
