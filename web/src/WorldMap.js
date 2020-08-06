@@ -20,43 +20,34 @@ const geoUrl =
 class WorldMap extends React.Component {
   render() {
     const { currentUser } = this.props;
-    console.log('currentUser', currentUser);
 
     return (
     <ComposableMap
       projection="geoEqualEarth"
       projectionConfig={{
         rotate: [0, 0, 0],
-        scale: 200
+        scale: 100
       }}
     >
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
           geographies.map((geo) => {
-            const countriesMailed = ['Sweden', "Australia"];
-
             return(
             <Geography
               key={geo.rsmKey}
               geography={geo}
               stroke="#EAEAEC"
-              fill={countriesMailed.includes(geo.properties.NAME) ? "tomato" : '#d9dce0'}
+              fill={currentUser.country.name === geo.properties.NAME ? "tomato" : '#d9dce0'}
               strokeWidth={0}
             />)}
           )
         }
       </Geographies>
-      <Marker key={"user"} coordinates={[2.3522, 48.8566]}>
-          <circle r={5} fill="#F00" stroke="#fff" strokeWidth={2} />
-          <text
-            textAnchor="middle"
-            style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
-          >
-            {currentUser.username}
-          </text>
+      <Marker key={"user"} coordinates={[currentUser.country.longitude, currentUser.country.latitude]}>
+          <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />          
         </Marker>
       <Line
-        from={[2.3522, 48.8566]}
+        from={[currentUser.country.longitude, currentUser.country.latitude]}
         to={[-74.006, 40.7128]}
         stroke="#FF5533"
         strokeWidth={2}

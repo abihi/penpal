@@ -65,18 +65,18 @@ export const getInterest = (id=null) => {
   };
 };
 
-export const getInterests = (idArr=[]) => {
+export const getInterests = (idList=[]) => {
   return async(dispatch) => {
     dispatch({type: FETCH_INTERESTS});
     try {
-      const resultArray = idArr.map(async id => {
+      const resultList = idList.map(async id => {
         const result = await axios.get(`/interest/${id}`);
         return result.data;
       });
 
       dispatch({
         type: FETCH_INTERESTS_SUCCESS,
-        payload: normalize(resultArray, [interest]),
+        payload: normalize(resultList, [interest]),
         });
 
     } catch (error) {

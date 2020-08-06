@@ -3,6 +3,7 @@ import {country} from '../entities';
 
 export const FETCH_COUNTRIES = 'get/FETCH_COUNTRIES';
 export const FETCH_COUNTRIES_SUCCESS = 'get/FETCH_COUNTRIES_SUCCESS';
+export const FETCH_COUNTRY_SUCCESS = 'get/FETCH_COUNTRY_SUCCESS';
 export const FETCH_COUNTRIES_FAIL = 'get/FETCH_COUNTRIES_FAIL';
 
 const initialState = {
@@ -29,7 +30,16 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: action.payload.result,
+        countries: [...state.countries, action.payload.result],
+      };
+    }
+    case FETCH_COUNTRY_SUCCESS:
+    {
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        countries: [...state.countries, action.payload.result],
       };
     }
     case FETCH_COUNTRIES_FAIL:
@@ -55,6 +65,25 @@ export const getCountries = () => {
       dispatch({
         type: FETCH_COUNTRIES_SUCCESS,
         payload: normalize(result.data, [country]),
+        });
+
+
+    } catch (error) {
+      dispatch({type: FETCH_COUNTRIES_FAIL, payload: error});
+      console.error(error);
+    }
+  };
+};
+
+export const getCountry = (id=null) => {
+  return async(dispatch) => {
+    dispatch({type: FETCH_COUNTRIES});
+    try {
+      const result = await axios.get(`/country/${id}`);
+
+      dispatch({
+        type: FETCH_COUNTRY_SUCCESS,
+        payload: normalize(result.data, country),
         });
 
 
