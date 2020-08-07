@@ -5,6 +5,7 @@ from app.models.users.user import User
 from app.models.countries.country import Country
 from config import TestingConfig
 
+
 @pytest.fixture(scope='module')
 def test_client():
     flask_app = create_app(TestingConfig)
@@ -198,7 +199,7 @@ def test_username_already_exists(test_client, init_database):
 def test_with_valid_username(test_client, init_database):
     data = {"username": "usernamedoesnotexist"}
     response = test_client.post('/auth/register/username', json=data)
-    assert response.status_code == 200 
+    assert response.status_code == 200
 
 
 def test_email_already_exists(test_client, init_database):
@@ -229,21 +230,6 @@ def test_with_valid_email(test_client, init_database):
     data = {"email": "validemail@gmail.com"}
     response = test_client.post('/auth/register/email', json=data)
     assert response.status_code == 200
-
-
-@pytest.mark.parametrize(
-    "email_data, expected_status, expected_data",
-    [
-        ({"email": "authTester@gmail.com"}, 400, {}),
-        ({"email": "testgmail.com"}, 400, {}),
-        ({"email": "test@gmailcom"}, 400, {}),
-        ({"email": "test@bihiii.com"}, 400, {}),
-        ({"email": "validemail@gmail.com"}, 200, {}),
-    ]
-)
-def test_email_validation(test_client, init_database, email_data, expected_status, expected_data):
-    response = test_client.post('/auth/register/email', json=email_data)
-    assert response.status_code == expected_status
 
 
 def test_with_too_short_password(test_client, init_database):

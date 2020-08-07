@@ -1,5 +1,6 @@
 from app import db
 
+
 class PenPal(db.Model):
     __tablename__ = "penpals"
     id = db.Column('id', db.Integer, primary_key=True)

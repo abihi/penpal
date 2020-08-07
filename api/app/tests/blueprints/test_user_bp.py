@@ -5,6 +5,7 @@ from app.models.users.user import User
 from app.models.countries.country import Country
 from config import TestingConfig
 
+
 @pytest.fixture(scope='module')
 def test_client():
     flask_app = create_app(TestingConfig)

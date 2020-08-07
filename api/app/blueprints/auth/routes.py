@@ -12,9 +12,11 @@ from app.blueprints.auth import bp
 from app.models.users.user import User
 from app.models.countries.country import Country
 
+
 @login_manager.user_loader
 def load_user(_id):
     return User.query.get(_id)
+
 
 @bp.route('/', methods=['GET'])
 def auth():
@@ -23,6 +25,7 @@ def auth():
             "is_active": current_user.is_active,
             "is_authenticated": current_user.is_authenticated}
     return make_response(jsonify(data), 200)
+
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -40,6 +43,7 @@ def login():
             "is_authenticated": user.is_authenticated}
     return make_response(jsonify(data), 200)
 
+
 @bp.route('/logout', methods=['GET'])
 def logout():
     logout_user()
@@ -49,11 +53,16 @@ def logout():
             "is_authenticated": current_user.is_authenticated}
     return make_response(jsonify(data), 200)
 
+
 @bp.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
     try:
-        user = User(username=body["username"], email=body["email"], country_id=body["country_id"])
+        user = User(
+            username=body["username"],
+            email=body["email"],
+            country_id=body["country_id"]
+        )
     except AssertionError as exception_message:
         return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
     try:

@@ -4,6 +4,7 @@ from app import db
 from app.models.penpals.penpal import PenPal
 from app.models.users.user import User
 
+
 class Letter(db.Model):
     __tablename__ = "letters"
     id = db.Column('id', db.Integer, primary_key=True)
@@ -22,7 +23,7 @@ class Letter(db.Model):
     def dict(self):
         return dict(
             id=self.id, text=self.text, sent_date=self.sent_date,
-            edited_date=self.edited_date, penpal_id=self.penpal_id, 
+            edited_date=self.edited_date, penpal_id=self.penpal_id,
             user_id=self.user_id
         )
 
@@ -53,4 +54,3 @@ class Letter(db.Model):
         if User.query.get(user_id) is None:
             raise AssertionError('No user with id={id} exists'.format(id=user_id))
         return user_id
-    

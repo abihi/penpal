@@ -1,10 +1,10 @@
+# flake8: noqa
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_cors import CORS
 from faker import Faker
 from flask import Flask
-
 
 login_manager = LoginManager()
 db = SQLAlchemy()
@@ -36,23 +36,26 @@ def initialize_extensions(app):
     cors.init_app(app, supports_credentials=True)
 
 
+from app.blueprints.auth import bp as auth_bp
+from app.blueprints.user import bp as user_bp
+from app.blueprints.country import bp as country_bp
+from app.blueprints.letter import bp as letter_bp
+from app.blueprints.penpal import bp as penpal_bp
+from app.blueprints.language import bp as language_bp
+from app.blueprints.interest import bp as interest_bp
+from app.blueprints.seed import bp as seed_bp
+
+
 def register_blueprints(app):
-    from app.blueprints.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    from app.blueprints.user import bp as user_bp
     app.register_blueprint(user_bp, url_prefix='/user')
-    from app.blueprints.country import bp as country_bp
     app.register_blueprint(country_bp, url_prefix='/country')
-    from app.blueprints.letter import bp as letter_bp
     app.register_blueprint(letter_bp, url_prefix='/letter')
-    from app.blueprints.penpal import bp as penpal_bp
     app.register_blueprint(penpal_bp, url_prefix='/penpal')
-    from app.blueprints.language import bp as language_bp
     app.register_blueprint(language_bp, url_prefix='/language')
-    from app.blueprints.interest import bp as interest_bp
     app.register_blueprint(interest_bp, url_prefix='/interest')
-    from app.blueprints.seed import bp as seed_bp
     app.register_blueprint(seed_bp)
+
 
 from app import models
 from app.models.users.user import User

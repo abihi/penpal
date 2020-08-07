@@ -4,6 +4,7 @@ from app import create_app, db
 from app.models.countries.country import Country
 from config import TestingConfig
 
+
 @pytest.fixture(scope='module')
 def test_client():
     flask_app = create_app(TestingConfig)

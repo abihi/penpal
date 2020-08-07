@@ -1,6 +1,7 @@
 from sqlalchemy.orm import validates
 from app import db
 
+
 class Language(db.Model):
     __tablename__ = "languages"
     id = db.Column('id', db.Integer, primary_key=True)

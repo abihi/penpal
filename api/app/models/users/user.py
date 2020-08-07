@@ -39,7 +39,7 @@ class User(UserMixin, db.Model):
     def dict(self):
         interests = [i.id for i in self.interests]
         penpals = [p.id for p in self.penpals]
-        languages = [l.id for l in self.languages]
+        languages = [lang.id for lang in self.languages]
         return dict(
             id=self.id, username=self.username, email=self.email,
             email_verified=self.email_verified, country=self.country_id,
@@ -72,7 +72,9 @@ class User(UserMixin, db.Model):
         if not country_id:
             raise AssertionError('No country_id provided')
         if Country.query.get(country_id) is None:
-            raise AssertionError('No country with id={id} exists'.format(id=country_id))
+            raise AssertionError(
+                'No country with id={id} exists'.format(id=country_id)
+            )
         return country_id
 
     @validates('email')

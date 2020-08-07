@@ -29,9 +29,15 @@ def add_countries():
             try:
                 latitude = float(country[1])
                 longitude = float(country[2])
-                db.session.add(Country(name=country[3], latitude=latitude, longitude=longitude))
+                db.session.add(
+                    Country(
+                        name=country[3],
+                        latitude=latitude,
+                        longitude=longitude
+                    )
+                )
             except AssertionError:
-                pass # Skips the line in csv
+                pass  # Skips the line in csv
     db.session.commit()
     click.echo('Done.')
 
@@ -108,11 +114,15 @@ def add_users(count):
     click.echo('Seeding user table with users.')
     for _ in range(int(count)):
         try:
-            user = User(username=fake.name(), email=fake.email(), country_id=randrange(1, 249))
+            user = User(
+                username=fake.name(),
+                email=fake.email(),
+                country_id=randrange(1, 249)
+            )
             user.set_password(fake.text(max_nb_chars=20))
             db.session.add(user)
         except AssertionError:
-            pass # Skips that user e.g. faker randomizes user with same name
+            pass  # Skips that user e.g. faker randomizes user with same name
     db.session.commit()
     click.echo('Done.')
 

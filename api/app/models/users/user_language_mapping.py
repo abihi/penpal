@@ -5,4 +5,4 @@ user_language_mapping = db.Table('user_language_mapping',
                                            primary_key=True),
                                  db.Column('user_id', db.Integer, db.ForeignKey('users.id'),
                                            primary_key=True)
-                                )
+                                 )

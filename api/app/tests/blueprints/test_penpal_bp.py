@@ -5,6 +5,7 @@ from app import create_app, db
 from app.models.penpals.penpal import PenPal
 from config import TestingConfig
 
+
 @pytest.fixture(scope='module')
 def test_client():
     flask_app = create_app(TestingConfig)
