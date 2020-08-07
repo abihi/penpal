@@ -10,3 +10,4 @@ exclude =
     venv*,
     migrations*,
     __init__.py
+max-complexity = 10
