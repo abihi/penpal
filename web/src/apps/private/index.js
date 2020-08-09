@@ -9,7 +9,7 @@ const {Content} = Layout;
 
 // routes
 const routes = (
-  <Route path="" component={DiscoverPage}>
+  <Route path="">
     <Route exact path="/" component={DiscoverPage}/>
     <Route exact path="/discover" component={DiscoverPage}/>
     <Route exact path="/profile" component={ProfilePage}/>

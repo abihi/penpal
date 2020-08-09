@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 import { user } from './modules/entities';
@@ -8,10 +8,7 @@ import {
   ZoomableGroup,
   Geographies,
   Geography,
-  Sphere,
-  Graticule,
-  Marker,
-  Line
+  Marker
 } from "react-simple-maps";
 import './WorldMap.scss';
 const geoUrl =

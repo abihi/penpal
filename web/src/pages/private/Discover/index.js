@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './index.scss';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
@@ -13,7 +12,7 @@ import {
   HeartFilled
 } from '@ant-design/icons';
 const { TabPane } = Tabs;
-const { Paragraph, Text } = Typography;
+const { Paragraph } = Typography;
 
 const mock = {
   username: 'Sunflower95',
@@ -98,7 +97,7 @@ class DiscoverPage extends React.Component {
                   mock.interests.map((interest, i) => {
                     return(
                       <div key={i} className="content-container">
-                        <img src={interest.img}></img>
+                        <img alt={interest.name} src={interest.img}></img>
                         <div className="details-container">
                           <Paragraph ellipsis>{interest.name}</Paragraph>
                           <div className="stat-container">

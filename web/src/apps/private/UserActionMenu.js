@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './UserActionMenu.scss';
 import { connect } from 'react-redux';
-import {Link, withRouter} from 'react-router-dom';
-import {Avatar, Divider, Layout, Popover} from 'antd';
+import {Link} from 'react-router-dom';
+import {Divider} from 'antd';
 import { logoutUser } from '../../modules/auth/logout';
 import {
   BulbFilled
