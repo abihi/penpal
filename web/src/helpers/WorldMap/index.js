@@ -4,10 +4,7 @@ import {
   ZoomableGroup,
   Geographies,
   Geography,
-  Sphere,
-  Graticule,
-  Marker,
-  Line
+  Marker
 } from "react-simple-maps";
 import './index.scss';
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";

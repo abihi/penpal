@@ -112,15 +112,6 @@ class DiscoverPage extends React.Component {
                 }
               </Carousel>
               </TabPane>
-              <TabPane tab="Music" key="2">
-                Music
-              </TabPane>
-              <TabPane tab="Movies" key="3">
-                Movies
-              </TabPane>
-              <TabPane tab="TV Shows" key="4">
-                TV Shows
-              </TabPane>
             </Tabs>
             <div className="user-location">
               <h4>Location</h4>
