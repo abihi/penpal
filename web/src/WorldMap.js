@@ -21,7 +21,7 @@ const geoUrl =
 class WorldMap extends React.Component {
   render() {
     const { currentUser } = this.props;
-
+    
     return (
         <ComposableMap
           projection="geoOrthographic"
@@ -33,7 +33,7 @@ class WorldMap extends React.Component {
           height={400}
           style={{ width: "100%", height: "auto" }}
         >
-          <ZoomableGroup center={[currentUser.country.longitude, currentUser.country.latitude]} zoom={1}>
+          <ZoomableGroup zoom={1}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
