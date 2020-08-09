@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: [...state.countries, action.payload.result],
+        countries: [...state.countries, ...action.payload.result],
       };
     }
     case FETCH_COUNTRY_SUCCESS:
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: [...state.countries, action.payload.result],
+        countries: [...state.countries, ...action.payload.result],
       };
     }
     case FETCH_COUNTRIES_FAIL:

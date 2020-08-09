@@ -75,7 +75,6 @@ class RegistrationModal extends Component {
 
     let unique = await this.isUsernameUnique(e.target.value);
     unique ? username.valid = true : username.valid = false;
-    console.log(unique, username.valid);
 
     username.validating = false;
     this.setState({username: username});
@@ -121,7 +120,6 @@ class RegistrationModal extends Component {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
       let unique = await this.isEmailUnique(e.target.value);
       unique ? email.valid = true : email.valid = false;
-      console.log(unique, email.valid);
     } else {
       email.valid = false;
     }
@@ -144,6 +142,7 @@ class RegistrationModal extends Component {
   };
 
   render() {
+    console.log(this.props.countries);
 
     return (
       <Modal
