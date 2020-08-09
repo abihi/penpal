@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
+import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
+import { user } from '../../../modules/entities';
 import LeftPanel from '../../../components/LeftPanel';
+import WorldMap from '../../../helpers/WorldMap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Typography, Tabs, Badge } from 'antd';
@@ -55,6 +59,13 @@ class DiscoverPage extends React.Component {
         <LeftPanel />
         <div className="user-stack">
           <div className="user-cover">
+          <div className="cover-overlay" />
+          <WorldMap
+            countryOfEmphasis={this.props.currentUser.country.name}
+            longitude={this.props.currentUser.country.longitude}
+            latitude={this.props.currentUser.country.latitude}
+            zoom={2}
+            style={{ width: "100%", height: "auto", transform: 'translate(0, calc(-50% + 120px))' }} />
             <div className="cover-details">
               <h1>{mock.username}</h1>
               <h4 >{mock.age}</h4>
@@ -122,4 +133,16 @@ class DiscoverPage extends React.Component {
   }
 }
 
-export default DiscoverPage;
+const mapStateToProps = store => {
+  return {
+    currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiscoverPage);

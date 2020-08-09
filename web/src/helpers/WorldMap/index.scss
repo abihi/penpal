@@ -1,0 +1,31 @@
+.rsm-svg {
+  .rsm-geographies  {
+    .rsm-geography {
+      outline:none;
+    }
+  }
+}
+
+.rsm-marker > circle {
+  stroke: rgb(223, 69, 55);
+  stroke-width: 2px;
+  stroke-opacity: 1;
+  fill: white;
+  fill-opacity: 0;
+  animation-duration: 2s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  from {
+    stroke-width: 2px;
+    stroke-opacity: 1;
+    transform: scale(0.3);
+  }
+  to {
+    stroke-width: 0;
+    stroke-opacity: 0;
+    transform: scale(10);
+  }
+}
