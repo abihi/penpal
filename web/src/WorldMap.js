@@ -21,19 +21,19 @@ const geoUrl =
 class WorldMap extends React.Component {
   render() {
     const { currentUser } = this.props;
-    
+
     return (
         <ComposableMap
           projection="geoOrthographic"
           projectionConfig={{
-            scale: 105,
-            rotation: [-150, 60, 55],
+            rotate: [-currentUser.country.longitude, -currentUser.country.latitude, 0],
+            scale: 100
           }}
-          width={800}
+          width={600}
           height={400}
           style={{ width: "100%", height: "auto" }}
         >
-          <ZoomableGroup zoom={1}>
+          <ZoomableGroup center={[currentUser.country.longitude, currentUser.country.latitude]} zoom={2}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
@@ -48,7 +48,6 @@ class WorldMap extends React.Component {
                 )
               }
             </Geographies>
-              <div coordinates={[currentUser.country.longitude, currentUser.country.latitude]} className="pulsating" />
             <Marker key={"user"} coordinates={[currentUser.country.longitude, currentUser.country.latitude]}>
                 <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />
             </Marker>
