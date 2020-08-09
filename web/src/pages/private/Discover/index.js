@@ -59,13 +59,13 @@ class DiscoverPage extends React.Component {
         <LeftPanel />
         <div className="user-stack">
           <div className="user-cover">
-          <div className="cover-overlay" />
           <WorldMap
             countryOfEmphasis={this.props.currentUser.country.name}
             longitude={this.props.currentUser.country.longitude}
             latitude={this.props.currentUser.country.latitude}
             zoom={2}
             style={{ width: "100%", height: "auto", transform: 'translate(0, calc(-50% + 120px))' }} />
+            <div className="cover-overlay" />
             <div className="cover-details">
               <h1>{mock.username}</h1>
               <h4 >{mock.age}</h4>
