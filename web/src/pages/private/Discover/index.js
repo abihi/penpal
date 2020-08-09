@@ -9,7 +9,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Typography, Tabs, Badge } from 'antd';
 import {
-  HeartFilled
+  HeartFilled,
+  ExperimentFilled
 } from '@ant-design/icons';
 const { TabPane } = Tabs;
 const { Paragraph } = Typography;
@@ -82,6 +83,13 @@ class DiscoverPage extends React.Component {
               </div>
             </div>
             <div className="user-gallery">
+            <div className="user-location">
+              <h4>Location</h4>
+              <div className="card-container">
+              <div className="card">
+              </div>
+              </div>
+            </div>
             <Tabs defaultActiveKey="1" onChange={this.galleryTabChange} className="user-interest-tabs">
               <TabPane tab="Interests" key="1">
               <Carousel
@@ -112,9 +120,6 @@ class DiscoverPage extends React.Component {
               </Carousel>
               </TabPane>
             </Tabs>
-            <div className="user-location">
-              <h4>Location</h4>
-            </div>
             </div>
           </div>
         </div>
