@@ -8,6 +8,9 @@ import WorldMap from '../../../helpers/WorldMap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Typography, Tabs, Badge } from 'antd';
+import { GiSnail, GiPathDistance } from 'react-icons/gi';
+import { FaGlobeAfrica } from 'react-icons/fa';
+
 import {
   HeartFilled,
   ExperimentFilled
@@ -66,10 +69,10 @@ class DiscoverPage extends React.Component {
             zoom={2}
             style={{ width: "100%", height: "auto", transform: 'translate(0, calc(-50% + 120px))' }} />
             <div className="cover-overlay" />
-            <div className="cover-details">
-              <h1>{mock.username}</h1>
-              <h4 >{mock.age}</h4>
-            </div>
+              <div className="cover-details">
+                <h1>{mock.username}</h1>
+                <h4 >{mock.age}</h4>
+              </div>
           </div>
           <div className="information-section">
             <div className="text-wall">
@@ -83,43 +86,56 @@ class DiscoverPage extends React.Component {
               </div>
             </div>
             <div className="user-gallery">
-            <div className="user-location">
-              <h4>Location</h4>
-              <div className="card-container">
-              <div className="card">
+              <div className="user-info-cards">
+                <h4>Location</h4>
+                <div className="card-container">
+                  <div className="card">
+                    <div className ="icon-container snail">
+                      <GiSnail className="icon" />
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className ="icon-container world">
+                      <FaGlobeAfrica className="icon" />
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className ="icon-container distance">
+                      <GiPathDistance className="icon" />
+                    </div>
+                  </div>
+                </div>
               </div>
-              </div>
-            </div>
-            <Tabs defaultActiveKey="1" onChange={this.galleryTabChange} className="user-interest-tabs">
-              <TabPane tab="Interests" key="1">
-              <Carousel
-              responsive={responsive}
-              customTransition="all .5"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              itemClass="carousel-item"
-              slidesToSlide={1}
-              >
-                {
-                  mock.interests.map((interest, i) => {
-                    return(
-                      <div key={i} className="content-container">
-                        <img alt={interest.name} src={interest.img}></img>
-                        <div className="details-container">
-                          <Paragraph ellipsis>{interest.name}</Paragraph>
-                          <div className="stat-container">
-                            <HeartFilled className="stat-icon" />
-                            <Badge count={interest.likes} overflowCount={999} className="stat-badge" />
+              <Tabs defaultActiveKey="1" onChange={this.galleryTabChange} className="user-interest-tabs">
+                <TabPane tab="Interests" key="1">
+                  <Carousel
+                  responsive={responsive}
+                  customTransition="all .5"
+                  transitionDuration={500}
+                  containerClass="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  itemClass="carousel-item"
+                  slidesToSlide={1}
+                  >
+                    {
+                      mock.interests.map((interest, i) => {
+                        return(
+                          <div key={i} className="content-container">
+                            <img alt={interest.name} src={interest.img}></img>
+                            <div className="details-container">
+                              <Paragraph ellipsis>{interest.name}</Paragraph>
+                              <div className="stat-container">
+                                <HeartFilled className="stat-icon" />
+                                <Badge count={interest.likes} overflowCount={999} className="stat-badge" />
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    )
-                  })
-                }
-              </Carousel>
-              </TabPane>
-            </Tabs>
+                        )
+                      })
+                    }
+                  </Carousel>
+                </TabPane>
+              </Tabs>
             </div>
           </div>
         </div>

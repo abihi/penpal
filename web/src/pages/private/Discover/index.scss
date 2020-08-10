@@ -2,6 +2,7 @@
 
 .discover-page {
   display: flex;
+  background-color: $backgroundColor;
   .lef-panel {
     width: 340px;
   }
@@ -53,6 +54,38 @@
       }
     }
     .user-gallery {
+      .user-info-cards {
+        .card-container {
+          display: flex;
+          .card {
+            .icon-container {
+              width: 64px;
+              height: 64px;
+              box-shadow: -1px -1px 3px hsla(0,0,100%,1), 1px 1px 3px hsla(0,0,0,0.2);
+              border-radius: 50%;
+              position: relative;
+              border: solid 7px $backgroundColor;
+              &.snail {
+                background: linear-gradient(135deg, rgba(255, 0, 0, 1), rgba(255, 103, 103, 1));
+              }
+              &.world {
+                background: linear-gradient(135deg, rgba(63, 129, 228, 1), rgba(69, 143, 255, 1));
+              }
+              &.distance {
+                background: linear-gradient(135deg, rgba(0, 246, 91, 1), rgba(101, 254, 88, 1));
+              }
+              .icon {
+                font-size: 36px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                fill: white;
+              }
+            }
+          }
+        }
+      }
       .user-interest-tabs {
         .ant-tabs-nav {
           .ant-tabs-tab {
