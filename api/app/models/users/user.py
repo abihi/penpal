@@ -37,13 +37,13 @@ class User(UserMixin, db.Model):
                               backref=db.backref('users', lazy=True))
 
     def dict(self):
-        interests = [i.id for i in self.interests]
-        penpals = [p.id for p in self.penpals]
-        languages = [lang.id for lang in self.languages]
+        interests = [i.dict() for i in self.interests]
+        penpals = [p.dict() for p in self.penpals]
+        languages = [lang.dict() for lang in self.languages]
         return dict(
             id=self.id, username=self.username, email=self.email,
-            email_verified=self.email_verified, country=self.country_id,
-            interests=interests, penapls=penpals, languages=languages
+            email_verified=self.email_verified, country=self.country.dict(),
+            interests=interests, penpals=penpals, languages=languages
         )
 
     def __repr__(self):
