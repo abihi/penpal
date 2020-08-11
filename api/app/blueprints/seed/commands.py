@@ -100,7 +100,7 @@ def add_interests():
 
 @seedbp.cli.command('drop_interests')
 def drop_interests():
-    click.echo('Removing all countries in country table.')
+    click.echo('Removing all interests in interest table.')
     interests = Interest.query.all()
     for interest in interests:
         db.session.delete(interest)
@@ -117,12 +117,29 @@ def add_users(count):
             user = User(
                 username=fake.name(),
                 email=fake.email(),
-                country_id=randrange(1, 249)
+                country_id=randrange(1, 244)
             )
             user.set_password(fake.text(max_nb_chars=20))
+
+            no_of_languages = randrange(1, 4)
+            languages = []
+            for _ in range(no_of_languages):
+                languages.append(Language.query.filter_by(
+                    id=randrange(1, 184)).first()
+                )
+            user.languages = list(dict.fromkeys(languages))
+
+            no_of_interests = randrange(4, 10)
+            interests = []
+            for _ in range(no_of_interests):
+                interests.append(Interest.query.filter_by(
+                    id=randrange(1, 300)).first()
+                )
+            user.interests = list(dict.fromkeys(interests))
+
             db.session.add(user)
         except AssertionError:
-            pass  # Skips that user e.g. faker randomizes user with same name
+            pass  # Skips that user e.g. faker randomized user with same name
     db.session.commit()
     click.echo('Done.')
 
