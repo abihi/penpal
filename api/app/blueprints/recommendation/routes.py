@@ -11,12 +11,16 @@ from app.models.interests.interest import Interest
 
 @bp.route("/users", methods=["GET"])
 def get_user_recommendations():
-    recommendations = User.query.order_by(func.random()).limit(10)
-    if recommendations is None:
+    recommended_users = User.query.order_by(func.random()).limit(10)
+    if recommended_users is None:
         return "No users found", 400
     recommendations_list = list()
-    for recommendation in recommendations:
-        recommendations_list.append(recommendation.dict())
+    for rank, user in enumerate(recommended_users):
+        recommendation = {
+            'rank': rank,
+            'user': user.dict()
+        }
+        recommendations_list.append(recommendation)
     recommendations_json = jsonify(recommendations_list)
     return recommendations_json, 200
 
