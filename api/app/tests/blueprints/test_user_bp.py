@@ -53,7 +53,7 @@ def test_get_specific_user(test_client, init_database):
     assert response.status_code == 200
     assert response.json["username"] == "userTester"
     assert response.json["email"] == "userTester@gmail.com"
-    assert response.json["country"] == 1
+    assert response.json["country"]["id"] == 1
 
 
 def test_get_specific_user_with_nonexistent_id(test_client, init_database):
@@ -73,7 +73,7 @@ def test_update_user(test_client, init_database):
     assert response.status_code == 200
     assert response.json["username"] == "newUsername"
     assert response.json["email"] == "newEmail@gmail.com"
-    assert response.json["country"] == 2
+    assert response.json["country"]["id"] == 2
 
 
 def test_update_user_nonexistant_id(test_client, init_database):
