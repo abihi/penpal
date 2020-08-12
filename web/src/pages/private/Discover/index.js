@@ -2,7 +2,8 @@ import React from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
-import { user } from '../../../modules/entities';
+import { recommendation, user } from '../../../modules/entities';
+import { getRecommendations } from '../../../modules/recommendations/get';
 import LeftPanel from '../../../components/LeftPanel';
 import WorldMap from '../../../helpers/WorldMap';
 import Carousel from "react-multi-carousel";
@@ -52,6 +53,11 @@ const responsive = {
 };
 
 class DiscoverPage extends React.Component {
+  componentDidMount = () => {
+      const { getRecommendations } = this.props;
+      getRecommendations();
+  };
+
   galleryTabChange = key => {
     console.log(key);
   };
@@ -147,12 +153,13 @@ class DiscoverPage extends React.Component {
 const mapStateToProps = store => {
   return {
     currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
+    recommendationStack: denormalize(store.recommendations.get.recommendations, recommendation, store.entities),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    getRecommendations: () => dispatch(getRecommendations())
   };
 };
 

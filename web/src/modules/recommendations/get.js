@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         fetching: true
       };
     }
-    case FETCH_RECOMMENDATIONS_FAIL:
+    case FETCH_RECOMMENDATIONS_SUCCESS:
     {
       return {
         ...state,
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         fetched: true,
       };
     }
-    case FETCH_USER_FAIL:
+    case FETCH_RECOMMENDATIONS_FAIL:
     {
       return {
         ...state,
@@ -48,14 +48,14 @@ export default (state = initialState, action) => {
 
 export const getRecommendations = (id=null) => {
   return async(dispatch) => {
-    dispatch({type: FETCH_USER_INIT});
+    dispatch({type: FETCH_RECOMMENDATIONS_INIT});
     try {
       // wait for HTTP request and state change
-      const result = await axios.get(`/recommendations/users`);
+      const result = await axios.get(`/recommendation/users`);
       // Normalize user object
-      dispatch({type: FETCH_USER_SUCCESS, payload: normalize(result.data, user)});
+      dispatch({type: FETCH_RECOMMENDATIONS_SUCCESS, payload: normalize(result.data, [recommendation])});
     } catch (error) {
-      dispatch({type: FETCH_USER_FAIL, payload: error});
+      dispatch({type: FETCH_RECOMMENDATIONS_FAIL, payload: error});
       console.error(error);
     }
   };

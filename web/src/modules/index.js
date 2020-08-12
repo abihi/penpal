@@ -5,6 +5,7 @@ import mode from './mode';
 import publicApp from './publicApp';
 import countries from './countries';
 import interests from './interests';
+import recommendations from './recommendations';
 import users from './users';
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   mode,
   countries,
   interests,
+  recommendations,
   users,
 })
