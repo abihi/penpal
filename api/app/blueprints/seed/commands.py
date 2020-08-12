@@ -16,7 +16,17 @@ from app.models.interests.interest import Interest
 from app.blueprints.seed import bp as seedbp
 
 
-@seedbp.cli.command('add_countries')
+@seedbp.cli.command('init')
+@click.argument('count', default=10)
+def init(count):
+    add_countries()
+    add_interests()
+    add_languages()
+    add_users(count)
+    add_penpals(count)
+    add_letters(count)
+
+
 def add_countries():
     click.echo('Seeding country table with countries.')
     with open('countries.csv', newline='') as csvfile:
@@ -42,17 +52,6 @@ def add_countries():
     click.echo('Done.')
 
 
-@seedbp.cli.command('drop_countries')
-def drop_countries():
-    click.echo('Removing all countries in country table.')
-    countries = Country.query.all()
-    for country in countries:
-        db.session.delete(country)
-    db.session.commit()
-    click.echo('Done.')
-
-
-@seedbp.cli.command('add_languages')
 def add_languages():
     click.echo('Seeding language table with languages.')
     with open('languages.csv', newline='') as csvfile:
@@ -70,17 +69,6 @@ def add_languages():
     click.echo('Done.')
 
 
-@seedbp.cli.command('drop_languages')
-def drop_languages():
-    click.echo('Removing all languages in language table.')
-    languages = Language.query.all()
-    for language in languages:
-        db.session.delete(language)
-    db.session.commit()
-    click.echo('Done.')
-
-
-@seedbp.cli.command('add_interests')
 def add_interests():
     click.echo('Seeding interest table with interests.')
     with open('interests.csv', newline='') as csvfile:
@@ -98,20 +86,8 @@ def add_interests():
     click.echo('Done.')
 
 
-@seedbp.cli.command('drop_interests')
-def drop_interests():
-    click.echo('Removing all interests in interest table.')
-    interests = Interest.query.all()
-    for interest in interests:
-        db.session.delete(interest)
-    db.session.commit()
-    click.echo('Done.')
-
-
-@seedbp.cli.command('add_users')
-@click.argument('count')
 def add_users(count):
-    click.echo('Seeding user table with users.')
+    click.echo(f'Seeding user table with {count} new users.')
     for _ in range(int(count)):
         try:
             user = User(
@@ -135,20 +111,17 @@ def add_users(count):
     click.echo('Done.')
 
 
-@seedbp.cli.command('drop_users')
-def drop_users():
-    click.echo('Removing all users in user table.')
-    users = User.query.all()
-    for user in users:
-        db.session.delete(user)
+def add_penpals(count):
+    click.echo('Adding penpals.')
+    for _ in range(count):
+        penpal = PenPal(created_date=time.time())
+        db.session.add(penpal)
     db.session.commit()
     click.echo('Done.')
 
 
-@seedbp.cli.command('add_letters')
-@click.argument('count')
 def add_letters(count):
-    click.echo('Seeding letter table with letters.')
+    click.echo(f'Seeding letter table with {count} new letters.')
     for _ in range(int(count)):
         penpal = PenPal.query.order_by(func.random()).first()
         user = User.query.order_by(func.random()).first()
@@ -162,7 +135,61 @@ def add_letters(count):
     click.echo('Done.')
 
 
-@seedbp.cli.command('drop_letters')
+@seedbp.cli.command('drop')
+def drop():
+    drop_users()
+    drop_countries()
+    drop_interests()
+    drop_languages()
+    drop_penpals()
+    drop_letters
+
+
+def drop_countries():
+    click.echo('Removing all countries in country table.')
+    countries = Country.query.all()
+    for country in countries:
+        db.session.delete(country)
+    db.session.commit()
+    click.echo('Done.')
+
+
+def drop_languages():
+    click.echo('Removing all languages in language table.')
+    languages = Language.query.all()
+    for language in languages:
+        db.session.delete(language)
+    db.session.commit()
+    click.echo('Done.')
+
+
+def drop_interests():
+    click.echo('Removing all interests in interest table.')
+    interests = Interest.query.all()
+    for interest in interests:
+        db.session.delete(interest)
+    db.session.commit()
+    click.echo('Done.')
+
+
+def drop_users():
+    click.echo('Removing all users in user table.')
+    users = User.query.all()
+    for user in users:
+        db.session.delete(user)
+    db.session.commit()
+    click.echo('Done.')
+
+
+def drop_penpals():
+    click.echo('Removing all penpals in penpal table.')
+    penpals = PenPal.query.all()
+    for penpal in penpals:
+        db.session.delete(penpal)
+    db.session.commit()
+    click.echo('Done.')
+
+
 def drop_letters():
     click.echo('Removing all letters in letter table.')
     letters = Letter.query.all()
