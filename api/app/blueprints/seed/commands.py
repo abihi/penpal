@@ -17,14 +17,20 @@ from app.blueprints.seed import bp as seedbp
 
 
 @seedbp.cli.command('init')
-@click.argument('count', default=10)
-def init(count):
+@click.argument('count_users', default=10, nargs=1)
+@click.argument('count_letters', default=5, nargs=1)
+@click.argument('count_penpals', default=5, nargs=1)
+def init(count_users, count_letters, count_penpals):
+    basic_setup(count_users, count_letters, count_penpals)
+
+
+def basic_setup(count_users, count_letters, count_penpals):
     add_countries()
     add_interests()
     add_languages()
-    add_users(count)
-    add_penpals(count)
-    add_letters(count)
+    add_users(count_users)
+    add_penpals(count_letters)
+    add_letters(count_penpals)
 
 
 def add_countries():
@@ -88,7 +94,8 @@ def add_interests():
 
 def add_users(count):
     click.echo(f'Seeding user table with {count} new users.')
-    for _ in range(int(count)):
+    count_users = 0
+    while count_users < int(count):
         try:
             user = User(
                 username=fake.name(),
@@ -105,6 +112,7 @@ def add_users(count):
             user.interests = list(dict.fromkeys(interests))
 
             db.session.add(user)
+            count_users += 1
         except AssertionError:
             pass  # Skips that user e.g. faker randomized user with same name
     db.session.commit()
@@ -112,7 +120,7 @@ def add_users(count):
 
 
 def add_penpals(count):
-    click.echo('Adding penpals.')
+    click.echo(f'Seeding penpal table with {count} new penpals.')
     for _ in range(count):
         penpal = PenPal(created_date=time.time())
         db.session.add(penpal)
@@ -122,7 +130,8 @@ def add_penpals(count):
 
 def add_letters(count):
     click.echo(f'Seeding letter table with {count} new letters.')
-    for _ in range(int(count)):
+    count_letters = 0
+    while count_letters < int(count):
         penpal = PenPal.query.order_by(func.random()).first()
         user = User.query.order_by(func.random()).first()
         letter = Letter(text=fake.text(), sent_date=time.time(),
@@ -130,6 +139,7 @@ def add_letters(count):
         try:
             db.session.add(letter)
             db.session.commit()
+            count_letters += 1
         except exc.IntegrityError:
             db.session.rollback()
     click.echo('Done.')
@@ -137,12 +147,16 @@ def add_letters(count):
 
 @seedbp.cli.command('drop')
 def drop():
+    remove_all_seeds()
+
+
+def remove_all_seeds():
+    drop_letters()
+    drop_penpals()
     drop_users()
     drop_countries()
     drop_interests()
     drop_languages()
-    drop_penpals()
-    drop_letters
 
 
 def drop_countries():
