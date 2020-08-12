@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
     {
       return {
         ...state,
-        users: [...state.recommendations, action.payload.result],
+        recommendations: [...state.recommendations, ...action.payload.result],
         fetching: false,
         fetched: true,
       };
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getRecommendations = (id=null) => {
+export const getRecommendations = () => {
   return async(dispatch) => {
     dispatch({type: FETCH_RECOMMENDATIONS_INIT});
     try {

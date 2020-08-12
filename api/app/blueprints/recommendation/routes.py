@@ -17,6 +17,7 @@ def get_user_recommendations():
     recommendations_list = list()
     for rank, user in enumerate(recommended_users):
         recommendation = {
+            'id': rank,
             'rank': rank,
             'user': user.dict()
         }

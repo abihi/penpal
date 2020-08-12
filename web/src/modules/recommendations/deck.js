@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
   }
 };
 
-export const setDeckCount = (count=null) => {
+export const setDeckCount = (count=0) => {
   return async(dispatch) => {
     dispatch({type: SET_CURRENT_DECK_COUNT, count: count});
   };

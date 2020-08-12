@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 import { recommendation, user } from '../../../modules/entities';
 import { getRecommendations } from '../../../modules/recommendations/get';
+import { setDeckCount } from '../../../modules/recommendations/deck';
 import LeftPanel from '../../../components/LeftPanel';
 import WorldMap from '../../../helpers/WorldMap';
 import Carousel from "react-multi-carousel";
@@ -63,21 +64,25 @@ class DiscoverPage extends React.Component {
   };
 
   render() {
+    const { recommendationDeck, deckCount } = this.props;
+    const recommendedPenpal = recommendationDeck[deckCount] ? recommendationDeck[deckCount].user : null;
+    console.log('recommendedPenpal', recommendedPenpal);
     return (
       <div className="discover-page">
         <LeftPanel />
+        {recommendedPenpal && recommendedPenpal.country ?
         <div className="user-stack">
           <div className="user-cover">
           <WorldMap
-            countryOfEmphasis={this.props.currentUser.country.name}
-            longitude={this.props.currentUser.country.longitude}
-            latitude={this.props.currentUser.country.latitude}
+            countryOfEmphasis={recommendedPenpal.country.name}
+            longitude={recommendedPenpal.country.longitude}
+            latitude={recommendedPenpal.country.latitude}
             zoom={2}
             style={{ width: "100%", height: "auto", transform: 'translate(0, calc(-50% + 120px))' }} />
             <div className="cover-overlay" />
               <div className="cover-details">
-                <h1>{mock.username}</h1>
-                <h4 >{mock.age}</h4>
+                <h1>{recommendedPenpal.username}</h1>
+                <h4 >{recommendedPenpal.age}</h4>
               </div>
           </div>
           <div className="information-section">
@@ -124,7 +129,7 @@ class DiscoverPage extends React.Component {
                   slidesToSlide={1}
                   >
                     {
-                      mock.interests.map((interest, i) => {
+                      recommendedPenpal.interests.map((interest, i) => {
                         return(
                           <div key={i} className="content-container">
                             <img alt={interest.name} src={interest.img}></img>
@@ -145,6 +150,7 @@ class DiscoverPage extends React.Component {
             </div>
           </div>
         </div>
+        : null }
       </div>
     );
   }
@@ -153,13 +159,15 @@ class DiscoverPage extends React.Component {
 const mapStateToProps = store => {
   return {
     currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
-    recommendationStack: denormalize(store.recommendations.get.recommendations, recommendation, store.entities),
+    deckCount: store.recommendations.deck.count,
+    recommendationDeck: denormalize(store.recommendations.get.recommendations, [recommendation], store.entities),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRecommendations: () => dispatch(getRecommendations())
+    getRecommendations: () => dispatch(getRecommendations()),
+    setDeckCount: (count) => dispatch(setDeckCount(count))
   };
 };
 
