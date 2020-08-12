@@ -1,6 +1,5 @@
 import {normalize} from 'normalizr'
 import {user} from '../entities';
-import {getCountry} from '../countries/get';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
@@ -53,12 +52,6 @@ export const getUser = (id=null) => {
     try {
       // wait for HTTP request and state change
       const result = await axios.get(`/user/${id}`);
-
-      // if a user is returned
-      if(result.data) {
-        /* Get complementary objects if user is returned successfully */
-        await dispatch(getCountry(result.data.country));
-      }
       // Normalize user object
       dispatch({type: FETCH_USER_SUCCESS, payload: normalize(result.data, user)});
     } catch (error) {
