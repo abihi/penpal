@@ -117,24 +117,15 @@ def add_users(count):
             user = User(
                 username=fake.name(),
                 email=fake.email(),
-                country_id=randrange(1, 244)
+                country_id=Country.query.order_by(func.random()).first().id
             )
             user.set_password(fake.text(max_nb_chars=20))
 
-            no_of_languages = randrange(1, 4)
-            languages = []
-            for _ in range(no_of_languages):
-                languages.append(Language.query.filter_by(
-                    id=randrange(1, 184)).first()
-                )
+            languages = Language.query.order_by(
+                func.random()).limit(randrange(1, 4))
             user.languages = list(dict.fromkeys(languages))
-
-            no_of_interests = randrange(4, 10)
-            interests = []
-            for _ in range(no_of_interests):
-                interests.append(Interest.query.filter_by(
-                    id=randrange(1, 300)).first()
-                )
+            interests = Interest.query.order_by(
+                func.random()).limit(randrange(4, 10))
             user.interests = list(dict.fromkeys(interests))
 
             db.session.add(user)
