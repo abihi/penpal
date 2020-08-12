@@ -23,7 +23,7 @@ def create_app(config_object):
     # put somewhere else - like the config file????
     # important that the secret key is set before the LoginManager
     # wraps the app variable.
-    app.secret_key = 'super secret key'
+    app.secret_key = "super secret key"
     initialize_extensions(app)
     register_blueprints(app)
     return app
@@ -48,14 +48,14 @@ from app.blueprints.seed import bp as seed_bp
 
 
 def register_blueprints(app):
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(user_bp, url_prefix='/user')
-    app.register_blueprint(country_bp, url_prefix='/country')
-    app.register_blueprint(letter_bp, url_prefix='/letter')
-    app.register_blueprint(penpal_bp, url_prefix='/penpal')
-    app.register_blueprint(language_bp, url_prefix='/language')
-    app.register_blueprint(interest_bp, url_prefix='/interest')
-    app.register_blueprint(recommendation_bp, url_prefix='/recommendation')
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(user_bp, url_prefix="/user")
+    app.register_blueprint(country_bp, url_prefix="/country")
+    app.register_blueprint(letter_bp, url_prefix="/letter")
+    app.register_blueprint(penpal_bp, url_prefix="/penpal")
+    app.register_blueprint(language_bp, url_prefix="/language")
+    app.register_blueprint(interest_bp, url_prefix="/interest")
+    app.register_blueprint(recommendation_bp, url_prefix="/recommendation")
     app.register_blueprint(seed_bp)
 
 

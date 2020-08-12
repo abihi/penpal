@@ -2,14 +2,16 @@ import time
 
 from flask import jsonify, make_response
 from sqlalchemy import exc
+
 # app dependencies
 from app import db
 from app.blueprints.penpal import bp
+
 # models
 from app.models.penpals.penpal import PenPal
 
 
-@bp.route('/', methods=['GET'])
+@bp.route("/", methods=["GET"])
 def get_penpals():
     penpals = PenPal.query.all()
     penpals_list = list()
@@ -19,7 +21,7 @@ def get_penpals():
     return penpals_json, 200
 
 
-@bp.route('/<int:_id>', methods=['GET'])
+@bp.route("/<int:_id>", methods=["GET"])
 def get_penpal(_id):
     penpal = PenPal.query.get(_id)
     if penpal is None:
@@ -28,18 +30,18 @@ def get_penpal(_id):
     return penpal_json, 200
 
 
-@bp.route('', methods=['POST'])
+@bp.route("", methods=["POST"])
 def create_penpal():
     penpal = PenPal(created_date=time.time())
     try:
         db.session.add(penpal)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:
-        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "Penpal with id={id} created".format(id=penpal.id), 201
 
 
-@bp.route('/<int:_id>', methods=['DELETE'])
+@bp.route("/<int:_id>", methods=["DELETE"])
 def delete_penpal(_id):
     try:
         penpal = PenPal.query.get(_id)
@@ -48,5 +50,5 @@ def delete_penpal(_id):
         db.session.delete(penpal)
         db.session.commit()
     except exc.SQLAlchemyError as exception_message:
-        return make_response(jsonify(msg='Error: {}. '.format(exception_message)), 400)
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204

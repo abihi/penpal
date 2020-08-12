@@ -4,20 +4,20 @@ from app import db
 
 class Interest(db.Model):
     __tablename__ = "interests"
-    id = db.Column('id', db.Integer, primary_key=True)
-    activity = db.Column('activity', db.String(64), index=True, unique=True)
-    img = db.Column('img', db.String(256))
+    id = db.Column("id", db.Integer, primary_key=True)
+    activity = db.Column("activity", db.String(64), index=True, unique=True)
+    img = db.Column("img", db.String(256))
 
     def __repr__(self):
-        return '<Interest {}>'.format(self.activity)
+        return "<Interest {}>".format(self.activity)
 
     def dict(self):
         return dict(id=self.id, activity=self.activity, img=self.img)
 
-    @validates('activity')
+    @validates("activity")
     def validate_activity(self, key, activity):
         if not activity:
-            raise AssertionError('No interest activity provided')
+            raise AssertionError("No interest activity provided")
         if Interest.query.filter(Interest.activity == activity).first():
-            raise AssertionError('Interest already exists')
+            raise AssertionError("Interest already exists")
         return activity

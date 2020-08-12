@@ -5,7 +5,7 @@ from app.models.interests.interest import Interest
 from config import TestingConfig
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def test_client():
     flask_app = create_app(TestingConfig)
     testing_client = flask_app.test_client()
@@ -18,7 +18,7 @@ def test_client():
     ctx.pop()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def init_database():
     db.create_all()
 
@@ -35,80 +35,68 @@ def init_database():
 
 
 def test_get_all_interests(test_client, init_database):
-    response = test_client.get('/interest', follow_redirects=True)
+    response = test_client.get("/interest", follow_redirects=True)
     assert response.status_code == 200
 
 
 def test_get_specific_interest(test_client, init_database):
-    response = test_client.get('/interest/1')
+    response = test_client.get("/interest/1")
     assert response.status_code == 200
     assert response.json["activity"] == "Sport"
 
 
 def test_get_specific_interest_with_nonexistent_id(test_client, init_database):
-    response = test_client.get('/interest/100')
+    response = test_client.get("/interest/100")
     assert response.status_code == 404
 
 
 def test_create_interest(test_client, init_database):
-    data = {
-        "activity": "newlyCreatedInterest"
-    }
-    response = test_client.post('/interest', json=data)
+    data = {"activity": "newlyCreatedInterest"}
+    response = test_client.post("/interest", json=data)
     assert response.status_code == 201
     assert response.json["activity"] == "newlyCreatedInterest"
 
 
 def test_create_interest_activity_already_exists(test_client, init_database):
-    data = {
-        "activity": "newlyCreatedInterest"
-    }
-    response = test_client.post('/interest', json=data)
+    data = {"activity": "newlyCreatedInterest"}
+    response = test_client.post("/interest", json=data)
     assert response.status_code == 400
 
 
 def test_update_interest(test_client, init_database):
     interest = Interest.query.all()[1]
-    url = '/interest/' + str(interest.id)
-    data = {
-        "activity": "newInterest"
-    }
+    url = "/interest/" + str(interest.id)
+    data = {"activity": "newInterest"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["activity"] == "newInterest"
 
 
 def test_update_interest_with_nonexistant_id(test_client, init_database):
-    data = {
-        "activity": "newInterest"
-    }
-    response = test_client.put('/interest/100', json=data)
+    data = {"activity": "newInterest"}
+    response = test_client.put("/interest/100", json=data)
     assert response.status_code == 404
 
 
 def test_update_interest_interest_activity_exists(test_client, init_database):
     interest = Interest.query.all()[0]
-    url = '/interest/' + str(interest.id)
-    data = {
-        "activity": interest.activity
-    }
+    url = "/interest/" + str(interest.id)
+    data = {"activity": interest.activity}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 
 
 def test_update_interest_interest_activity_is_empty(test_client, init_database):
     interest = Interest.query.all()[0]
-    url = '/interest/' + str(interest.id)
-    data = {
-        "activity": ""
-    }
+    url = "/interest/" + str(interest.id)
+    data = {"activity": ""}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 
 
 def test_delete_interest(test_client, init_database):
     interest = Interest.query.all()[0]
-    url = '/interest/' + str(interest.id)
+    url = "/interest/" + str(interest.id)
     response = test_client.delete(url)
     assert response.status_code == 204
     assert Interest.query.get(interest.id) is None
@@ -116,7 +104,7 @@ def test_delete_interest(test_client, init_database):
 
 def test_delete_nonexistent_interest(test_client, init_database):
     interest_id = 100
-    url = '/interest/' + str(interest_id)
+    url = "/interest/" + str(interest_id)
     response = test_client.delete(url)
     assert response.status_code == 404
     assert Interest.query.get(interest_id) is None

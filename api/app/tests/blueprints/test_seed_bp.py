@@ -12,7 +12,7 @@ from app.models.languages.language import Language
 from config import TestingConfig
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def test_client():
     flask_app = create_app(TestingConfig)
     testing_client = flask_app.test_client()
@@ -25,7 +25,7 @@ def test_client():
     ctx.pop()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def init_database():
     db.create_all()
 
@@ -36,10 +36,10 @@ def init_database():
 
 def test_if_seed_countries_are_correct(test_client, init_database):
     commands.add_countries()
-    with open('countries.csv', newline='') as csvfile:
+    with open("countries.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
-        country_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        country_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
         if has_header:
             next(country_reader)
         for country in country_reader:
@@ -51,10 +51,10 @@ def test_if_seed_countries_are_correct(test_client, init_database):
 
 def test_if_seed_interests_names_are_correct(test_client, init_database):
     commands.add_interests()
-    with open('interests.csv', newline='') as csvfile:
+    with open("interests.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
-        interest_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        interest_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
         if has_header:
             next(interest_reader)
         for interest in interest_reader:
@@ -64,10 +64,10 @@ def test_if_seed_interests_names_are_correct(test_client, init_database):
 
 def test_if_seed_languages_names_are_correct(test_client, init_database):
     commands.add_languages()
-    with open('languages.csv', newline='') as csvfile:
+    with open("languages.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
-        language_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        language_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
         if has_header:
             next(language_reader)
         for language in language_reader:
