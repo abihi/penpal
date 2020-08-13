@@ -12,7 +12,7 @@ class Interest(db.Model):
         return "<Interest {}>".format(self.activity)
 
     def dict(self):
-        return dict(id=self.id, activity=self.activity, img=self.img)
+        return dict(id=self.id, activity=self.activity, img='https://snigel.s3.eu-north-1.amazonaws.com/interests/'+self.img)
 
     @validates("activity")
     def validate_activity(self, key, activity):
