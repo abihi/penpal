@@ -16,11 +16,7 @@ def get_user_recommendations():
         return "No users found", 400
     recommendations_list = list()
     for rank, user in enumerate(recommended_users):
-        recommendation = {
-            'id': rank,
-            'rank': rank,
-            'user': user.dict()
-        }
+        recommendation = {"id": rank, "rank": rank, "user": user.dict()}
         recommendations_list.append(recommendation)
     recommendations_json = jsonify(recommendations_list)
     return recommendations_json, 200
