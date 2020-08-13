@@ -63,13 +63,13 @@ def test_create_country_name_already_exists(test_client, init_database):
     assert response.status_code == 400
 
 
-def test_update_country(test_client, init_database):
+def test_update_country_name(test_client, init_database):
     country = Country.query.all()[1]
     url = "/country/" + str(country.id)
-    data = {"name": "newCountry"}
+    data = {"name": "newCountryName"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    assert response.json["name"] == "newCountry"
+    assert response.json["name"] == "newCountryName"
 
 
 def test_update_country_with_nonexistant_id(test_client, init_database):

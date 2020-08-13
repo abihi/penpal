@@ -62,13 +62,9 @@ def update_letter(_id):
     if letter is None:
         return "Letter with id={id} not found".format(id=_id), 404
     try:
-        letter.text = request.json.get("text", letter.text)
-        letter.sent_date = letter.sent_date
-        letter.edited_date = request.json.get("edited_date", letter.edited_date)
-        letter.penpal_id = request.json.get("penpal_id", letter.penpal_id)
-        letter.user_id = request.json.get("user_id", letter.user_id)
-        letter.penpal = PenPal.query.get(letter.penpal_id)
-        letter.user = User.query.get(letter.user_id)
+        if "text" in request.json:
+            letter.text = request.json["text"]
+        letter.edited_date = time.time()
         db.session.commit()
         return make_response(jsonify(letter.dict()), 200)
     except AssertionError as exception_message:

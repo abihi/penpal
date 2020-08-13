@@ -27,12 +27,24 @@ def init_database():
     db.session.add(country1)
     country2 = Country(name="Sweden")
     db.session.add(country2)
+    country3 = Country(name="Testistan")
+    db.session.add(country3)
     db.session.commit()
 
-    user1 = User(username="userTester", email="userTester@gmail.com", country_id="1")
+    user1 = User(
+        username="userTester",
+        birthdate="1901-01-01",
+        email="userTester@gmail.com",
+        country_id="1",
+    )
     user1.set_password("testPassword")
     db.session.add(user1)
-    user2 = User(username="userTester2", email="userTester2@gmail.com", country_id="2")
+    user2 = User(
+        username="userTester2",
+        birthdate="1801-09-09",
+        email="userTester2@gmail.com",
+        country_id="2",
+    )
     user2.set_password("testPass2")
     db.session.add(user2)
 
@@ -61,15 +73,57 @@ def test_get_specific_user_with_nonexistent_id(test_client, init_database):
     assert response.status_code == 404
 
 
-def test_update_user(test_client, init_database):
+def test_update_all_user_fields(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"username": "newUsername", "email": "newEmail@gmail.com", "country": "2"}
+    data = {
+        "username": "newUsername",
+        "email": "newEmail@gmail.com",
+        "birthdate": "1992-01-01",
+        "country": "2",
+    }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["username"] == "newUsername"
     assert response.json["email"] == "newEmail@gmail.com"
+    assert response.json["birthdate"] == "1992-01-01"
     assert response.json["country"]["id"] == 2
+
+
+def test_update_user_username(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"username": "newUsernameTest1"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["username"] == "newUsernameTest1"
+
+
+def test_update_user_email(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"email": "newEmailtest2@gmail.com"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["email"] == "newEmailtest2@gmail.com"
+
+
+def test_update_user_birthdate(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"birthdate": "1992-06-13"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["birthdate"] == "1992-06-13"
+
+
+def test_update_user_country(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"country": "3"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["country"]["id"] == 3
 
 
 def test_update_user_nonexistant_id(test_client, init_database):

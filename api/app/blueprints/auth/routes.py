@@ -68,6 +68,7 @@ def register():
         user = User(
             username=body["username"],
             email=body["email"],
+            birthdate=body["birthdate"],
             country_id=body["country_id"],
         )
     except AssertionError as exception_message:
@@ -80,9 +81,7 @@ def register():
     db.session.commit()
     data = {
         "msg": "User created sucessfully",
-        "username": user.username,
-        "email": user.email,
-        "user_country": Country.query.filter_by(id=user.country_id).first().dict(),
+        "user": user.dict(),
         "current_user": user.get_id(),
         "is_anonymous": user.is_anonymous,
         "is_active": user.is_active,
