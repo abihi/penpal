@@ -1,4 +1,5 @@
 import validators
+from datetime import datetime
 
 from flask_login import UserMixin
 from sqlalchemy.orm import validates
@@ -25,6 +26,7 @@ class User(UserMixin, db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column("username", db.String(64), index=True, unique=True)
     email = db.Column("email", db.String(120), index=True, unique=True)
+    birthdate = db.Column("birthdate", db.DateTime)
     email_verified = db.Column("email_verified", db.Boolean, default=False)
     password_hash = db.Column("password_hash", db.String(128))
     # 1-to-m relationship between country and user. The users can also be back
@@ -63,6 +65,7 @@ class User(UserMixin, db.Model):
             username=self.username,
             email=self.email,
             email_verified=self.email_verified,
+            birthdate=self.birthdate.strftime("%Y-%m-%d"),
             country=self.country.dict(),
             interests=interests,
             penpals=penpals,
@@ -86,8 +89,10 @@ class User(UserMixin, db.Model):
     def validate_username(self, key, username):
         if not username:
             raise AssertionError("No username provided")
-        if User.query.filter(User.username == username).first():
-            raise AssertionError("Username already exists")
+        user = User.query.filter(User.username == username).first()
+        if user:
+            if user.id is not self.id:
+                raise AssertionError("Username already exists")
         return username
 
     @validates("country_id")
@@ -98,12 +103,20 @@ class User(UserMixin, db.Model):
             raise AssertionError("No country with id={id} exists".format(id=country_id))
         return country_id
 
+    @validates("birthdate")
+    def validate_birthdate(self, key, birthdate):
+        if not birthdate:
+            raise AssertionError("No birthdate provided")
+        return datetime.strptime(birthdate, "%Y-%m-%d").date()
+
     @validates("email")
     def validate_email(self, key, email):
         if not email:
             raise AssertionError("No email provided")
-        if User.query.filter(User.email == email).first():
-            raise AssertionError("Email already exists")
+        user = User.query.filter(User.email == email).first()
+        if user:
+            if user.id is not self.id:
+                raise AssertionError("Email already exists")
         try:
             valid = validate_email(email)
             email = valid.email
