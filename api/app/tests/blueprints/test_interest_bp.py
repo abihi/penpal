@@ -63,13 +63,13 @@ def test_create_interest_activity_already_exists(test_client, init_database):
     assert response.status_code == 400
 
 
-def test_update_interest(test_client, init_database):
+def test_update_interest_activity(test_client, init_database):
     interest = Interest.query.all()[1]
     url = "/interest/" + str(interest.id)
-    data = {"activity": "newInterest"}
+    data = {"activity": "newInterestActivity"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    assert response.json["activity"] == "newInterest"
+    assert response.json["activity"] == "newInterestActivity"
 
 
 def test_update_interest_with_nonexistant_id(test_client, init_database):

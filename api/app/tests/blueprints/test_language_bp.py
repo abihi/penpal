@@ -63,13 +63,13 @@ def test_create_language_name_already_exists(test_client, init_database):
     assert response.status_code == 400
 
 
-def test_update_language(test_client, init_database):
+def test_update_language_name(test_client, init_database):
     language = Language.query.all()[1]
     url = "/language/" + str(language.id)
-    data = {"name": "newLanguage"}
+    data = {"name": "newLanguageName"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    assert response.json["name"] == "newLanguage"
+    assert response.json["name"] == "newLanguageName"
 
 
 def test_update_language_with_nonexistant_id(test_client, init_database):

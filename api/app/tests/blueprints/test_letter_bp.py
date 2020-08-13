@@ -193,32 +193,32 @@ def test_update_letter_with_nonexistant_id(test_client, init_database):
     assert response.status_code == 404
 
 
-def test_update_letter_penpal_doesnt_exist(test_client, init_database):
-    edited_time = time.time()
-    penpal_id = 0
-    user_id = 2
-    data = {
-        "text": "newlyUpdatedLetter",
-        "edited_date": edited_time,
-        "penpal_id": penpal_id,
-        "user_id": user_id,
-    }
-    response = test_client.put("/letter/1", json=data)
-    assert response.status_code == 400
+# def test_update_letter_penpal_doesnt_exist(test_client, init_database):
+#     edited_time = time.time()
+#     penpal_id = 0
+#     user_id = 2
+#     data = {
+#         "text": "newlyUpdatedLetter",
+#         "edited_date": edited_time,
+#         "penpal_id": penpal_id,
+#         "user_id": user_id,
+#     }
+#     response = test_client.put("/letter/1", json=data)
+#     assert response.status_code == 400
 
 
-def test_update_letter_user_doesnt_exist(test_client, init_database):
-    edited_time = time.time()
-    penpal_id = 1
-    user_id = 0
-    data = {
-        "text": "newlyUpdatedLetter",
-        "edited_date": edited_time,
-        "penpal_id": penpal_id,
-        "user_id": user_id,
-    }
-    response = test_client.put("/letter/2", json=data)
-    assert response.status_code == 400
+# def test_update_letter_user_doesnt_exist(test_client, init_database):
+#     edited_time = time.time()
+#     penpal_id = 1
+#     user_id = 0
+#     data = {
+#         "text": "newlyUpdatedLetter",
+#         "edited_date": edited_time,
+#         "penpal_id": penpal_id,
+#         "user_id": user_id,
+#     }
+#     response = test_client.put("/letter/2", json=data)
+#     assert response.status_code == 400
 
 
 def test_delete_letter(test_client, init_database):
