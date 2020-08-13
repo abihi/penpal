@@ -22,9 +22,9 @@ def test_client():
 def init_database():
     db.create_all()
 
-    country1 = Country(name="chad")
+    country1 = Country(name="1TestCountry")
     db.session.add(country1)
-    country2 = Country(name="Sweden")
+    country2 = Country(name="2TestCountry")
     db.session.add(country2)
 
     db.session.commit()
@@ -42,7 +42,7 @@ def test_get_all_countrys(test_client, init_database):
 def test_get_specific_country(test_client, init_database):
     response = test_client.get("/country/1")
     assert response.status_code == 200
-    assert response.json["name"] == "chad"
+    assert response.json["name"] == "1TestCountry"
 
 
 def test_get_specific_country_with_nonexistent_id(test_client, init_database):

@@ -96,13 +96,15 @@ def add_users(count):
             user = User(
                 username=fake.name(),
                 email=fake.email(),
+                birthdate=fake.unix_time(),
                 country_id=Country.query.order_by(func.random()).first().id,
             )
             user.set_password(fake.text(max_nb_chars=20))
 
             languages = Language.query.order_by(func.random()).limit(randrange(1, 4))
-            user.languages = list(dict.fromkeys(languages))
             interests = Interest.query.order_by(func.random()).limit(randrange(4, 10))
+            # Remove duplicates
+            user.languages = list(dict.fromkeys(languages))
             user.interests = list(dict.fromkeys(interests))
 
             db.session.add(user)

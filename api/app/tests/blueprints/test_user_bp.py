@@ -23,9 +23,9 @@ def test_client():
 def init_database():
     db.create_all()
 
-    country1 = Country(name="Chad")
+    country1 = Country(name="Testina")
     db.session.add(country1)
-    country2 = Country(name="Sweden")
+    country2 = Country(name="Tested states")
     db.session.add(country2)
     country3 = Country(name="Testistan")
     db.session.add(country3)
@@ -33,7 +33,7 @@ def init_database():
 
     user1 = User(
         username="userTester",
-        birthdate="1901-01-01",
+        birthdate="662688000",
         email="userTester@gmail.com",
         country_id="1",
     )
@@ -41,7 +41,7 @@ def init_database():
     db.session.add(user1)
     user2 = User(
         username="userTester2",
-        birthdate="1801-09-09",
+        birthdate="788918400",
         email="userTester2@gmail.com",
         country_id="2",
     )
@@ -64,6 +64,7 @@ def test_get_specific_user(test_client, init_database):
     response = test_client.get("/user/1")
     assert response.status_code == 200
     assert response.json["username"] == "userTester"
+    assert response.json["birthdate"] == 662688000
     assert response.json["email"] == "userTester@gmail.com"
     assert response.json["country"]["id"] == 1
 
@@ -79,14 +80,14 @@ def test_update_all_user_fields(test_client, init_database):
     data = {
         "username": "newUsername",
         "email": "newEmail@gmail.com",
-        "birthdate": "1992-01-01",
+        "birthdate": "694224000",
         "country": "2",
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["username"] == "newUsername"
     assert response.json["email"] == "newEmail@gmail.com"
-    assert response.json["birthdate"] == "1992-01-01"
+    assert response.json["birthdate"] == 694224000
     assert response.json["country"]["id"] == 2
 
 
@@ -111,10 +112,10 @@ def test_update_user_email(test_client, init_database):
 def test_update_user_birthdate(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"birthdate": "1992-06-13"}
+    data = {"birthdate": "708393600"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    assert response.json["birthdate"] == "1992-06-13"
+    assert response.json["birthdate"] == 708393600
 
 
 def test_update_user_country(test_client, init_database):
