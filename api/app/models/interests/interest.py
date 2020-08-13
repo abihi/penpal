@@ -12,8 +12,14 @@ class Interest(db.Model):
         return "<Interest {}>".format(self.activity)
 
     def dict(self):
-        img = self.img is not None ? "https://snigel.s3.eu-north-1.amazonaws.com/interests/" + self.img
-        return dict(id=self.id, activity=self.activity, img=img)
+        img = self.img
+        if self.img is not None:
+            img = "https://snigel.s3.eu-north-1.amazonaws.com/interests/" + self.img
+        return dict(
+            id=self.id,
+            activity=self.activity,
+            img=img,
+        )
 
     @validates("activity")
     def validate_activity(self, key, activity):

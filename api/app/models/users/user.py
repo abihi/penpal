@@ -65,7 +65,7 @@ class User(UserMixin, db.Model):
             username=self.username,
             email=self.email,
             email_verified=self.email_verified,
-            birthdate=self.birthdate.strftime("%Y-%m-%d"),
+            birthdate=self.birthdate,
             country=self.country.dict(),
             interests=interests,
             penpals=penpals,
