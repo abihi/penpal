@@ -11,7 +11,6 @@ from app.blueprints.auth import bp
 
 # models
 from app.models.users.user import User
-from app.models.countries.country import Country
 
 
 @login_manager.user_loader
