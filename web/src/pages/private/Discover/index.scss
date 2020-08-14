@@ -47,6 +47,17 @@
         margin-right: 140px;
         .about-me {
           margin-bottom: 50px;
+          .language-tag {
+            padding: 4px 8px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: -1px -1px 3px hsla(0,0,100%,1), 1px 1px 3px hsla(0,0,0,0.2);;
+            background: $backgroundColor;
+            margin-bottom: 12px;
+            &.active{
+              border: 2px solid $themeRed;
+            }
+          }
         }
         .looking-for {
 

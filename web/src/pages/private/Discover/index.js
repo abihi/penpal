@@ -9,7 +9,7 @@ import LeftPanel from '../../../components/LeftPanel';
 import WorldMap from '../../../helpers/WorldMap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Typography, Tabs, Badge } from 'antd';
+import { Typography, Tabs, Badge, Tag } from 'antd';
 import { GiSnail, GiPathDistance } from 'react-icons/gi';
 import { FaGlobeAfrica } from 'react-icons/fa';
 
@@ -22,7 +22,7 @@ const { Paragraph } = Typography;
 
 
 const responsive = {
-  superLargeDesktop: {    
+  superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
     items: 5,
     partialVisibilityGutter: 30
@@ -52,7 +52,7 @@ class DiscoverPage extends React.Component {
   };
 
   render() {
-    const { recommendationDeck, deckCount } = this.props;
+    const { recommendationDeck, deckCount, currentUser } = this.props;
     const recommendedPenpal = recommendationDeck[deckCount] ? recommendationDeck[deckCount].user : null;
     console.log('recommendedPenpal', recommendedPenpal);
     return (
@@ -78,6 +78,15 @@ class DiscoverPage extends React.Component {
               <div className="about-me">
                 <h4>About Me</h4>
                 <Paragraph ellipsis={{ rows: 5, expandable: true, symbol: 'more' }}>{recommendedPenpal.about}</Paragraph>
+                <p>Languages</p>
+                {
+                  recommendedPenpal.languages.map(language => {
+                    // Check if language is spoken by current user as well
+                    const active = currentUser.languages.includes(l => l.id === language.id);
+                      return(
+                        <Tag key={language.id} className={active ? 'language-tag active' : 'language-tag'}>{language.name}</Tag>
+                      )})
+                }
               </div>
               <div className="looking-for">
                 <h4>Looking For</h4>
