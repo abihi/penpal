@@ -5,24 +5,28 @@ const initialState = {
   users: [],
   countries: [],
   interests: [],
-  recommendation: [],
+  languages: [],
+  recommendations: [],
 };
 
 const country = new schema.Entity('countries');
 const interest = new schema.Entity('interests');
+const language = new schema.Entity('languages');
 
 const user = new schema.Entity('users', {
   country: country,
-  interests: [interest]
+  interests: [interest],
+  languages: [language]
 });
 
-const recommendation = new schema.Entity('recommendation', {
+const recommendation = new schema.Entity('recommendations', {
   user: user
 });
 
 export {
   country,
   interest,
+  language,
   user,
   recommendation
 };
