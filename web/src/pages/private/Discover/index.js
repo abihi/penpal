@@ -82,7 +82,7 @@ class DiscoverPage extends React.Component {
                 {
                   recommendedPenpal.languages.map(language => {
                     // Check if language is spoken by current user as well
-                    const active = currentUser.languages.includes(l => l.id === language.id);
+                    const active = currentUser && currentUser.languages.includes(l => l.id === language.id);
                       return(
                         <Tag key={language.id} className={active ? 'language-tag active' : 'language-tag'}>{language.name}</Tag>
                       )})
