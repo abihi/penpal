@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true;
 class RegistrationModal extends Component {
   state = {
     username: {value: null, valid: false, validating: false},
+    birthdate: {value: null, valid: false, validating: false},
     country: {value: {id: 1, name: 'Afghanistan'}, valid: true, validating: false},
     email: {value: null, valid: false, validating: false},
     password: {value: null, valid: false, validating: false},
@@ -31,10 +32,10 @@ class RegistrationModal extends Component {
 
   handleOk = () => {
     const { registerUser } = this.props;
-    const { username, country, email, password } = this.state;
+    const { username, birthdate, country, email, password } = this.state;
     /* Check that all provided values are valid*/
     if(username.valid && country.valid && email.valid && password.valid) {
-      registerUser(username.value, country.value.id, email.value, password.value);
+      registerUser(username.value, birthdate.balue, country.value.id, email.value, password.value);
     } else {
       console.error("Provided values are not valid");
     }
@@ -78,6 +79,23 @@ class RegistrationModal extends Component {
 
     username.validating = false;
     this.setState({username: username});
+  };
+
+  onBirthdateChange = e => {
+    let birthdate = {...this.state.birthdate};
+
+    birthdate.value = new Date(e.target.value);
+    const now = new Date(Date.now());
+    const maxDate = new Date(now.getFullYear() - 14, now.getMonth(), now.getDay());
+    const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDay());
+    /* Check that age is between 14 years and less than 120 years */
+    if(birthdate.value > minDate && birthdate.value < maxDate) {
+      birthdate.valid = true;
+    } else {
+      birthdate.valid = false;
+    }
+
+    this.setState({birthdate: birthdate});
   };
 
   onCountryChange = e => {
@@ -142,7 +160,13 @@ class RegistrationModal extends Component {
   };
 
   render() {
-    console.log(this.props.countries);
+
+    const now = new Date(Date.now());
+    // YYYY-MM-DD format required for date input min / max boundaries
+    let maxDate = new Date(now.getFullYear() - 14, now.getMonth(), now.getDate());
+    maxDate = `${maxDate.getFullYear()}-${maxDate.getMonth() >= 10 ? maxDate.getMonth() + 1 : `0${maxDate.getMonth() + 1}`}-${maxDate.getDate() >= 10 ? maxDate.getDate() : `0${maxDate.getDate()}`}`;
+    let minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDate());
+    minDate = `${minDate.getFullYear()}-${minDate.getMonth() >= 10 ? minDate.getMonth() + 1 : `0${minDate.getMonth() + 1}`}-${minDate.getDate() >= 10 ? minDate.getDate() : `0${minDate.getDate()}`}`;
 
     return (
       <Modal
@@ -166,6 +190,14 @@ class RegistrationModal extends Component {
               <input className="clean-text-input" onChange={this.onUsernameChange} />
               {!this.state.username.validating && this.state.username.valid ? <CheckCircleOutlined className="input-valid-icon" /> : <InfoCircleOutlined className="input-invalid-icon" />}
               {this.state.username.validating ? <LoadingOutlined className="input-validating-icon" /> : null}
+            </div>
+          </div>
+          <div className="row">
+            <label>Birthdate</label>
+            <div className="input-container">
+              <input className="clean-text-input" type="date" min={minDate} max={maxDate} onChange={this.onBirthdateChange} />
+              {!this.state.birthdate.validating && this.state.birthdate.valid ? <CheckCircleOutlined className="input-valid-icon" /> : <InfoCircleOutlined className="input-invalid-icon" />}
+              {this.state.birthdate.validating ? <LoadingOutlined className="input-validating-icon" /> : null}
             </div>
           </div>
           <div className="row">
@@ -219,7 +251,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hideRegistrationModal: () => dispatch(hideRegistrationModal()),
     getCountries: () => dispatch(getCountries()),
-    registerUser: (username, country_id, email, password) => dispatch(registerUser(username, country_id, email, password)),
+    registerUser: (username, birthdate, country_id, email, password) => dispatch(registerUser(username, birthdate, country_id, email, password)),
   };
 };
 
