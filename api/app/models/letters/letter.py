@@ -9,7 +9,7 @@ class Letter(db.Model):
     __tablename__ = "letters"
     id = db.Column("id", db.Integer, primary_key=True)
     text = db.Column("text", db.String(1256))
-    # date stored as integer value of epoch time in milliseconds
+    # date stored as integer value of epoch time in seconds
     sent_date = db.Column("sent_date", db.Integer)
     edited_date = db.Column("edited_date", db.Integer)
     penpal_id = db.Column(db.Integer, db.ForeignKey("penpals.id"), nullable=False)
