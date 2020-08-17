@@ -55,6 +55,7 @@ def test_register_user(test_client, init_database):
     assert response.json["user"]["username"] == "newUser"
     assert response.json["user"]["email"] == "newUser@gmail.com"
     assert response.json["user"]["birthdate"] == "1992-01-01"
+    assert response.json["user"]["country"]["id"] == 1
     # Logout the recently registred user
     response = test_client.get("/auth/logout")
 

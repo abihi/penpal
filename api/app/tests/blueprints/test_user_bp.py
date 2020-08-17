@@ -1,6 +1,6 @@
 import pytest
 
-from app import create_app, db
+from app import create_app, db, fake
 from app.models.users.user import User
 from app.models.countries.country import Country
 from config import TestingConfig
@@ -77,11 +77,13 @@ def test_get_specific_user_with_nonexistent_id(test_client, init_database):
 def test_update_all_user_fields(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
+    about_me_text = fake.text(200)
     data = {
         "username": "newUsername",
         "email": "newEmail@gmail.com",
         "birthdate": "1973-01-01",
-        "country": "2",
+        "country_id": "2",
+        "about_me": about_me_text,
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
@@ -89,6 +91,7 @@ def test_update_all_user_fields(test_client, init_database):
     assert response.json["email"] == "newEmail@gmail.com"
     assert response.json["birthdate"] == "1973-01-01"
     assert response.json["country"]["id"] == 2
+    assert response.json["about_me"] == about_me_text
 
 
 def test_update_user_username(test_client, init_database):
@@ -121,26 +124,54 @@ def test_update_user_birthdate(test_client, init_database):
 def test_update_user_country(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"country": "3"}
+    data = {"country_id": "3"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["country"]["id"] == 3
 
 
+def test_update_user_onboarded_to_true(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"onboarded": "True"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["onboarded"] is True
+
+
+def test_update_user_onboarded_to_false(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"onboarded": "False"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["onboarded"] is False
+
+
+def test_update_user_about_me(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    about_me_text = fake.text(400)
+    data = {"about_me": about_me_text}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["about_me"] == about_me_text
+
+
 def test_update_user_nonexistant_id(test_client, init_database):
-    data = {"username": "newUsername", "email": "newEmail@gmail.com", "country": "12"}
+    data = {
+        "username": "newUsername",
+        "email": "newEmail@gmail.com",
+        "country_id": "12",
+    }
     response = test_client.put("/user/100", json=data)
     assert response.status_code == 404
 
 
 def test_update_user_username_exists(test_client, init_database):
-    user = User.query.all()[0]
-    url = "/user/" + str(user.id)
-    data = {
-        "username": user.username,
-        "email": "newEmailDontexists@gmail.com",
-        "country": "12",
-    }
+    users = User.query.all()
+    url = "/user/" + str(users[0].id)
+    data = {"username": users[1].username}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 
@@ -148,15 +179,15 @@ def test_update_user_username_exists(test_client, init_database):
 def test_update_user_username_is_empty(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"username": "", "email": "newEmailDontexists@gmail.com", "country": "12"}
+    data = {"username": ""}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 
 
 def test_update_user_email_exists(test_client, init_database):
-    user = User.query.all()[0]
-    url = "/user/" + str(user.id)
-    data = {"username": "UsernameDontExist", "email": user.email, "country": "12"}
+    users = User.query.all()
+    url = "/user/" + str(users[0].id)
+    data = {"email": users[1].email}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 
@@ -164,7 +195,7 @@ def test_update_user_email_exists(test_client, init_database):
 def test_update_user_email_is_empty(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"username": "UsernameDontExist", "email": "", "country": "12"}
+    data = {"email": ""}
     response = test_client.put(url, json=data)
     assert response.status_code == 400
 

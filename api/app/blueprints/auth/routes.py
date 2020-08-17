@@ -64,12 +64,8 @@ def logout():
 def register():
     body = request.get_json()
     try:
-        user = User(
-            username=body["username"],
-            email=body["email"],
-            birthdate=body["birthdate"],
-            country_id=body["country_id"],
-        )
+        user = User()
+        user.from_dict(body)
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     try:

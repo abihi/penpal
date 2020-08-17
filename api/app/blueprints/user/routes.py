@@ -31,15 +31,9 @@ def update_user(_id):
     user = User.query.get(_id)
     if user is None:
         return make_response("User with id={id} not found".format(id=_id), 404)
+    body = request.get_json()
     try:
-        if "username" in request.json:
-            user.username = request.json["username"]
-        if "email" in request.json:
-            user.email = request.json["email"]
-        if "birthdate" in request.json:
-            user.birthdate = request.json["birthdate"]
-        if "country" in request.json:
-            user.country_id = request.json["country"]
+        user.from_dict(body)
         db.session.commit()
         return make_response(jsonify(user.dict()), 200)
     except AssertionError as exception_message:

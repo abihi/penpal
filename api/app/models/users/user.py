@@ -30,7 +30,6 @@ class User(UserMixin, db.Model):
     birthdate = db.Column("birthdate", db.Date)
     email_verified = db.Column("email_verified", db.Boolean, default=False)
     password_hash = db.Column("password_hash", db.String(128))
-    # Api call to change onboarded
     onboarded = db.Column("onboarded", db.Boolean, default=False)
     about_me = db.Column("about_me", db.String(500))
     # 1-to-m relationship between country and user. The users can also be back
@@ -60,24 +59,31 @@ class User(UserMixin, db.Model):
         backref=db.backref("users", lazy=True),
     )
 
+    def __repr__(self):
+        return "<User {}>".format(self.username)
+
     def dict(self):
         interests = [i.dict() for i in self.interests]
         penpals = [p.dict() for p in self.penpals]
         languages = [lang.dict() for lang in self.languages]
+        formated_birthdate = self.birthdate.strftime("%Y-%m-%d")
         return dict(
             id=self.id,
             username=self.username,
             email=self.email,
             email_verified=self.email_verified,
-            birthdate=self.birthdate,
+            birthdate=formated_birthdate,
+            onboarded=self.onboarded,
+            about_me=self.about_me,
             country=self.country.dict(),
             interests=interests,
             penpals=penpals,
             languages=languages,
         )
 
-    def __repr__(self):
-        return "<User {}>".format(self.username)
+    def from_dict(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
 
     def set_password(self, password):
         if not password:
@@ -112,6 +118,12 @@ class User(UserMixin, db.Model):
         if not birthdate:
             raise AssertionError("No birthdate provided")
         return datetime.strptime(birthdate, "%Y-%m-%d").date()
+
+    @validates("onboarded")
+    def validate_onboarded(self, key, onboarded):
+        if onboarded == "True":
+            return True
+        return False
 
     @validates("email")
     def validate_email(self, key, email):
