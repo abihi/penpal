@@ -46,7 +46,7 @@ def test_register_user(test_client, init_database):
     data = {
         "username": "newUser",
         "email": "newUser@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -54,7 +54,7 @@ def test_register_user(test_client, init_database):
     assert response.status_code == 201
     assert response.json["user"]["username"] == "newUser"
     assert response.json["user"]["email"] == "newUser@gmail.com"
-    assert response.json["user"]["birthdate"] == 1514764800
+    assert response.json["user"]["birthdate"] == "1992-01-01"
     # Logout the recently registred user
     response = test_client.get("/auth/logout")
 
@@ -64,7 +64,7 @@ def test_register_user_where_username_already_exists(test_client, init_database)
     data = {
         "username": user.username,
         "email": "newUserpassowrd@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -77,7 +77,7 @@ def test_register_user_where_email_already_exists(test_client, init_database):
     data = {
         "username": "newUsernameEmail",
         "email": user.email,
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -89,7 +89,7 @@ def test_register_user_where_email_is_invalid(test_client, init_database):
     data = {
         "username": "newUsernameEmail",
         "email": "email.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -101,7 +101,7 @@ def test_register_user_where_email_is_not_provided(test_client, init_database):
     data = {
         "username": "newUsernameEmail",
         "email": "",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -113,7 +113,7 @@ def test_register_user_where_email_has_invalid_domain(test_client, init_database
     data = {
         "username": "newUsernameEmail",
         "email": "email@bihiii.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "1",
     }
@@ -125,7 +125,7 @@ def test_register_user_with_too_short_password(test_client, init_database):
     data = {
         "username": "newUserpassword",
         "email": "newUserpassowrd@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "test",
         "country_id": "1",
     }
@@ -137,7 +137,7 @@ def test_register_user_with_missing_password(test_client, init_database):
     data = {
         "username": "newUserpassword",
         "email": "newUserpassowrd@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "",
         "country_id": "1",
     }
@@ -149,7 +149,7 @@ def test_register_user_with_invalid_country_id(test_client, init_database):
     data = {
         "username": "newUserpassword",
         "email": "newUserpassowrd@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "3000",
     }
@@ -173,7 +173,7 @@ def test_register_user_with_missing_country_id(test_client, init_database):
     data = {
         "username": "newUserpassword",
         "email": "newUserpassowrd@gmail.com",
-        "birthdate": "1514764800",
+        "birthdate": "1992-01-01",
         "password": "testPassword",
         "country_id": "",
     }
