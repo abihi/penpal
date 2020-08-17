@@ -96,7 +96,7 @@ def add_users(count):
             user = User(
                 username=fake.name(),
                 email=fake.email(),
-                birthdate=fake.unix_time(),
+                birthdate=fake.date(),
                 country_id=Country.query.order_by(func.random()).first().id,
             )
             user.set_password(fake.text(max_nb_chars=20))

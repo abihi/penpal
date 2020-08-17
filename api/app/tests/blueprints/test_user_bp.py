@@ -33,7 +33,7 @@ def init_database():
 
     user1 = User(
         username="userTester",
-        birthdate="662688000",
+        birthdate="1990-03-13",
         email="userTester@gmail.com",
         country_id="1",
     )
@@ -41,7 +41,7 @@ def init_database():
     db.session.add(user1)
     user2 = User(
         username="userTester2",
-        birthdate="788918400",
+        birthdate="1998-06-22",
         email="userTester2@gmail.com",
         country_id="2",
     )
@@ -64,7 +64,7 @@ def test_get_specific_user(test_client, init_database):
     response = test_client.get("/user/1")
     assert response.status_code == 200
     assert response.json["username"] == "userTester"
-    assert response.json["birthdate"] == 662688000
+    assert response.json["birthdate"] == "1990-03-13"
     assert response.json["email"] == "userTester@gmail.com"
     assert response.json["country"]["id"] == 1
 
@@ -80,14 +80,14 @@ def test_update_all_user_fields(test_client, init_database):
     data = {
         "username": "newUsername",
         "email": "newEmail@gmail.com",
-        "birthdate": "694224000",
+        "birthdate": "1973-01-01",
         "country": "2",
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["username"] == "newUsername"
     assert response.json["email"] == "newEmail@gmail.com"
-    assert response.json["birthdate"] == 694224000
+    assert response.json["birthdate"] == "1973-01-01"
     assert response.json["country"]["id"] == 2
 
 
@@ -112,10 +112,10 @@ def test_update_user_email(test_client, init_database):
 def test_update_user_birthdate(test_client, init_database):
     user = User.query.all()[0]
     url = "/user/" + str(user.id)
-    data = {"birthdate": "708393600"}
+    data = {"birthdate": "1986-01-01"}
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    assert response.json["birthdate"] == 708393600
+    assert response.json["birthdate"] == "1986-01-01"
 
 
 def test_update_user_country(test_client, init_database):

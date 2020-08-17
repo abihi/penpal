@@ -1,5 +1,7 @@
 import validators
 
+from datetime import datetime
+
 from flask_login import UserMixin
 from sqlalchemy.orm import validates
 from email_validator import validate_email, EmailNotValidError
@@ -25,10 +27,12 @@ class User(UserMixin, db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column("username", db.String(64), index=True, unique=True)
     email = db.Column("email", db.String(120), index=True, unique=True)
-    # birthdate stored as integer value of epoch time in milliseconds
-    birthdate = db.Column("birthdate", db.Integer)
+    birthdate = db.Column("birthdate", db.Date)
     email_verified = db.Column("email_verified", db.Boolean, default=False)
     password_hash = db.Column("password_hash", db.String(128))
+    # Api call to change onboarded
+    onboarded = db.Column("onboarded", db.Boolean, default=False)
+    about_me = db.Column("about_me", db.String(500))
     # 1-to-m relationship between country and user. The users can also be back
     # referenced as 'country.residents' and 'country.nationals'.
     country_id = db.Column(
@@ -107,7 +111,7 @@ class User(UserMixin, db.Model):
     def validate_birthdate(self, key, birthdate):
         if not birthdate:
             raise AssertionError("No birthdate provided")
-        return birthdate
+        return datetime.strptime(birthdate, "%Y-%m-%d").date()
 
     @validates("email")
     def validate_email(self, key, email):
