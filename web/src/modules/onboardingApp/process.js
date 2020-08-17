@@ -1,7 +1,7 @@
 export const CHANGE_ONBOARDING_STEP = 'process/CHANGE_ONBOARDING_STEP';
 
 const initialState = {
-  step: 0,
+  currentStep: 0,
 };
 
 
@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     {
       return {
         ...state,
-        step: action.payload
+        currentStep: action.payload
       };
     }
     default:
