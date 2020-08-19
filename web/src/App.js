@@ -22,9 +22,9 @@ class App extends Component {
     return (
       <div className="app">
         {mode === 'initial' ? <div className="filler"><Spin size="large" /></div> : null}
-        {false && mode.currentMode === 'public' ? <PublicApp /> : null }
-        {false && mode.currentMode === 'private' ? <PrivateApp /> : null }
-        {true ? <OnboardingApp /> : null }
+        {mode.currentMode === 'public' ? <PublicApp /> : null }
+        {mode.currentMode === 'private' ? <PrivateApp /> : null }
+        {mode.currentMode === 'onboarding' ? <OnboardingApp /> : null }
       </div>
     );
   }

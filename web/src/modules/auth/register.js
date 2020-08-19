@@ -46,8 +46,6 @@ export default (state = initialState, action) => {
 export const registerUser = (username = '', birthdate='', country_id='', email='', password='') => {
   return async(dispatch) => {
     dispatch({type: USER_REGISTER_INIT});
-    // FIX: supposed to be actual birthdate
-    birthdate = 713908822;
     try {
       // wait for HTTP request and state change
       await axios.post('/auth/register', {username, birthdate, country_id, email, password});

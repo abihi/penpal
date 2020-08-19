@@ -35,7 +35,7 @@ class RegistrationModal extends Component {
     const { username, birthdate, country, email, password } = this.state;
     /* Check that all provided values are valid*/
     if(username.valid && country.valid && email.valid && password.valid) {
-      registerUser(username.value, birthdate.balue, country.value.id, email.value, password.value);
+      registerUser(username.value, birthdate.value, country.value.id, email.value, password.value);
     } else {
       console.error("Provided values are not valid");
     }
@@ -84,10 +84,12 @@ class RegistrationModal extends Component {
   onBirthdateChange = e => {
     let birthdate = {...this.state.birthdate};
 
-    birthdate.value = new Date(e.target.value);
+    birthdate.value = e.target.value;
     const now = new Date(Date.now());
     const maxDate = new Date(now.getFullYear() - 14, now.getMonth(), now.getDay());
     const minDate = new Date(now.getFullYear() - 120, now.getMonth(), now.getDay());
+    const chosenDate = new Date(e.target.value);
+    console.log(birthdate.value);
     /* Check that age is between 14 years and less than 120 years */
     if(birthdate.value > minDate && birthdate.value < maxDate) {
       birthdate.valid = true;

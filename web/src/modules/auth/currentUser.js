@@ -65,7 +65,7 @@ export const authenticateUser = () => {
     dispatch({type: FETCH_USER_CREDENTIALS});
     try {
       const result = await axios.get('/auth');
-      
+
       /* get user object if user is not anonymous */
       if (!result.data.is_anonymous) {
           await dispatch(getUser(result.data.current_user));
