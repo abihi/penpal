@@ -43,6 +43,7 @@ from app.blueprints.letter import bp as letter_bp
 from app.blueprints.penpal import bp as penpal_bp
 from app.blueprints.language import bp as language_bp
 from app.blueprints.interest import bp as interest_bp
+from app.blueprints.preference import bp as preference_bp
 from app.blueprints.recommendation import bp as recommendation_bp
 from app.blueprints.seed import bp as seed_bp
 
@@ -55,6 +56,7 @@ def register_blueprints(app):
     app.register_blueprint(penpal_bp, url_prefix="/penpal")
     app.register_blueprint(language_bp, url_prefix="/language")
     app.register_blueprint(interest_bp, url_prefix="/interest")
+    app.register_blueprint(preference_bp, url_prefix="/preference")
     app.register_blueprint(recommendation_bp, url_prefix="/recommendation")
     app.register_blueprint(seed_bp)
 
