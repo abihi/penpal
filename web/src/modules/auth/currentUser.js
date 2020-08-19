@@ -1,6 +1,7 @@
 import {switchAppMode} from '../mode';
 import {getUser} from '../users/get';
-
+import {denormalize} from 'normalizr';
+import {user} from '../../modules/entities';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
@@ -61,17 +62,13 @@ export default (state = initialState, action) => {
 };
 
 export const authenticateUser = () => {
-  return async(dispatch) => {
+  return async(dispatch, getState) => {
     dispatch({type: FETCH_USER_CREDENTIALS});
     try {
+      // Back end only returns id of current user
       const result = await axios.get('/auth');
 
-      /* get user object if user is not anonymous */
-      if (!result.data.is_anonymous) {
-          await dispatch(getUser(result.data.current_user));
-      }
-
-
+      // Store auth details and current user id in state
       dispatch({
         type: FETCH_USER_CREDENTIALS_SUCCESS,
         currentUser: result.data.current_user,
@@ -80,14 +77,31 @@ export const authenticateUser = () => {
         isAuthenticated: result.data.is_authenticated
         });
 
+      // Early exit function if user is anonomyous
+      if(result.data.is_anonymous)
+        return;
+
+      // Get user object if since user is not anonymous
+      // getUser function normalizes the user before storing its data
+      await dispatch(getUser(result.data.current_user));
+
+      // Access the store and denormalize the currentUser from stored entities
+      const store = getState();
+      const currentUser = denormalize(store.auth.currentUser, user, store.entities);
+
+      const CURRENT_USER_IS_ANONYMOUS = result.data.is_anonymous;
+      const CURRENT_USER_IS_AUTHENTICATED = result.data.is_authenticated;
+      const CURRENT_USER_IS_ONBOARDED = currentUser.onboarded;
+
+
 
       // Set the current application mode
       // depending on user status
-      if(result.data.is_anonymous) {
+      if(CURRENT_USER_IS_ANONYMOUS) {
         dispatch(switchAppMode('public'));
-      } else if (result.data.current_user.onboarded === false) {
+      } else if (!CURRENT_USER_IS_ONBOARDED) {
         dispatch(switchAppMode('onboarding'));
-      } else if (result.data.is_authenticated) {
+      } else if (CURRENT_USER_IS_AUTHENTICATED) {
         dispatch(switchAppMode('private'));
       }
 
