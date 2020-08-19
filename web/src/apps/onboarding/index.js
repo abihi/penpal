@@ -3,6 +3,7 @@ import './index.scss';
 import {connect} from 'react-redux';
 import {denormalize} from 'normalizr';
 import {user} from '../../modules/entities';
+import InterestDiscovery from './interestDiscovery';
 import {changeOnboardingStep} from '../../modules/onboardingApp/process'
 import {Steps, Modal, Carousel, Avatar, Button, message} from 'antd';
 
@@ -32,7 +33,9 @@ class OnboardingApp extends Component {
 
     return (
       <div className="onboarding-app">
-        <p>ONBOARDING</p>
+      {
+        this.props.currentStep === 0 ? <InterestDiscovery /> : null
+      }
         <Modal
           className="intro-modal"
           visible={this.state.showIntro}
