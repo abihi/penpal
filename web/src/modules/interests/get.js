@@ -85,3 +85,21 @@ export const getInterests = (idList=[]) => {
     }
   };
 };
+
+export const getAllInterests = () => {
+  return async(dispatch) => {
+    dispatch({type: FETCH_INTERESTS});
+    try {
+      const result = await axios.get('/interest');
+
+      dispatch({
+        type: FETCH_INTERESTS_SUCCESS,
+        payload: normalize(result.data, [interest]),
+        });
+
+    } catch (error) {
+      dispatch({type: FETCH_INTERESTS_FAIL, payload: error});
+      console.error(error);
+    }
+  };
+};
