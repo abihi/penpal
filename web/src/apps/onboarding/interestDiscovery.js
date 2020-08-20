@@ -25,9 +25,13 @@ class InterestDiscovery extends Component {
               <div className="card-container">
                 <div className="neumorphic-card" key={interest.id}>
                   <img src={interest.img} className="neumorphic-card-image" />
+                  {
+                    this.props.currentUser && this.props.currentUser.interests && this.props.currentUser.interests.find(userInterest => userInterest.id === interest.id)
+                    ? <div className="liked-overlay"><AiFillHeart className="like-icon" /></div> : null
+                  }
                 </div>
                 <div className="card-details">
-                  <Text className="card-title">{interest.activity}</Text>
+                  <Text ellipsis={true} className="card-title">{interest.activity}</Text>
                   <div className="icon-container">
                   <AiFillHeart className="like-icon" />
                   </div>

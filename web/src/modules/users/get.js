@@ -3,9 +3,9 @@ import {user} from '../entities';
 const axios = require('axios');
 axios.defaults.withCredentials = true;
 
-export const FETCH_USER_INIT = 'fetchUser/FETCH_USER_INIT';
-export const FETCH_USER_SUCCESS = 'fetchUser/FETCH_USER_SUCCESS';
-export const FETCH_USER_FAIL = 'fetchUser/FETCH_USER_FAIL';
+export const FETCH_USER_INIT = 'get/FETCH_USER_INIT';
+export const FETCH_USER_SUCCESS = 'get/FETCH_USER_SUCCESS';
+export const FETCH_USER_FAIL = 'get/FETCH_USER_FAIL';
 
 
 const initialState = {
