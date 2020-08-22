@@ -37,6 +37,7 @@
         }
       }
       .card-details {
+        width: calc(100% - 16px);
         display: flex;
         padding: 0 16px;
         .card-title {
