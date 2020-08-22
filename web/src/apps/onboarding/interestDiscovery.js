@@ -22,7 +22,7 @@ class InterestDiscovery extends Component {
         {
           this.props.interests.map(interest => {
             return (
-              <div className="card-container">
+              <div key={interest.id} className="card-container">
                 <div className="neumorphic-card" key={interest.id}>
                   <img src={interest.img} className="neumorphic-card-image" />
                   {
