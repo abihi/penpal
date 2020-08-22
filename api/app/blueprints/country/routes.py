@@ -1,64 +1,46 @@
-from flask import jsonify, request, make_response
-from sqlalchemy import exc
+from flask import jsonify, make_response
 
-# app dependencies
-from app import db
+from app.crud import country
 from app.blueprints.country import bp
-
-# models
-from app.models.countries.country import Country
+from app.schemas.country import country_schema, countries_schema
 
 
 @bp.route("/", methods=["GET"])
 def get_countries():
-    countries = Country.query.all()
-    countries_list = list()
-    for country in countries:
-        countries_list.append(country.dict())
-    countries_json = jsonify(countries_list)
-    return countries_json, 200
+    countries = country.read_countries()
+    return jsonify(countries_schema.dump(countries))
 
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_country(_id):
-    country = Country.query.get(_id)
-    if country is None:
+    _country = country.read_country(_id)
+    if _country is None:
         return "Country with id={id} not found".format(id=_id), 404
-    return make_response(jsonify(country.dict()), 200)
+    return country_schema.dump(_country)
 
 
 @bp.route("", methods=["POST"])
-def create_country():
+def post_country():
     try:
-        country = Country(name=request.json.get("name"))
+        _country = country.create_country()
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    db.session.add(country)
-    db.session.commit()
-    return make_response(jsonify(country.dict()), 201)
+    return country_schema.dump(_country)
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
-def update_country(_id):
-    country = Country.query.get(_id)
-    if country is None:
-        return "Country with id={id} not found".format(id=_id), 404
+def put_country(_id):
     try:
-        country.name = request.json.get("name", country.dict()["name"])
-        db.session.commit()
-        return make_response(jsonify(country.dict()), 200)
+        _country = country.update_country(_id)
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return country_schema.dump(_country)
 
 
 @bp.route("/<int:_id>", methods=["DELETE"])
 def delete_country(_id):
     try:
-        country = Country.query.get(_id)
-        if country is None:
-            return make_response("Country with id={id} not found".format(id=_id), 404)
-        db.session.delete(country)
-        db.session.commit()
-    except exc.SQLAlchemyError as exception_message:
-        make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+        country.delete_country(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204
