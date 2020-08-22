@@ -29,7 +29,8 @@ jobs:
             cd api
             source venv/bin/activate
             flake8 --statistics
-            python -m pytest -v --cov=app
+            coverage run --source=app -m pytest -v
+            coverage report -m
 
 workflows:
   main:
