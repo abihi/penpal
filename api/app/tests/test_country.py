@@ -53,7 +53,7 @@ def test_get_specific_country_with_nonexistent_id(test_client, init_database):
 def test_create_country(test_client, init_database):
     data = {"name": "newlyCreatedCountry"}
     response = test_client.post("/country", json=data)
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json["name"] == "newlyCreatedCountry"
 
 

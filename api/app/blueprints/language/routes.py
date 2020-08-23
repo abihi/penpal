@@ -1,65 +1,46 @@
-from flask import jsonify, request, make_response
-from sqlalchemy import exc
+from flask import jsonify, make_response
 
-# app dependencies
-from app import db
+from app.crud import language
 from app.blueprints.language import bp
-
-# models
-from app.models.languages.language import Language
+from app.schemas.language import language_schema, languages_schema
 
 
 @bp.route("/", methods=["GET"])
 def get_languages():
-    languages = Language.query.all()
-    languages_list = list()
-    for language in languages:
-        languages_list.append(language.dict())
-    languages_json = jsonify(languages_list)
-    return languages_json, 200
+    languages = language.read_languages()
+    return jsonify(languages_schema.dump(languages))
 
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_language(_id):
-    language = Language.query.get(_id)
-    if language is None:
-        return "Language with id={id} not found".format(id=_id), 404
-    language_json = jsonify(language.dict())
-    return language_json, 200
+    _language = language.read_language(_id)
+    if _language is None:
+        return "Country with id={id} not found".format(id=_id), 404
+    return language_schema.dump(_language)
 
 
 @bp.route("", methods=["POST"])
-def create_language():
+def post_language():
     try:
-        language = Language(name=request.json.get("name"))
+        _language = language.create_language()
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    db.session.add(language)
-    db.session.commit()
-    return make_response(jsonify(language.dict()), 201)
+    return language_schema.dump(_language), 201
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
-def update_language(_id):
-    language = Language.query.get(_id)
-    if language is None:
-        return "Language with id={id} not found".format(id=_id), 404
+def put_language(_id):
     try:
-        language.name = request.json.get("name", language.dict()["name"])
-        db.session.commit()
-        return make_response(jsonify(language.dict()), 200)
+        _language = language.update_language(_id)
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return language_schema.dump(_language)
 
 
 @bp.route("/<int:_id>", methods=["DELETE"])
 def delete_language(_id):
     try:
-        language = Language.query.get(_id)
-        if language is None:
-            return make_response("Language with id={id} not found".format(id=_id), 404)
-        db.session.delete(language)
-        db.session.commit()
-    except exc.SQLAlchemyError as exception_message:
-        make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+        language.delete_language(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204

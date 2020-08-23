@@ -25,7 +25,7 @@ def post_country():
         _country = country.create_country()
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    return country_schema.dump(_country)
+    return country_schema.dump(_country), 201
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
