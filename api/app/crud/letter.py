@@ -40,9 +40,8 @@ def update_letter(_id):
     letter = Letter.query.get(_id)
     if letter is None:
         raise AssertionError("Letter with id={id} not found".format(id=_id))
-    if "text" in request.json:
-        letter.text = request.json["text"]
-        letter.edited_date = time.time()
+    letter.from_dict(request.get_json())
+    letter.edited_date = time.time()
     db.session.commit()
     return letter
 

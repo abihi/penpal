@@ -1,10 +1,8 @@
 from flask import jsonify
 from sqlalchemy import func
 
-# app dependencies
 from app.blueprints.recommendation import bp
 
-# models
 from app.models.users.user import User
 from app.models.interests.interest import Interest
 

@@ -30,6 +30,10 @@ class Letter(db.Model):
             user_id=self.user_id,
         )
 
+    def from_dict(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
+
     @validates("text")
     def validate_text(self, key, text):
         if not text:

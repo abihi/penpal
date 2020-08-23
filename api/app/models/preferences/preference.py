@@ -24,25 +24,22 @@ class Preference(db.Model):
         backref=db.backref("preferences", lazy=True),
     )
 
+    def __repr__(self):
+        return "<Preference {}>".format(self.username)
 
-def __repr__(self):
-    return "<Preference {}>".format(self.username)
+    def dict(self):
+        languages = [lang.dict() for lang in self.preferred_languages]
+        return dict(
+            id=self.id,
+            gender=self.gender,
+            looking_for=self.looking_for,
+            connection_type=self.connection_type,
+            communiction_type=self.communication_type,
+            interest_type=self.interest_type,
+            language_preference=self.language_preference,
+            preferred_languages=languages,
+        )
 
-
-def dict(self):
-    languages = [lang.dict() for lang in self.preferred_languages]
-    return dict(
-        id=self.id,
-        gender=self.gender,
-        looking_for=self.looking_for,
-        connection_type=self.connection_type,
-        communiction_type=self.communication_type,
-        interest_type=self.interest_type,
-        language_preference=self.language_preference,
-        preferred_languages=languages,
-    )
-
-
-def from_dict(self, data):
-    for key, value in data.items():
-        setattr(self, key, value)
+    def from_dict(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)

@@ -1,60 +1,42 @@
-import time
-
-from flask import jsonify, request, make_response
+from flask import jsonify, make_response
 from sqlalchemy import exc
-
-# app dependencies
-from app import db
 from app.blueprints.preference import bp
 
-# models
-from app.models.preferences.preference import Preference
+from app.crud import preference
+from app.schemas.preference import preference_schema
 
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_preference(_id):
-    preference = Preference.query.get(_id)
-    if preference is None:
-        return "Preference with id={id} not found".format(id=_id), 404
-    preference_json = jsonify(preference.dict())
-    return preference_json, 200
+    try:
+        _preference = preference.read_preference(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return preference_schema.dump(_preference)
 
 
 @bp.route("", methods=["POST"])
-def create_preference():
-    preference = Preference(created_date=time.time())
+def post_preference():
     try:
-        db.session.add(preference)
-        db.session.commit()
+        _preference = preference.create_preference()
     except exc.SQLAlchemyError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    return "Preference with id={id} created".format(id=preference.id), 201
+    return preference_schema.dump(_preference)
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
-def update_preference(_id):
-    preference = Preference.query.get(_id)
-    if preference is None:
-        return make_response("Preference with id={id} not found".format(id=_id), 404)
-    body = request.get_json()
+def put_preference(_id):
     try:
-        preference.from_dict(body)
-        db.session.commit()
-        return make_response(jsonify(preference.dict()), 200)
+        _preference = preference.update_preference(_id)
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return preference_schema.dump(_preference)
 
 
 @bp.route("/<int:_id>", methods=["DELETE"])
 def delete_preference(_id):
     try:
-        preference = Preference.query.get(_id)
-        if preference is None:
-            return make_response(
-                "Preference with id={id} not found".format(id=_id), 404
-            )
-        db.session.delete(preference)
-        db.session.commit()
+        preference.delete_preference(_id)
     except exc.SQLAlchemyError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204

@@ -16,7 +16,8 @@ def read_language(_id):
 
 
 def create_language():
-    language = Language(name=request.json.get("name"))
+    language = Language()
+    language.from_dict(request.get_json())
     db.session.add(language)
     db.session.commit()
     return language
@@ -26,7 +27,7 @@ def update_language(_id):
     language = Language.query.get(_id)
     if language is None:
         raise AssertionError("Language with id={id} not found".format(id=_id))
-    language.name = request.json.get("name", language.name)
+    language.from_dict(request.get_json())
     db.session.commit()
     return language
 

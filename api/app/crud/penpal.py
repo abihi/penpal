@@ -27,7 +27,7 @@ def update_penpal(_id):
     penpal = PenPal.query.get(_id)
     if penpal is None:
         raise AssertionError("PenPal with id={id} not found".format(id=_id))
-    penpal.name = request.json.get("name", penpal.name)
+    penpal.from_dict(request.get_json())
     db.session.commit()
     return penpal
 

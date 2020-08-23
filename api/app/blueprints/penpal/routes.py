@@ -1,4 +1,5 @@
 from flask import jsonify, make_response
+from sqlalchemy import exc
 
 from app.crud import penpal
 from app.blueprints.penpal import bp
@@ -24,7 +25,7 @@ def get_penpal(_id):
 def post_penpal():
     try:
         _penpal = penpal.create_penpal()
-    except AssertionError as exception_message:
+    except exc.SQLAlchemyError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return penpal_schema.dump(_penpal), 201
 

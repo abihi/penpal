@@ -81,7 +81,14 @@ def add_interests():
             next(interest_reader)
         for interest in interest_reader:
             try:
-                db.session.add(Interest(activity=interest[0], img=interest[3]))
+                db.session.add(
+                    Interest(
+                        activity=interest[0],
+                        interest_class=interest[1],
+                        interest_type=interest[2],
+                        img=interest[3],
+                    )
+                )
             except AssertionError:
                 pass
     db.session.commit()

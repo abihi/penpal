@@ -16,7 +16,8 @@ def read_interest(_id):
 
 
 def create_interest():
-    interest = Interest(activity=request.json.get("activity"))
+    interest = Interest()
+    interest.from_dict(request.get_json())
     db.session.add(interest)
     db.session.commit()
     return interest
@@ -26,7 +27,7 @@ def update_interest(_id):
     interest = Interest.query.get(_id)
     if interest is None:
         raise AssertionError("Interest with id={id} not found".format(id=_id))
-    interest.activity = request.json.get("activity", interest.activity)
+    interest.from_dict(request.get_json())
     db.session.commit()
     return interest
 

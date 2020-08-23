@@ -13,6 +13,10 @@ class Language(db.Model):
     def dict(self):
         return dict(id=self.id, name=self.name)
 
+    def from_dict(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
+
     @validates("name")
     def validate_name(self, key, name):
         if not name:
