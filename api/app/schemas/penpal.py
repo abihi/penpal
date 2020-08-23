@@ -1,9 +1,11 @@
+from marshmallow import fields
+
 from app import ma
 
 
 class PenPalSchema(ma.Schema):
-    class Meta:
-        fields = ("id", "created_date")
+    id = fields.Integer()
+    created_date = fields.Integer()
 
 
 penpal_schema = PenPalSchema()

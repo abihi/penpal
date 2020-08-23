@@ -1,9 +1,11 @@
+from marshmallow import fields
+
 from app import ma
 
 
 class LanguageSchema(ma.Schema):
-    class Meta:
-        fields = ("id", "name")
+    id = fields.Integer()
+    name = fields.String()
 
 
 language_schema = LanguageSchema()

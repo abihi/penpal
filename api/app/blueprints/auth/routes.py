@@ -4,12 +4,10 @@ from email_validator import validate_email, EmailNotValidError
 from flask import jsonify, request, make_response
 from flask_login import current_user, login_user, logout_user
 
-# app dependencies
-from app import db
 from app import login_manager
 from app.blueprints.auth import bp
 
-# models
+from app.crud.user import create_user
 from app.models.users.user import User
 
 
@@ -62,18 +60,10 @@ def logout():
 
 @bp.route("/register", methods=["POST"])
 def register():
-    body = request.get_json()
     try:
-        user = User()
-        user.from_dict(body)
+        user = create_user()
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    try:
-        user.set_password(body["password"])
-    except AssertionError as exception_message:
-        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    db.session.add(user)
-    db.session.commit()
     data = {
         "msg": "User created sucessfully",
         "user": user.dict(),

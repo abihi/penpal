@@ -173,7 +173,6 @@ def test_update_letter(test_client, init_database):
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
-    print(response.json)
     assert response.json["text"] == "newlyUpdatedLetter"
     assert response.json["edited_date"] == pytest.approx(edited_time, abs=1)
     assert response.json["penpal_id"] == 1

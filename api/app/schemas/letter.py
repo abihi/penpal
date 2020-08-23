@@ -1,9 +1,15 @@
+from marshmallow import fields
+
 from app import ma
 
 
 class LetterSchema(ma.Schema):
-    class Meta:
-        fields = ("id", "text", "sent_date", "edited_date", "penpal_id", "user_id")
+    id = fields.Integer()
+    text = fields.String()
+    sent_date = fields.Integer()
+    edited_date = fields.Integer()
+    penpal_id = fields.Integer()
+    user_id = fields.Integer()
 
 
 letter_schema = LetterSchema()
