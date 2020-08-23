@@ -5,9 +5,11 @@ from flask_login import LoginManager
 from flask_cors import CORS
 from faker import Faker
 from flask import Flask
+from flask_marshmallow import Marshmallow
 
 login_manager = LoginManager()
 db = SQLAlchemy()
+ma = Marshmallow()
 migrate = Migrate()
 # cors settings needs to become more secure
 # this is only temporary solution
@@ -34,6 +36,7 @@ def initialize_extensions(app):
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app, supports_credentials=True)
+    ma.init_app(app)
 
 
 from app.blueprints.auth import bp as auth_bp
