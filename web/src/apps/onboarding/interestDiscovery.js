@@ -70,6 +70,8 @@ class InterestDiscovery extends Component {
         }
         </div>
         <div className="content-container">
+        <h1>What are your interests?</h1>
+        <h2>Like three (or more) interests for others to see</h2>
         <input
           type="text"
           placeholder="Search for your interests"

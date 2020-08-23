@@ -57,10 +57,19 @@
     left: 240px;
     width: calc(100% - 240px);
     padding: 20px;
+    overflow: hidden;
+    h1 {
+      color: $themeRed;
+      margin-bottom: 0;
+    }
+    h2 {
+      color: $colorLight;
+    }
     .interest-filter-input {
-      width: calc(100% - 40px);
+      width: calc(100% - 32px);
       margin-bottom: 40px;
       background-color:hsl(0, 0, 92);
+      margin: 14px 0;
       &:hover, &:focus, &:active {
         background-color: white;
         box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
@@ -68,11 +77,17 @@
       }
     }
     .neumorphic-card-grid {
+      position: relative;
+      /* left and margin-left are provided to hide scroll bar*/
+      left: 34px;
+      margin-left: -34px;
       display: flex;
       margin: 0 auto;
       flex-flow: row wrap;
       align-content: space-between;
       justify-content: space-between;
+      height: calc(100vh - 196px);
+      overflow-y: scroll;
       .card-container {
         margin-bottom: 26px;
         .neumorphic-card {
