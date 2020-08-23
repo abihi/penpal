@@ -88,7 +88,7 @@ def test_get_all_letters_from_penpal(test_client, init_database):
 
 def test_get_all_letters_from_penpal_non_existant_penpal_id(test_client, init_database):
     response = test_client.get("/letter/penpal/100")
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_get_specific_letter(test_client, init_database):
@@ -100,8 +100,8 @@ def test_get_specific_letter(test_client, init_database):
 
 
 def test_get_specific_letter_with_nonexistent_id(test_client, init_database):
-    response = test_client.get("/letter/100")
-    assert response.status_code == 404
+    response = test_client.get("/letter/1000")
+    assert response.status_code == 400
 
 
 def test_create_letter(test_client, init_database):
@@ -173,6 +173,7 @@ def test_update_letter(test_client, init_database):
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
+    print(response.json)
     assert response.json["text"] == "newlyUpdatedLetter"
     assert response.json["edited_date"] == pytest.approx(edited_time, abs=1)
     assert response.json["penpal_id"] == 1
@@ -190,7 +191,7 @@ def test_update_letter_with_nonexistant_id(test_client, init_database):
         "user_id": user_id,
     }
     response = test_client.put("/letter/100", json=data)
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 # def test_update_letter_penpal_doesnt_exist(test_client, init_database):
@@ -233,5 +234,5 @@ def test_delete_nonexistent_letter(test_client, init_database):
     letter_id = 100
     url = "/letter/" + str(letter_id)
     response = test_client.delete(url)
-    assert response.status_code == 404
+    assert response.status_code == 400
     assert Letter.query.get(letter_id) is None

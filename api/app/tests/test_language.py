@@ -47,7 +47,7 @@ def test_get_specific_language(test_client, init_database):
 
 def test_get_specific_language_with_nonexistent_id(test_client, init_database):
     response = test_client.get("/language/100")
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_create_language(test_client, init_database):
@@ -75,7 +75,7 @@ def test_update_language_name(test_client, init_database):
 def test_update_language_with_nonexistant_id(test_client, init_database):
     data = {"name": "newLanguage"}
     response = test_client.put("/language/100", json=data)
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_update_language_language_name_exists(test_client, init_database):
@@ -106,5 +106,5 @@ def test_delete_nonexistent_language(test_client, init_database):
     language_id = 100
     url = "/language/" + str(language_id)
     response = test_client.delete(url)
-    assert response.status_code == 404
+    assert response.status_code == 400
     assert Language.query.get(language_id) is None

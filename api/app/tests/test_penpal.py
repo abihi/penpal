@@ -47,7 +47,7 @@ def test_get_specific_penpal(test_client, init_database):
 
 def test_get_specific_penpal_with_nonexistent_id(test_client, init_database):
     response = test_client.get("/penpal/100")
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_create_penpal(test_client, init_database):
@@ -67,5 +67,5 @@ def test_delete_nonexistent_penpal(test_client, init_database):
     penpal_id = 100
     url = "/penpal/" + str(penpal_id)
     response = test_client.delete(url)
-    assert response.status_code == 404
+    assert response.status_code == 400
     assert PenPal.query.get(penpal_id) is None

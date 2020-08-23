@@ -1,54 +1,47 @@
-import time
-
 from flask import jsonify, make_response
-from sqlalchemy import exc
 
-# app dependencies
-from app import db
+from app.crud import penpal
 from app.blueprints.penpal import bp
-
-# models
-from app.models.penpals.penpal import PenPal
+from app.schemas.penpal import penpal_schema, penpals_schema
 
 
 @bp.route("/", methods=["GET"])
 def get_penpals():
-    penpals = PenPal.query.all()
-    penpals_list = list()
-    for penpal in penpals:
-        penpals_list.append(penpal.dict())
-    penpals_json = jsonify(penpals_list)
-    return penpals_json, 200
+    penpals = penpal.read_penpals()
+    return jsonify(penpals_schema.dump(penpals))
 
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_penpal(_id):
-    penpal = PenPal.query.get(_id)
-    if penpal is None:
-        return "Penpal with id={id} not found".format(id=_id), 404
-    penpal_json = jsonify(penpal.dict())
-    return penpal_json, 200
+    try:
+        _penpal = penpal.read_penpal(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return penpal_schema.dump(_penpal)
 
 
 @bp.route("", methods=["POST"])
-def create_penpal():
-    penpal = PenPal(created_date=time.time())
+def post_penpal():
     try:
-        db.session.add(penpal)
-        db.session.commit()
-    except exc.SQLAlchemyError as exception_message:
+        _penpal = penpal.create_penpal()
+    except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    return "Penpal with id={id} created".format(id=penpal.id), 201
+    return penpal_schema.dump(_penpal), 201
+
+
+@bp.route("/<int:_id>", methods=["PUT"])
+def put_penpal(_id):
+    try:
+        _penpal = penpal.update_penpal(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return penpal_schema.dump(_penpal)
 
 
 @bp.route("/<int:_id>", methods=["DELETE"])
 def delete_penpal(_id):
     try:
-        penpal = PenPal.query.get(_id)
-        if penpal is None:
-            return make_response("Pen pal with id={id} not found".format(id=_id), 404)
-        db.session.delete(penpal)
-        db.session.commit()
-    except exc.SQLAlchemyError as exception_message:
+        penpal.delete_penpal(_id)
+    except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204

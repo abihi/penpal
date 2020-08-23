@@ -9,7 +9,10 @@ def read_countries():
 
 
 def read_country(_id):
-    return Country.query.get(_id)
+    country = Country.query.get(_id)
+    if country is None:
+        raise AssertionError("Country with id={id} not found".format(id=_id))
+    return country
 
 
 def create_country():

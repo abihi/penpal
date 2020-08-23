@@ -1,65 +1,47 @@
-from flask import jsonify, request, make_response
-from sqlalchemy import exc
+from flask import jsonify, make_response
 
-# app dependencies
-from app import db
+from app.crud import interest
 from app.blueprints.interest import bp
-
-# models
-from app.models.interests.interest import Interest
+from app.schemas.interest import interest_schema, interests_schema
 
 
 @bp.route("/", methods=["GET"])
 def get_interests():
-    interests = Interest.query.all()
-    interests_list = list()
-    for interest in interests:
-        interests_list.append(interest.dict())
-    interests_json = jsonify(interests_list)
-    return interests_json, 200
+    interests = interest.read_interests()
+    return jsonify(interests_schema.dump(interests))
 
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_interest(_id):
-    interest = Interest.query.get(_id)
-    if interest is None:
-        return "Interest with id={id} not found".format(id=_id), 404
-    interest_json = jsonify(interest.dict())
-    return interest_json, 200
+    try:
+        _interest = interest.read_interest(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return interest_schema.dump(_interest)
 
 
 @bp.route("", methods=["POST"])
-def create_interest():
+def post_interest():
     try:
-        interest = Interest(activity=request.json.get("activity"))
+        _interest = interest.create_interest()
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    db.session.add(interest)
-    db.session.commit()
-    return make_response(jsonify(interest.dict()), 201)
+    return interest_schema.dump(_interest), 201
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
-def update_interest(_id):
-    interest = Interest.query.get(_id)
-    if interest is None:
-        return "Interest with id={id} not found".format(id=_id), 404
+def put_interest(_id):
     try:
-        interest.activity = request.json.get("activity", interest.dict()["activity"])
-        db.session.commit()
-        return make_response(jsonify(interest.dict()), 200)
+        _interest = interest.update_interest(_id)
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return interest_schema.dump(_interest)
 
 
 @bp.route("/<int:_id>", methods=["DELETE"])
 def delete_interest(_id):
     try:
-        interest = Interest.query.get(_id)
-        if interest is None:
-            return make_response("Interest with id={id} not found".format(id=_id), 404)
-        db.session.delete(interest)
-        db.session.commit()
-    except exc.SQLAlchemyError as exception_message:
+        interest.delete_interest(_id)
+    except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204
