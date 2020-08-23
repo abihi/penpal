@@ -13,9 +13,10 @@ def get_interests():
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_interest(_id):
-    _interest = interest.read_interest(_id)
-    if _interest is None:
-        return "Country with id={id} not found".format(id=_id), 404
+    try:
+        _interest = interest.read_interest(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return interest_schema.dump(_interest)
 
 

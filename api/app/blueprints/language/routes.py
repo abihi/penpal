@@ -13,9 +13,10 @@ def get_languages():
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_language(_id):
-    _language = language.read_language(_id)
-    if _language is None:
-        return "Country with id={id} not found".format(id=_id), 404
+    try:
+        _language = language.read_language(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return language_schema.dump(_language)
 
 

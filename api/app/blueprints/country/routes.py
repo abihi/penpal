@@ -13,9 +13,10 @@ def get_countries():
 
 @bp.route("/<int:_id>", methods=["GET"])
 def get_country(_id):
-    _country = country.read_country(_id)
-    if _country is None:
-        return "Country with id={id} not found".format(id=_id), 404
+    try:
+        _country = country.read_country(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return country_schema.dump(_country)
 
 

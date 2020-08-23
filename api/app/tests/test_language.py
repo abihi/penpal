@@ -47,7 +47,7 @@ def test_get_specific_language(test_client, init_database):
 
 def test_get_specific_language_with_nonexistent_id(test_client, init_database):
     response = test_client.get("/language/100")
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 def test_create_language(test_client, init_database):

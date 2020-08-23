@@ -9,7 +9,10 @@ def read_interests():
 
 
 def read_interest(_id):
-    return Interest.query.get(_id)
+    interest = Interest.query.get(_id)
+    if interest is None:
+        raise AssertionError("Interest with id={id} not found".format(id=_id))
+    return interest
 
 
 def create_interest():

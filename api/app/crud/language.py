@@ -9,7 +9,10 @@ def read_languages():
 
 
 def read_language(_id):
-    return Language.query.get(_id)
+    language = Language.query.get(_id)
+    if language is None:
+        raise AssertionError("Language with id={id} not found".format(id=_id))
+    return language
 
 
 def create_language():
