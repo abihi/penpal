@@ -1,75 +1,142 @@
 @import "../../theme";
 .interest-discovery {
-  .neumorphic-card-grid {
-    display: flex;
-    flex-flow: row wrap;
-    align-content: space-between;
-    justify-content: space-between;
-    background-color: $backgroundColor;
+  display: flex;
+  position: relative;
+  .filter-panel {
+    width: 240px;
+    height: 100vh;
     padding: 20px;
-    .card-container {
-      margin-bottom: 26px;
-      .neumorphic-card {
-        width: 240px;
-        height: 160px;
-        margin-bottom: 8px;
+    position: fixed;
+    .neumorphic-checkbox-container {
+      height: 24px;
+      display: flex;
+      margin: 12px 0;
+      .neumorphic-checkbox-input {
         position: relative;
-        border-radius: 16px;
-        box-shadow: -2px -2px 4px hsla(0,0,100%,1), 2px 2px 4px hsla(0,0,0,0.2);
-        overflow: hidden;
-        .neumorphic-card-image{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 16px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        box-shadow: -2px -2px 3px hsla(0,0,100%,1), 2px 2px 4px hsla(0,0,0,0.2);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        &:hover {
+          box-shadow: -1px -1px 2px hsla(0,0,100%,1), 1px 1px 2px hsla(0,0,0,0.2);
         }
-        .liked-overlay {
-          width: 100%;
-          height: 100%;
-          background-color: hsla(0,0,100%,0.5);
-          .like-icon {
+        &:active {
+          box-shadow: -1px -1px 6px hsla(0,0,100%,1), 1px 1px 6px hsla(0,0,0,0.2);
+        }
+        &:checked {
+          padding: 3px;
+          &:after {
+            content: ' ';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: hsla(0,100%,65%, 0.8);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgba(255, 78, 78, 0.57);
           }
+        }
+        &:focus {
+          outline: none;
         }
       }
-      .card-details {
-        width: calc(100% - 16px);
-        display: flex;
-        padding: 0 16px;
-        .card-title {
-          width: 200px;
-          padding: 2px 8px;
-          font-size: 14px;
-          font-weight: bold;
-        }
-        .icon-container {
+      .neumorphic-checkbox-label {
+        height: 100%;
+        line-height: 24px;
+        font-size: 14px;
+        margin-left: 12px;
+        text-transform: capitalize;
+      }
+    }
+  }
+  .content-container {
+    position: relative;
+    left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
+    .interest-filter-input {
+      width: calc(100% - 40px);
+      margin-bottom: 40px;
+      background-color:hsl(0, 0, 92);
+      &:hover, &:focus, &:active {
+        background-color: white;
+        box-shadow: 0 0 0 4px hsla(358, 100%, 70%, 0.1);
+        color: black;
+      }
+    }
+    .neumorphic-card-grid {
+      display: flex;
+      margin: 0 auto;
+      flex-flow: row wrap;
+      align-content: space-between;
+      justify-content: space-between;
+      .card-container {
+        margin-bottom: 26px;
+        .neumorphic-card {
+          width: 240px;
+          height: 160px;
+          margin-bottom: 8px;
           position: relative;
-          width: 24px;
-          height: 24px;
-          margin-left: auto;
-          color: hsla(0,100%,85%, 1);
-          box-shadow: -2px -2px 3px hsla(0,0,100%,1), 2px 2px 4px hsla(0,0,0,0.2);
-          background-color: $backgroundColor;
-          border-radius: 50%;
-          padding: 4px;
-          cursor: pointer;
-          .like-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
+          border-radius: 16px;
+          box-shadow: -2px -2px 4px hsla(0,0,100%,1), 2px 2px 4px hsla(0,0,0,0.2);
+          overflow: hidden;
+          .neumorphic-card-image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
           }
-          &:hover {
-            color: hsla(0,100%,75%, 1);
-            box-shadow: -1px -1px 2px hsla(0,0,100%,1), 1px 1px 2px hsla(0,0,0,0.2);
+          .liked-overlay {
+            width: 100%;
+            height: 100%;
+            background-color: hsla(0,0,100%,0.5);
+            .like-icon {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: hsla(0,100%,65%, 0.8);
+            }
           }
-          &:active {
-            box-shadow: -1px -1px 6px hsla(0,0,100%,1), 1px 1px 6px hsla(0,0,0,0.2);
+        }
+        .card-details {
+          width: calc(100% - 16px);
+          display: flex;
+          padding: 0 16px;
+          .card-title {
+            width: 200px;
+            padding: 2px 8px;
+            font-size: 14px;
+            font-weight: bold;
+          }
+          .icon-container {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            margin-left: auto;
+            color: hsla(0,100%,85%, 1);
+            box-shadow: -2px -2px 3px hsla(0,0,100%,1), 2px 2px 4px hsla(0,0,0,0.2);
+            background-color: $backgroundColor;
+            border-radius: 50%;
+            padding: 4px;
+            cursor: pointer;
+            .like-icon {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-size: 18px;
+            }
+            &:hover {
+              color: hsla(0,100%,75%, 1);
+              box-shadow: -1px -1px 2px hsla(0,0,100%,1), 1px 1px 2px hsla(0,0,0,0.2);
+            }
+            &:active {
+              box-shadow: -1px -1px 6px hsla(0,0,100%,1), 1px 1px 6px hsla(0,0,0,0.2);
+            }
           }
         }
       }

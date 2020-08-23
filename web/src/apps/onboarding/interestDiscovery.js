@@ -3,7 +3,15 @@ import './interestDiscovery.scss';
 import {connect} from 'react-redux';
 import {denormalize} from 'normalizr';
 import {interest, user} from '../../modules/entities';
-import {getAllInterests} from '../../modules/interests/get';
+import {
+  getAllInterests,
+  filterSearchkey,
+  filterClasses,
+  filterTypes,
+  setInterestFilterSearchkey,
+  setInterestFilterClass,
+  setInterestFilterType
+} from '../../modules/interests/get';
 import { AiFillHeart } from 'react-icons/ai';
 import {Steps, Modal, Carousel, Avatar, Button, Typography} from 'antd';
 const {Text} = Typography;
@@ -15,31 +23,81 @@ class InterestDiscovery extends Component {
       getAllInterests();
   };
 
+  handleFilterSearchkeyChange = e => {
+    const {setFilterSearchkey} = this.props;
+    setFilterSearchkey(e.target.value);
+  };
+
+  handleFilterClassChange = e => {
+    const {setFilterClass} = this.props;
+    setFilterClass(e.target.value);
+  };
+
+  handleFilterTypeChange = e => {
+    const {setFilterType} = this.props;
+    setFilterType(e.target.value);
+  };
+
   render() {
     return (
       <div className="interest-discovery">
-        <div className="neumorphic-card-grid">
+        <div className="filter-panel">
+        <p>Classes of interest</p>
         {
-          this.props.interests.map(interest => {
-            return (
-              <div key={interest.id} className="card-container">
-                <div className="neumorphic-card" key={interest.id}>
-                  <img src={interest.img} className="neumorphic-card-image" />
-                  {
-                    this.props.currentUser && this.props.currentUser.interests && this.props.currentUser.interests.find(userInterest => userInterest.id === interest.id)
-                    ? <div className="liked-overlay"><AiFillHeart className="like-icon" /></div> : null
-                  }
-                </div>
-                <div className="card-details">
-                  <Text ellipsis={true} className="card-title">{interest.activity}</Text>
-                  <div className="icon-container">
-                  <AiFillHeart className="like-icon" />
-                  </div>
-                </div>
+          Object.entries(filterClasses).map((item, i) => {
+            const key = item[0];
+            const val = item[1];
+            return(
+              <div key={i} className="neumorphic-checkbox-container">
+                <input type="radio" checked={this.props.filterClass === val} value={val} className="neumorphic-checkbox-input" onChange={this.handleFilterClassChange} />
+                <label className="neumorphic-checkbox-label">{val}</label>
               </div>
-            )
+            );
           })
         }
+        <p>Type of interest</p>
+        {
+          Object.entries(filterTypes).map((item, i) => {
+            const key = item[0];
+            const val = item[1];
+            return(
+              <div key={i} className="neumorphic-checkbox-container">
+                <input type="radio" checked={this.props.filterType === val} value={val} className="neumorphic-checkbox-input" onChange={this.handleFilterTypeChange} />
+                <label className="neumorphic-checkbox-label">{val}</label>
+              </div>
+            );
+          })
+        }
+        </div>
+        <div className="content-container">
+        <input
+          type="text"
+          placeholder="Search for your interests"
+          className="interest-filter-input clean-text-input"
+          onChange={this.handleFilterSearchkeyChange} />
+          <div className="neumorphic-card-grid">
+          {
+            this.props.interests.map(interest => {
+              return (
+                <div key={interest.id} className="card-container">
+                  <div className="neumorphic-card" key={interest.id}>
+                    <img src={interest.img} className="neumorphic-card-image" />
+                    {
+                      this.props.currentUser && this.props.currentUser.interests && this.props.currentUser.interests.find(userInterest => userInterest.id === interest.id)
+                      ? <div className="liked-overlay"><AiFillHeart className="like-icon" /></div> : null
+                    }
+                  </div>
+                  <div className="card-details">
+                    <Text ellipsis={true} className="card-title">{interest.activity}</Text>
+                    <div className="icon-container">
+                    <AiFillHeart className="like-icon" />
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+          </div>
         </div>
       </div>
     );
@@ -51,12 +109,17 @@ const mapStateToProps = store => {
   return {
     currentUser: denormalize(store.auth.currentUser, user, store.entities),
     interests: denormalize(store.interests.get.interests, [interest], store.entities),
+    filterType: store.interests.get.filterType,
+    filterClass: store.interests.get.filterClass,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllInterests: () => dispatch(getAllInterests()),
+    setFilterSearchkey :(searchkey) => dispatch(setInterestFilterSearchkey(searchkey)),
+    setFilterClass: (filterClass) => dispatch(setInterestFilterClass(filterClass)),
+    setFilterType: (filterType) => dispatch(setInterestFilterType(filterType)),
   };
 };
 

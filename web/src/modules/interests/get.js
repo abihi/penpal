@@ -4,9 +4,30 @@ import {interest} from '../entities';
 export const FETCH_INTERESTS = 'get/FETCH_INTERESTS';
 export const FETCH_INTERESTS_SUCCESS = 'get/FETCH_INTERESTS_SUCCESS';
 export const FETCH_INTERESTS_FAIL = 'get/FETCH_INTERESTS_FAIL';
+export const SET_INTEREST_FILTER_SEARCHKEY = 'get/SET_INTEREST_FILTER_SEARCHKEY';
+export const SET_INTEREST_FILTER_CLASS = 'get/SET_INTEREST_CLASS';
+export const SET_INTEREST_FILTER_TYPE = 'get/SET_INTEREST_TYPE';
+
+export const filterClasses = Object.freeze({
+    ALL:   "all",
+    GENERAL:  "general",
+    COLLECTION: "collection",
+    COMPETITIVE: "competitive"
+});
+
+export const filterTypes = Object.freeze({
+    ALL:   "all",
+    INDOORS:  "indoors",
+    OUTDOORS: "outdoors",
+    EDUCATIONAL: "educational"
+});
 
 const initialState = {
   interests: [],
+  filtered: [],
+  filterSearchkey: '',
+  filterClass: 'all',
+  filterType: 'all',
   fetching: false,
   fetched: false,
   error: null
@@ -41,9 +62,63 @@ export default (state = initialState, action) => {
         error: action.payload,
       };
     }
+    case SET_INTEREST_FILTER_SEARCHKEY:
+    {
+      return {
+        ...state,
+        filterSearchkey: action.payload
+      };
+    }
+    case SET_INTEREST_FILTER_CLASS:
+    {
+      // check if provided value doesn't exists in our Class enum
+      // throw error if it doesn't exist among the list of interest classes
+      if(!Object.values(filterClasses).includes(action.payload)){
+        var error = new Error("Could not find the provided interest class among the list of interest classes");
+        return {...state, error: error}
+      }
+
+
+      return {
+        ...state,
+        filterClass: action.payload
+      };
+    }
+    case SET_INTEREST_FILTER_TYPE:
+    {
+      // check if provided value doesn't exists in our Class enum
+      // throw error if it doesn't exist among the list of interest classes
+      if(!Object.values(filterTypes).includes(action.payload)) {
+        var error = new Error("Could not find the provided interest class among the list of interest classes");
+        return {...state, error: error}
+      }
+
+      return {
+        ...state,
+        filterType: action.payload,
+      };
+    }
     default:
       return state
   }
+};
+
+export const setInterestFilterSearchkey = (searchkey='') => {
+  return async(dispatch) => {
+    dispatch({type: SET_INTEREST_FILTER_SEARCHKEY, payload: searchkey});
+  };
+};
+
+export const setInterestFilterClass = (filterClass='') => {
+  return async(dispatch) => {
+    dispatch({type: SET_INTEREST_FILTER_CLASS, payload: filterClass});
+  };
+};
+
+export const setInterestFilterType = (filterType='') => {
+  return async(dispatch) => {
+    dispatch({type: SET_INTEREST_FILTER_TYPE, payload: filterType});
+  };
 };
 
 export const getInterest = (id=null) => {
