@@ -13,7 +13,7 @@ class Preference(db.Model):
     # If the user wants a deep connection, superficial, or other
     connection_type = db.Column("connection_type", db.String(64))
     # Snail-mail, instant chat
-    communiction_type = db.Column("communication_type", db.String(64))
+    communication_type = db.Column("communication_type", db.String(64))
     # If the user wants someone with different or similar interests
     interest_type = db.Column("interest_type", db.String(64))
     language_preference = db.Column("language_preference", db.String(64))

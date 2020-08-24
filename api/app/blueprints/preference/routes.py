@@ -1,5 +1,4 @@
 from flask import jsonify, make_response
-from sqlalchemy import exc
 from app.blueprints.preference import bp
 
 from app.crud import preference
@@ -21,7 +20,7 @@ def post_preference():
         _preference = preference.create_preference()
     except exc.SQLAlchemyError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
-    return preference_schema.dump(_preference)
+    return preference_schema.dump(_preference), 201
 
 
 @bp.route("/<int:_id>", methods=["PUT"])
@@ -37,6 +36,6 @@ def put_preference(_id):
 def delete_preference(_id):
     try:
         preference.delete_preference(_id)
-    except exc.SQLAlchemyError as exception_message:
+    except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204

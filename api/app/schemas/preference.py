@@ -13,7 +13,7 @@ class PreferenceSchema(ma.Schema):
     gender = fields.String()
     looking_for = fields.String()
     connection_type = fields.String()
-    communiction_type = fields.String()
+    communication_type = fields.String()
     interest_type = fields.String()
     language_preference = fields.String()
     preferred_languages = fields.Nested(LanguageSchema)
