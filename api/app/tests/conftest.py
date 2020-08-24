@@ -1,6 +1,6 @@
 import pytest
 
-from app import create_app, db
+from app import create_app
 from config import TestingConfig
 
 
@@ -15,12 +15,3 @@ def test_client():
     yield testing_client
 
     ctx.pop()
-
-
-@pytest.fixture(scope="module")
-def init_database():
-    db.create_all()
-
-    yield db
-
-    db.drop_all()
