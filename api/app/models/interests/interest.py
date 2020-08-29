@@ -14,9 +14,7 @@ class Interest(db.Model):
         return "<Interest {}>".format(self.activity)
 
     def dict(self):
-        img = self.img
-        if self.img is not None:
-            img = "https://snigel.s3.eu-north-1.amazonaws.com/interests/" + self.img
+        img = self.img        
         return dict(
             id=self.id,
             activity=self.activity,

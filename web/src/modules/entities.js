@@ -49,6 +49,13 @@ export {
 // Intercept state changes and look for changes in entities
 export default (state = initialState, action) => {
   if (action.payload && action.payload.entities) {
+    // Temporary fix until BE implementation for image management is implemented
+    if(action.payload.entities.interests) {
+      Object.entries(action.payload.entities.interests).map(entry => {
+        const interest = entry[1];
+        interest.img = `https://snigel.s3.eu-north-1.amazonaws.com/interests/${interest.img}`;
+      });
+    }
     return {...state, ...action.payload.entities};
   }
   return state;
