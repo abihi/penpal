@@ -2,6 +2,7 @@ from flask import request
 
 from app import db
 from app.models.users.user import User
+from app.models.interests.interest import Interest
 
 
 def read_users():
@@ -41,4 +42,25 @@ def delete_user(_id):
         raise AssertionError("User with id={id} not found".format(id=_id))
     db.session.delete(user)
     db.session.commit()
-    return "", 204
+
+
+def like_interest(_id):
+    body = request.get_json()
+    user = User.query.get(_id)
+    if user is None:
+        raise AssertionError("User with id={id} not found".format(id=_id))
+    interest = Interest.query.get(body["interest_id"])
+    user.interests.append(interest)
+    db.session.commit()
+    return user
+
+
+def unlike_interest(_id):
+    body = request.get_json()
+    user = User.query.get(_id)
+    if user is None:
+        raise AssertionError("User with id={id} not found".format(id=_id))
+    interest = Interest.query.get(body["interest_id"])
+    user.interests.remove(interest)
+    db.session.commit()
+    return user

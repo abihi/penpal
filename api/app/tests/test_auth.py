@@ -15,10 +15,20 @@ def init_database():
     db.session.add(country2)
     db.session.commit()
 
-    user1 = User(username="authTester", email="authTester@gmail.com", country_id="1")
+    user1 = User(
+        username="authTester",
+        email="authTester@gmail.com",
+        birthdate="1901-01-01",
+        country_id="1",
+    )
     user1.set_password("testPassword")
     db.session.add(user1)
-    user2 = User(username="authTester2", email="authTester2@gmail.com", country_id="1")
+    user2 = User(
+        username="authTester2",
+        email="authTester2@gmail.com",
+        birthdate="1912-12-12",
+        country_id="2",
+    )
     user2.set_password("authTester2Password")
     db.session.add(user2)
     db.session.commit()
@@ -177,6 +187,10 @@ def test_login_and_logout_user_sucessfully(test_client, init_database):
     # Assert User logged in sucessfully
     response = test_client.post("/auth/login", json=data)
     assert response.status_code == 200
+    assert response.json["user"]["username"] == "authTester"
+    assert response.json["user"]["email"] == "authTester@gmail.com"
+    assert response.json["user"]["birthdate"] == "1901-01-01"
+    assert response.json["user"]["country"]["id"] == 1
     # Assert User is logged in already
     response = test_client.get("/auth/login")
     assert response.status_code == 200
