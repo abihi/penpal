@@ -78,8 +78,9 @@ export const authenticateUser = () => {
         });
 
       // Early exit function if user is anonomyous
-      if(result.data.is_anonymous)
-        return;
+      const CURRENT_USER_IS_ANONYMOUS = result.data.is_anonymous;
+      if(CURRENT_USER_IS_ANONYMOUS)
+        dispatch(switchAppMode('public'));
 
       // Get user object if since user is not anonymous
       // getUser function normalizes the user before storing its data
@@ -89,7 +90,7 @@ export const authenticateUser = () => {
       const store = getState();
       const currentUser = denormalize(store.auth.currentUser, user, store.entities);
 
-      const CURRENT_USER_IS_ANONYMOUS = result.data.is_anonymous;
+
       const CURRENT_USER_IS_AUTHENTICATED = result.data.is_authenticated;
       const CURRENT_USER_IS_ONBOARDED = currentUser.onboarded;
 
@@ -97,9 +98,7 @@ export const authenticateUser = () => {
 
       // Set the current application mode
       // depending on user status
-      if(CURRENT_USER_IS_ANONYMOUS) {
-        dispatch(switchAppMode('public'));
-      } else if (!CURRENT_USER_IS_ONBOARDED) {
+      if(!CURRENT_USER_IS_ONBOARDED) {
         dispatch(switchAppMode('onboarding'));
       } else if (CURRENT_USER_IS_AUTHENTICATED) {
         dispatch(switchAppMode('private'));
