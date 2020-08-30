@@ -18,7 +18,7 @@ def get_preference(_id):
 def post_preference():
     try:
         _preference = preference.create_preference()
-    except exc.SQLAlchemyError as exception_message:
+    except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return preference_schema.dump(_preference), 201
 
