@@ -44,7 +44,7 @@ def init_database():
 
 def test_like_and_unlike_interest(test_client, init_database):
     user = User.query.all()[0]
-    url = "/user/" + str(user.id) + "/like"
+    url = "/user/" + str(user.id) + "/interest/like"
     data = {
         "interest_id": "1",
     }
@@ -52,7 +52,7 @@ def test_like_and_unlike_interest(test_client, init_database):
     assert response.status_code == 200
     assert response.json["interests"][0]["activity"] == "testInterest1"
 
-    url = "/user/" + str(user.id) + "/unlike"
+    url = "/user/" + str(user.id) + "/interest/unlike"
     data = {
         "interest_id": "1",
     }
@@ -63,7 +63,7 @@ def test_like_and_unlike_interest(test_client, init_database):
 
 def test_like_interests_as_user(test_client, init_database):
     user = User.query.all()[0]
-    url = "/user/" + str(user.id) + "/like"
+    url = "/user/" + str(user.id) + "/interest/like"
     data = {
         "interest_id": "1",
     }
