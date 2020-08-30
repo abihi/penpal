@@ -20,6 +20,8 @@ def init_database():
     user1 = User(
         username="userTester",
         birthdate="1990-03-13",
+        gender="Male",
+        about_me="Test Test text",
         email="userTester@gmail.com",
         country_id="1",
     )
@@ -28,6 +30,8 @@ def init_database():
     user2 = User(
         username="userTester2",
         birthdate="1998-06-22",
+        gender="Female",
+        about_me="Test Test text",
         email="userTester2@gmail.com",
         country_id="2",
     )
@@ -52,6 +56,8 @@ def test_get_specific_user(test_client, init_database):
     assert response.json["username"] == "userTester"
     assert response.json["birthdate"] == "1990-03-13"
     assert response.json["email"] == "userTester@gmail.com"
+    assert response.json["gender"] == "Male"
+    assert response.json["about_me"] == "Test Test text"
     assert response.json["country"]["id"] == 1
 
 
@@ -68,14 +74,16 @@ def test_update_all_user_fields(test_client, init_database):
         "username": "newUsername",
         "email": "newEmail@gmail.com",
         "birthdate": "1973-01-01",
-        "country_id": "2",
+        "gender": "Female",
         "about_me": about_me_text,
+        "country_id": "2",
     }
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["username"] == "newUsername"
     assert response.json["email"] == "newEmail@gmail.com"
     assert response.json["birthdate"] == "1973-01-01"
+    assert response.json["gender"] == "Female"
     assert response.json["country"]["id"] == 2
     assert response.json["about_me"] == about_me_text
 
@@ -142,6 +150,15 @@ def test_update_user_about_me(test_client, init_database):
     response = test_client.put(url, json=data)
     assert response.status_code == 200
     assert response.json["about_me"] == about_me_text
+
+
+def test_update_user_gender(test_client, init_database):
+    user = User.query.all()[0]
+    url = "/user/" + str(user.id)
+    data = {"gender": "newGender"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["gender"] == "newGender"
 
 
 def test_update_user_nonexistant_id(test_client, init_database):

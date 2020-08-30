@@ -19,7 +19,7 @@ def load_user(_id):
 @bp.route("/", methods=["GET"])
 def auth():
     data = {
-        "current_user": current_user.get_id(),
+        "current_user": current_user,
         "is_anonymous": current_user.is_anonymous,
         "is_active": current_user.is_active,
         "is_authenticated": current_user.is_authenticated,
@@ -66,8 +66,7 @@ def register():
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     data = {
         "msg": "User created sucessfully",
-        "user": user.dict(),
-        "current_user": user.get_id(),
+        "current_user": user.dict(),
         "is_anonymous": user.is_anonymous,
         "is_active": user.is_active,
         "is_authenticated": user.is_authenticated,
