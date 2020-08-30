@@ -54,3 +54,21 @@ def unlike_interest(_id):
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return user_schema.dump(_user)
+
+
+@bp.route("/<int:_id>/language/add", methods=["PUT"])
+def add_languages(_id):
+    try:
+        _user = user.add_languages(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return user_schema.dump(_user)
+
+
+@bp.route("/<int:_id>/language/remove", methods=["PUT"])
+def remove_languages(_id):
+    try:
+        _user = user.remove_language(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return user_schema.dump(_user)
