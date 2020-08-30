@@ -13,8 +13,9 @@ class UserSchema(ma.Schema):
     username = fields.String()
     email = fields.Email()
     birthdate = fields.Date()
-    onboarded = fields.Boolean()
+    gender = fields.String()
     about_me = fields.String()
+    onboarded = fields.Boolean()
     country_id = fields.Integer()
     country = fields.Nested(CountrySchema)
 

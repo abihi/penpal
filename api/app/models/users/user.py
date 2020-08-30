@@ -28,10 +28,11 @@ class User(UserMixin, db.Model):
     username = db.Column("username", db.String(64), index=True, unique=True)
     email = db.Column("email", db.String(120), index=True, unique=True)
     birthdate = db.Column("birthdate", db.Date)
+    gender = db.Column("gender", db.String(64))
+    about_me = db.Column("about_me", db.String(500))
     email_verified = db.Column("email_verified", db.Boolean, default=False)
     password_hash = db.Column("password_hash", db.String(128))
     onboarded = db.Column("onboarded", db.Boolean, default=False)
-    about_me = db.Column("about_me", db.String(500))
     # 1-to-m relationship between country and user. The users can also be back
     # referenced as 'country.residents' and 'country.nationals'.
     country_id = db.Column(
@@ -73,8 +74,9 @@ class User(UserMixin, db.Model):
             email=self.email,
             email_verified=self.email_verified,
             birthdate=formated_birthdate,
-            onboarded=self.onboarded,
+            gender=self.gender,
             about_me=self.about_me,
+            onboarded=self.onboarded,
             country=self.country.dict(),
             interests=interests,
             penpals=penpals,
