@@ -38,7 +38,7 @@ def delete_user(_id):
     return "", 204
 
 
-@bp.route("/<int:_id>/like", methods=["PUT"])
+@bp.route("/<int:_id>/interest/like", methods=["PUT"])
 def like_interest(_id):
     try:
         _user = user.like_interest(_id)
@@ -47,7 +47,7 @@ def like_interest(_id):
     return user_schema.dump(_user)
 
 
-@bp.route("/<int:_id>/unlike", methods=["PUT"])
+@bp.route("/<int:_id>/interest/unlike", methods=["PUT"])
 def unlike_interest(_id):
     try:
         _user = user.unlike_interest(_id)
