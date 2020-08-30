@@ -2,6 +2,7 @@ import time
 from flask import request
 
 from app import db
+from app.models.languages.language import Language
 from app.models.preferences.preference import Preference
 
 
@@ -40,3 +41,26 @@ def delete_preference(_id):
         raise AssertionError("Preference with id={id} not found".format(id=_id))
     db.session.delete(preference)
     db.session.commit()
+
+
+def add_preferred_language(_id):
+    body = request.get_json()
+    preference = Preference.query.get(_id)
+    if preference is None:
+        raise AssertionError("Preference with id={id} not found".format(id=_id))
+    for language_id in body["language_ids"]:
+        language = Language.query.get(language_id)
+        preference.preferred_languages.append(language)
+    db.session.commit()
+    return preference
+
+
+def remove_preferred_language(_id):
+    body = request.get_json()
+    preference = Preference.query.get(_id)
+    if preference is None:
+        raise AssertionError("Preference with id={id} not found".format(id=_id))
+    language = Language.query.get(body["language_id"])
+    preference.preferred_languages.remove(language)
+    db.session.commit()
+    return preference

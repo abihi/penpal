@@ -1,12 +1,19 @@
 import pytest
 
 from app import db
+from app.models.languages.language import Language
 from app.models.preferences.preference import Preference
 
 
 @pytest.fixture(scope="module")
 def init_database():
     db.create_all()
+
+    language1 = Language(name="testLanguage1")
+    db.session.add(language1)
+    language2 = Language(name="testLanguage2")
+    db.session.add(language2)
+    db.session.commit()
 
     preference1 = Preference(
         gender="Female",
@@ -110,3 +117,28 @@ def test_delete_nonexistent_preference(test_client, init_database):
     response = test_client.delete(url)
     assert response.status_code == 400
     assert Preference.query.get(preference_id) is None
+
+
+def test_add_and_remove_language(test_client, init_database):
+    preference = Preference.query.all()[0]
+    url = "/preference/" + str(preference.id) + "/language/add"
+    data = {"language_ids": "1"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["preferred_languages"][0]["name"] == "testLanguage1"
+
+    url = "/preference/" + str(preference.id) + "/language/remove"
+    data = {"language_id": "1"}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["preferred_languages"] == []
+
+
+def test_add_languages_as_preference(test_client, init_database):
+    preference = Preference.query.all()[0]
+    url = "/preference/" + str(preference.id) + "/language/add"
+    data = {"language_ids": ["1", "2"]}
+    response = test_client.put(url, json=data)
+    assert response.status_code == 200
+    assert response.json["preferred_languages"][0]["name"] == "testLanguage1"
+    assert response.json["preferred_languages"][1]["name"] == "testLanguage2"

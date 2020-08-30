@@ -16,7 +16,7 @@ class PreferenceSchema(ma.Schema):
     communication_type = fields.String()
     interest_type = fields.String()
     language_preference = fields.String()
-    preferred_languages = fields.Nested(LanguageSchema)
+    preferred_languages = fields.List(fields.Nested(LanguageSchema))
 
 
 preference_schema = PreferenceSchema()
