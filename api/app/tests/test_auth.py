@@ -38,10 +38,10 @@ def test_register_user(test_client, init_database):
     }
     response = test_client.post("/auth/register", json=data)
     assert response.status_code == 201
-    assert response.json["current_user"]["username"] == "newUser"
-    assert response.json["current_user"]["email"] == "newUser@gmail.com"
-    assert response.json["current_user"]["birthdate"] == "1992-01-01"
-    assert response.json["current_user"]["country"]["id"] == 1
+    assert response.json["user"]["username"] == "newUser"
+    assert response.json["user"]["email"] == "newUser@gmail.com"
+    assert response.json["user"]["birthdate"] == "1992-01-01"
+    assert response.json["user"]["country"]["id"] == 1
     # Logout the recently registred user
     response = test_client.get("/auth/logout")
 
