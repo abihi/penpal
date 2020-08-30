@@ -1,6 +1,5 @@
-import {normalize} from 'normalizr'
+import {normalize, denormalize} from 'normalizr'
 import {interest} from '../entities';
-
 export const FETCH_INTERESTS = 'get/FETCH_INTERESTS';
 export const FETCH_INTERESTS_SUCCESS = 'get/FETCH_INTERESTS_SUCCESS';
 export const FETCH_INTERESTS_FAIL = 'get/FETCH_INTERESTS_FAIL';
@@ -9,25 +8,25 @@ export const SET_INTEREST_FILTER_CLASS = 'get/SET_INTEREST_CLASS';
 export const SET_INTEREST_FILTER_TYPE = 'get/SET_INTEREST_TYPE';
 
 export const filterClasses = Object.freeze({
-    ALL:   "all",
-    GENERAL:  "general",
-    COLLECTION: "collection",
-    COMPETITIVE: "competitive"
+    ALL: "All",
+    GENERAL: "General",
+    COLLECTION: "Collection",
+    COMPETITIVE: "Competitive"
 });
 
 export const filterTypes = Object.freeze({
-    ALL:   "all",
-    INDOORS:  "indoors",
-    OUTDOORS: "outdoors",
-    EDUCATIONAL: "educational"
+    ALL: "All",
+    INDOORS: "Indoors",
+    OUTDOORS: "Outdoors",
+    EDUCATIONAL: "Educational"
 });
 
 const initialState = {
   interests: [],
   filtered: [],
   filterSearchkey: '',
-  filterClass: 'all',
-  filterType: 'all',
+  filterClass: 'All',
+  filterType: 'All',
   fetching: false,
   fetched: false,
   error: null
@@ -51,6 +50,7 @@ export default (state = initialState, action) => {
         fetching: false,
         fetched: true,
         interests: action.payload.result,
+        filtered: action.payload.result
       };
     }
     case FETCH_INTERESTS_FAIL:
@@ -64,9 +64,27 @@ export default (state = initialState, action) => {
     }
     case SET_INTEREST_FILTER_SEARCHKEY:
     {
+      // denormalize the interest entities to allow attribute comparisons
+      const interests = [...denormalize(state.interests, [interest], action.entities)];
+      // Set the filters to use wildcard for 'all' by converting the filter enum
+      // to strings. The actual filter checks whether the filterClass includes the
+      // specific filter values later
+      const filterClass = state.filterClass === "All" ? JSON.stringify(filterClasses) : state.filterClass;
+      const filterType = state.filterType === "All" ? JSON.stringify(filterTypes) : state.filterType;
+      const filterString = action.payload;
+
+      // filter list
+      const filteredList = interests.filter(interest => {
+      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      });
+
+      // Create a list of id only
+      const listOfId = filteredList.map(interest => interest.id);
+
       return {
         ...state,
-        filterSearchkey: action.payload
+        filterSearchkey: action.payload,
+        filtered: listOfId
       };
     }
     case SET_INTEREST_FILTER_CLASS:
@@ -78,10 +96,27 @@ export default (state = initialState, action) => {
         return {...state, error: error}
       }
 
+      // denormalize the interest entities to allow attribute comparisons
+      const interests = [...denormalize(state.interests, [interest], action.entities)];
+      // Set the filters to use wildcard for 'all' by converting the filter enum
+      // to strings. The actual filter checks whether the filterClass includes the
+      // specific filter values later
+      const filterClass = action.payload === "All" ? JSON.stringify(filterClasses) : action.payload;
+      const filterType = state.filterType === "All" ? JSON.stringify(filterTypes) : state.filterType;
+      const filterString = state.filterSearchkey;
+
+      // filter list
+      const filteredList = interests.filter(interest => {
+      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      });
+
+      // Create a list of id only
+      const listOfId = filteredList.map(interest => interest.id);
 
       return {
         ...state,
-        filterClass: action.payload
+        filterClass: action.payload,
+        filtered: listOfId
       };
     }
     case SET_INTEREST_FILTER_TYPE:
@@ -93,9 +128,27 @@ export default (state = initialState, action) => {
         return {...state, error: error}
       }
 
+      // denormalize the interest entities to allow attribute comparisons
+      const interests = [...denormalize(state.interests, [interest], action.entities)];
+      // Set the filters to use wildcard for 'all' by converting the filter enum
+      // to strings. The actual filter checks whether the filterClass includes the
+      // specific filter values later
+      const filterClass = state.filterClass === "All" ? JSON.stringify(filterClasses) : state.filterClass;
+      const filterType = action.payload === "All" ? JSON.stringify(filterTypes) : action.payload;
+      const filterString = state.filterSearchkey;
+
+      // filter list
+      const filteredList = interests.filter(interest => {
+      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      });
+
+      // Create a list of id only
+      const listOfId = filteredList.map(interest => interest.id);
+
       return {
         ...state,
         filterType: action.payload,
+        filtered: listOfId
       };
     }
     default:
@@ -104,20 +157,23 @@ export default (state = initialState, action) => {
 };
 
 export const setInterestFilterSearchkey = (searchkey='') => {
-  return async(dispatch) => {
-    dispatch({type: SET_INTEREST_FILTER_SEARCHKEY, payload: searchkey});
+  return async(dispatch, getState) => {
+    const state = getState();
+    dispatch({type: SET_INTEREST_FILTER_SEARCHKEY, payload: searchkey, entities: state.entities});
   };
 };
 
 export const setInterestFilterClass = (filterClass='') => {
-  return async(dispatch) => {
-    dispatch({type: SET_INTEREST_FILTER_CLASS, payload: filterClass});
+  return async(dispatch, getState) => {
+    const state = getState();
+    dispatch({type: SET_INTEREST_FILTER_CLASS, payload: filterClass, entities: state.entities});
   };
 };
 
 export const setInterestFilterType = (filterType='') => {
-  return async(dispatch) => {
-    dispatch({type: SET_INTEREST_FILTER_TYPE, payload: filterType});
+  return async(dispatch, getState) => {
+    const state = getState();
+    dispatch({type: SET_INTEREST_FILTER_TYPE, payload: filterType, entities: state.entities});
   };
 };
 

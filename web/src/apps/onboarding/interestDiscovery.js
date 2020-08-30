@@ -79,7 +79,7 @@ class InterestDiscovery extends Component {
           onChange={this.handleFilterSearchkeyChange} />
           <div className="neumorphic-card-grid">
           {
-            this.props.interests.map(interest => {
+            this.props.filteredInterests.map(interest => {
               return (
                 <div key={interest.id} className="card-container">
                   <div className="neumorphic-card" key={interest.id}>
@@ -110,6 +110,7 @@ class InterestDiscovery extends Component {
 const mapStateToProps = store => {
   return {
     currentUser: denormalize(store.auth.currentUser, user, store.entities),
+    filteredInterests: denormalize(store.interests.get.filtered, [interest], store.entities),
     interests: denormalize(store.interests.get.interests, [interest], store.entities),
     filterType: store.interests.get.filterType,
     filterClass: store.interests.get.filterClass,
