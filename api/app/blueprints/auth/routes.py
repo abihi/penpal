@@ -19,7 +19,6 @@ def load_user(_id):
 @bp.route("/", methods=["GET"])
 def auth():
     data = {
-        "user": User.query.get(current_user.get_id()),
         "current_user": current_user.get_id(),
         "is_anonymous": current_user.is_anonymous,
         "is_active": current_user.is_active,
@@ -39,6 +38,7 @@ def login():
     login_user(user, remember=body["remember_me_toggle"])
     data = {
         "msg": "User logged in sucessfully",
+        "user": user.dict(),
         "current_user": user.get_id(),
         "is_anonymous": user.is_anonymous,
         "is_active": user.is_active,
