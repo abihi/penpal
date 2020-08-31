@@ -1,4 +1,4 @@
-// schemas.js
+import { combineReducers } from 'redux'
 import {schema} from 'normalizr';
 
 const initialState = {
@@ -8,12 +8,6 @@ const initialState = {
   languages: [],
   recommendations: [],
 };
-
-const section = new schema.Entity('sections')
-const sections = new schema.Array(section);
-section.define({ sections });
-const menu = new schema.Entity('menu', { sections });
-
 
 const country = new schema.Entity('countries');
 const interest = new schema.Entity('interests');
@@ -26,6 +20,7 @@ const user = new schema.Entity('users', {
   languages: [language],
   penpals: [this]
 });
+
 // to allow for self referencing
 const penpals = new schema.Array(user);
 user.define({ penpals });
@@ -48,6 +43,25 @@ export {
 
 // Intercept state changes and look for changes in entities
 export default (state = initialState, action) => {
+  if(action.type === 'interests/UPDATE_USER_INTERESTS_INIT_SUCCESS') {
+    const {interestId, userId, payload} = action;
+
+    const currentUser = state.users[userId];
+    let newCurrentUser = {...currentUser};
+
+    if(payload === 'like') {
+      newCurrentUser.interests.push(interestId);
+    } else if (payload === 'unlike') {
+      newCurrentUser.interests.splice(newCurrentUser.interests.indexOf(interestId), 1);
+    }
+
+    let newState = {...state};
+    newState.users[userId] = newCurrentUser;
+    return {
+      ...newState
+    };
+  }
+
   if (action.payload && action.payload.entities) {
     // Temporary fix until BE implementation for image management is implemented
     if(action.payload.entities.interests) {

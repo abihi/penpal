@@ -10,8 +10,12 @@ import {
   filterTypes,
   setInterestFilterSearchkey,
   setInterestFilterClass,
-  setInterestFilterType
+  setInterestFilterType,
 } from '../../modules/interests/get';
+import {
+likeInterest,
+unlikeInterest
+} from '../../modules/users/interests';
 import { AiFillHeart } from 'react-icons/ai';
 import {Steps, Modal, Carousel, Avatar, Button, Typography} from 'antd';
 const {Text} = Typography;
@@ -38,7 +42,19 @@ class InterestDiscovery extends Component {
     setFilterType(e.target.value);
   };
 
+  likeInterest = (interestId) => {
+    const {likeInterest} = this.props;
+    likeInterest(interestId);
+  };
+
+  unlikeInterest = (interestId) => {
+    const {unlikeInterest} = this.props;
+    unlikeInterest(interestId);
+  };
+
   render() {
+    const {filteredInterests} = this.props;
+
     return (
       <div className="interest-discovery">
         <div className="filter-panel">
@@ -79,19 +95,19 @@ class InterestDiscovery extends Component {
           onChange={this.handleFilterSearchkeyChange} />
           <div className="neumorphic-card-grid">
           {
-            this.props.filteredInterests.map(interest => {
+            filteredInterests.map(interest => {
+              const liked = this.props.currentUser.interests.find(userInterest => userInterest.id === interest.id) !== undefined;
               return (
                 <div key={interest.id} className="card-container">
                   <div className="neumorphic-card" key={interest.id}>
                     <img src={interest.img} className="neumorphic-card-image" />
                     {
-                      this.props.currentUser && this.props.currentUser.interests && this.props.currentUser.interests.find(userInterest => userInterest.id === interest.id)
-                      ? <div className="liked-overlay"><AiFillHeart className="like-icon" /></div> : null
+                      liked ? <div className="liked-overlay"><AiFillHeart className="like-icon" /></div> : null
                     }
                   </div>
                   <div className="card-details">
                     <Text ellipsis={true} className="card-title">{interest.activity}</Text>
-                    <div className="icon-container">
+                    <div className={`icon-container ${liked ? 'dark-fill' : ''}`} onClick={liked ? () => this.unlikeInterest(interest.id) : () => this.likeInterest(interest.id)}>
                     <AiFillHeart className="like-icon" />
                     </div>
                   </div>
@@ -109,7 +125,7 @@ class InterestDiscovery extends Component {
 
 const mapStateToProps = store => {
   return {
-    currentUser: denormalize(store.auth.currentUser, user, store.entities),
+    currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
     filteredInterests: denormalize(store.interests.get.filtered, [interest], store.entities),
     interests: denormalize(store.interests.get.interests, [interest], store.entities),
     filterType: store.interests.get.filterType,
@@ -123,6 +139,8 @@ const mapDispatchToProps = (dispatch) => {
     setFilterSearchkey :(searchkey) => dispatch(setInterestFilterSearchkey(searchkey)),
     setFilterClass: (filterClass) => dispatch(setInterestFilterClass(filterClass)),
     setFilterType: (filterType) => dispatch(setInterestFilterType(filterType)),
+    likeInterest: (interestId) => dispatch(likeInterest(interestId)),
+    unlikeInterest: (interestId) => dispatch(unlikeInterest(interestId)),
   };
 };
 

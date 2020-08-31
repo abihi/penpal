@@ -138,12 +138,16 @@
             border-radius: 50%;
             padding: 4px;
             cursor: pointer;
+            &.dark-fill {
+              color: hsla(0,100%,65%, 1);
+            }
             .like-icon {
               position: absolute;
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%);
               font-size: 18px;
+
             }
             &:hover {
               color: hsla(0,100%,75%, 1);
