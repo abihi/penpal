@@ -39,3 +39,21 @@ def delete_preference(_id):
     except AssertionError as exception_message:
         return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
     return "", 204
+
+
+@bp.route("/<int:_id>/language/add", methods=["PUT"])
+def add_preferred_language(_id):
+    try:
+        _preference = preference.add_preferred_language(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return preference_schema.dump(_preference)
+
+
+@bp.route("/<int:_id>/language/remove", methods=["PUT"])
+def remove_preferred_language(_id):
+    try:
+        _preference = preference.remove_preferred_language(_id)
+    except AssertionError as exception_message:
+        return make_response(jsonify(msg="Error: {}. ".format(exception_message)), 400)
+    return preference_schema.dump(_preference)
