@@ -75,7 +75,7 @@ export default (state = initialState, action) => {
 
       // filter list
       const filteredList = interests.filter(interest => {
-      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      	return interest.activity.toLowerCase().includes(filterString.toLowerCase()) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
       });
 
       // Create a list of id only
@@ -107,7 +107,7 @@ export default (state = initialState, action) => {
 
       // filter list
       const filteredList = interests.filter(interest => {
-      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      	return interest.activity.toLowerCase().includes(filterString.toLowerCase()) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
       });
 
       // Create a list of id only
@@ -139,7 +139,7 @@ export default (state = initialState, action) => {
 
       // filter list
       const filteredList = interests.filter(interest => {
-      	return interest.activity.includes(filterString) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
+      	return interest.activity.toLowerCase().includes(filterString.toLowerCase()) && filterClass.includes(interest.interest_class) && filterType.includes(interest.interest_type);
       });
 
       // Create a list of id only
