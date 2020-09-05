@@ -3,6 +3,7 @@ import './interestDiscovery.scss';
 import {connect} from 'react-redux';
 import {denormalize} from 'normalizr';
 import {interest, user} from '../../modules/entities';
+import { changeOnboardingStep } from '../../modules/onboardingApp/process';
 import {
   getAllInterests,
   filterSearchkey,
@@ -25,6 +26,11 @@ class InterestDiscovery extends Component {
   componentDidMount = () => {
       const {getAllInterests} = this.props;
       getAllInterests();
+  };
+
+  nextStep = () => {
+    const { currentStep, changeOnboardingStep } = this.props;
+    changeOnboardingStep(currentStep + 1);
   };
 
   handleFilterSearchkeyChange = e => {
@@ -86,8 +92,7 @@ class InterestDiscovery extends Component {
         }
         </div>
         <div className="content-container">
-        <h1>What are your interests?</h1>
-        <h2>Like three (or more) interests for others to see</h2>
+        <h1>Select interests for others to see about you</h1>
         <input
           type="text"
           placeholder="Search for your interests"
@@ -116,6 +121,10 @@ class InterestDiscovery extends Component {
             })
           }
           </div>
+          <div className="bottom-container">
+          <button className="clean-button-primary"
+                  onClick={this.nextStep}>{this.props.currentUser.interests.length < 3 ? `Like ${3 - this.props.currentUser.interests.length} more interests at least, to give others a chance to know you` : 'Next'}</button>
+          </div>
         </div>
       </div>
     );
@@ -125,6 +134,7 @@ class InterestDiscovery extends Component {
 
 const mapStateToProps = store => {
   return {
+    currentStep: store.onboardingApp.process.currentStep,
     currentUser: denormalize(store.auth.currentUser.id, user, store.entities),
     filteredInterests: denormalize(store.interests.get.filtered, [interest], store.entities),
     interests: denormalize(store.interests.get.interests, [interest], store.entities),
@@ -135,6 +145,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    changeOnboardingStep: (step) => dispatch(changeOnboardingStep(step)),
     getAllInterests: () => dispatch(getAllInterests()),
     setFilterSearchkey :(searchkey) => dispatch(setInterestFilterSearchkey(searchkey)),
     setFilterClass: (filterClass) => dispatch(setInterestFilterClass(filterClass)),
