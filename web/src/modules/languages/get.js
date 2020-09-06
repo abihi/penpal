@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: [...state.languages, ...action.payload.result],
+        languages: [...state.languages, ...action.payload.result],
       };
     }
     case FETCH_LANGUAGE_SUCCESS:
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         fetched: true,
-        countries: [...state.languages, action.payload.result],
+        languages: [...state.languages, action.payload.result],
       };
     }
     case FETCH_LANGUAGES_FAIL:
@@ -66,7 +66,6 @@ export const getLanguages = () => {
         type: FETCH_LANGUAGES_SUCCESS,
         payload: normalize(result.data, [language]),
         });
-
 
     } catch (error) {
       dispatch({type: FETCH_LANGUAGES_FAIL, payload: error});
