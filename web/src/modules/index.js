@@ -5,6 +5,7 @@ import mode from './mode';
 import publicApp from './publicApp';
 import onboardingApp from './onboardingApp';
 import countries from './countries';
+import languages from './languages';
 import interests from './interests';
 import recommendations from './recommendations';
 import users from './users';
@@ -16,6 +17,7 @@ export default combineReducers({
   onboardingApp,
   mode,
   countries,
+  languages,
   interests,
   recommendations,
   users,
