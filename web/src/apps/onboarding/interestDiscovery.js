@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './interestDiscovery.scss';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {denormalize} from 'normalizr';
 import {interest, user} from '../../modules/entities';
 import { changeOnboardingStep } from '../../modules/onboardingApp/process';
@@ -18,7 +19,7 @@ likeInterest,
 unlikeInterest
 } from '../../modules/users/interests';
 import { AiFillHeart } from 'react-icons/ai';
-import {Steps, Modal, Carousel, Avatar, Button, Typography} from 'antd';
+import {Modal, Carousel, Avatar, Button, Typography} from 'antd';
 const {Text} = Typography;
 
 
@@ -122,8 +123,10 @@ class InterestDiscovery extends Component {
           }
           </div>
           <div className="bottom-container">
-          <button className="clean-button-primary"
-                  onClick={this.nextStep}>{this.props.currentUser.interests.length < 3 ? `Like ${3 - this.props.currentUser.interests.length} more interests at least, to give others a chance to know you` : 'Next'}</button>
+            <Link to="/about-me">
+              <button className="clean-button-primary"
+                      onClick={this.nextStep}>{this.props.currentUser.interests.length < 3 ? `Like ${3 - this.props.currentUser.interests.length} more interests at least, to give others a chance to know you` : 'Next'}</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
+import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {denormalize} from 'normalizr';
 import {user} from '../../modules/entities';
@@ -7,6 +8,14 @@ import InterestDiscovery from './interestDiscovery';
 import {changeOnboardingStep} from '../../modules/onboardingApp/process'
 import {Steps, Modal, Carousel, Avatar, Button, message} from 'antd';
 
+// routes
+const routes = (
+  <Route path="">
+    <Route exact path="/" component={InterestDiscovery}/>
+    <Route exact path="/about-me" component={null}/>
+    <Route exact path="/preferences" component={null}/>
+  </Route>
+);
 
 class OnboardingApp extends Component {
   state = {
@@ -33,9 +42,7 @@ class OnboardingApp extends Component {
 
     return (
       <div className="onboarding-app">
-      {
-        this.props.currentStep === 0 ? <InterestDiscovery /> : null
-      }
+        {routes}
         <Modal
           className="intro-modal"
           visible={this.state.showIntro}
