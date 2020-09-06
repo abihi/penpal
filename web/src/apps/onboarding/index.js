@@ -4,7 +4,8 @@ import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {denormalize} from 'normalizr';
 import {user} from '../../modules/entities';
-import InterestDiscovery from './interestDiscovery';
+import InterestDiscovery from './InterestDiscovery';
+import AboutMe from './AboutMe';
 import {changeOnboardingStep} from '../../modules/onboardingApp/process'
 import {Steps, Modal, Carousel, Avatar, Button, message} from 'antd';
 
@@ -12,7 +13,7 @@ import {Steps, Modal, Carousel, Avatar, Button, message} from 'antd';
 const routes = (
   <Route path="">
     <Route exact path="/" component={InterestDiscovery}/>
-    <Route exact path="/about-me" component={null}/>
+    <Route exact path="/about-me" component={AboutMe}/>
     <Route exact path="/preferences" component={null}/>
   </Route>
 );
