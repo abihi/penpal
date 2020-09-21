@@ -14,7 +14,7 @@ class Interest(db.Model):
         return "<Interest {}>".format(self.activity)
 
     def dict(self):
-        img = self.img        
+        img = self.img
         return dict(
             id=self.id,
             activity=self.activity,
