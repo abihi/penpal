@@ -1,1 +1,2 @@
 FLASK_APP=penpal.py
+FLASK_ENV=development
