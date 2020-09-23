@@ -1,0 +1,26 @@
+name: Push stack to heroku
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Release API
+      uses: akhileshns/heroku-deploy@v3.4.6
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "api-penpal"
+        heroku_email: ${{secrets.HEROKU_API_KEY}}
+      env:
+        HD_APP_BASE: "api"
+    - name: Release Web Client
+      uses: akhileshns/heroku-deploy@v3.4.6
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "web-penpal"
+        heroku_email: ${{secrets.HEROKU_API_KEY}}
+      env:
+        HD_APP_BASE: "web"
+        HD_REACT_APP_API_URL: "https://api-penpal.herokuapp.com"
