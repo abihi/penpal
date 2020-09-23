@@ -79,32 +79,30 @@ export const authenticateUser = () => {
 
       // Early exit function if user is anonomyous
       const CURRENT_USER_IS_ANONYMOUS = result.data.is_anonymous;
-      if(CURRENT_USER_IS_ANONYMOUS)
-        dispatch(switchAppMode('public'));
+      if (CURRENT_USER_IS_ANONYMOUS) {
+          dispatch(switchAppMode('public'));
+      } else {
+        // Get user object since user is not anonymous
+        // getUser function normalizes the user before storing its data
+        await dispatch(getUser(result.data.current_user));
 
-      // Get user object if since user is not anonymous
-      // getUser function normalizes the user before storing its data
-      await dispatch(getUser(result.data.current_user));
-
-      // Access the store and denormalize the currentUser from stored entities
-      const store = getState();
-      const currentUser = denormalize(store.auth.currentUser, user, store.entities);
-
-
-      const CURRENT_USER_IS_AUTHENTICATED = result.data.is_authenticated;
-      const CURRENT_USER_IS_ONBOARDED = currentUser.onboarded;
+        // Access the store and denormalize the currentUser from stored entities
+        const store = getState();
+        const currentUser = denormalize(store.auth.currentUser, user, store.entities);
 
 
+        const CURRENT_USER_IS_AUTHENTICATED = result.data.is_authenticated;
+        const CURRENT_USER_IS_ONBOARDED = currentUser.onboarded;
 
-      // Set the current application mode
-      // depending on user status
-      if(!CURRENT_USER_IS_ONBOARDED) {
-        dispatch(switchAppMode('onboarding'));
-      } else if (CURRENT_USER_IS_AUTHENTICATED) {
-        dispatch(switchAppMode('private'));
+
+        // Set the current application mode
+        // depending on user status
+        if (!CURRENT_USER_IS_ONBOARDED) {
+            dispatch(switchAppMode('onboarding'));
+        } else if (CURRENT_USER_IS_AUTHENTICATED) {
+            dispatch(switchAppMode('private'));
+        }
       }
-
-
     } catch (error) {
       dispatch({type: FETCH_USER_CREDENTIALS_FAIL, payload: error});
       console.error(error);
