@@ -13,7 +13,9 @@ from app.models.users.user import User
 
 @login_manager.user_loader
 def load_user(_id):
-    return User.query.get(_id)
+    if current_user.is_authenticated():
+        return User.query.get(_id)
+    return None
 
 
 @bp.route("/", methods=["GET"])
