@@ -22,7 +22,7 @@ def init_database():
 
 def test_if_seed_countries_are_correct(test_client, init_database):
     commands.add_countries()
-    with open("countries.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/countries.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         country_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -35,9 +35,9 @@ def test_if_seed_countries_are_correct(test_client, init_database):
             assert country_db.longitude == float(country[2])
 
 
-def test_if_seed_interests_names_are_correct(test_client, init_database):
+def test_if_seed_interests_activity_are_correct(test_client, init_database):
     commands.add_interests()
-    with open("interests.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/interests.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         interest_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -45,12 +45,12 @@ def test_if_seed_interests_names_are_correct(test_client, init_database):
             next(interest_reader)
         for interest in interest_reader:
             interest_db = Interest.query.filter_by(activity=interest[0]).first()
-            assert interest_db is not None
+            assert interest_db.activity == interest[0]
 
 
 def test_if_seed_languages_names_are_correct(test_client, init_database):
     commands.add_languages()
-    with open("languages.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/languages.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         language_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -58,7 +58,7 @@ def test_if_seed_languages_names_are_correct(test_client, init_database):
             next(language_reader)
         for language in language_reader:
             language_db = Language.query.filter_by(name=language[3]).first()
-            assert language_db is not None
+            assert language_db.name == language[3]
 
 
 def test_if_seed_init_adds_correct_number_of_objects(test_client, init_database):

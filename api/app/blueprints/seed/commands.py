@@ -35,7 +35,7 @@ def basic_setup(count_users, count_letters, count_penpals):
 
 def add_countries():
     click.echo("Seeding country table with countries.")
-    with open("countries.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/countries.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         country_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -56,7 +56,7 @@ def add_countries():
 
 def add_languages():
     click.echo("Seeding language table with languages.")
-    with open("languages.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/languages.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         language_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -73,7 +73,7 @@ def add_languages():
 
 def add_interests():
     click.echo("Seeding interest table with interests.")
-    with open("interests.csv", newline="") as csvfile:
+    with open("../api/app/seed_data/interests.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         interest_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
