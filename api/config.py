@@ -7,7 +7,7 @@ class Config:
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL"
-    ) or "postgresql:///"
+    ) or "sqlite:///"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

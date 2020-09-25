@@ -3,7 +3,7 @@ Create virtualenv:
 1.  $ cd penpal/api
 2.  $ python3 -m venv venv (linux) / py -m venv venv (windows)
 3.  $ source venv/bin/activate (linux) / .\venv\Scripts\activate (windows)
-4.  $ pip install -r requirements.txt
+4.  $ pip3 install -r requirements.txt
 5.  $ flask db upgrade
 
 
