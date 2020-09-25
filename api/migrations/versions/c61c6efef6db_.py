@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9f047c4175a0
+Revision ID: c61c6efef6db
 Revises: 
-Create Date: 2020-08-17 21:53:54.393021
+Create Date: 2020-09-25 14:11:55.726054
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "9f047c4175a0"
+revision = "c61c6efef6db"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,6 +31,8 @@ def upgrade():
         "interests",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("activity", sa.String(length=64), nullable=True),
+        sa.Column("class", sa.String(length=64), nullable=True),
+        sa.Column("type", sa.String(length=64), nullable=True),
         sa.Column("img", sa.String(length=256), nullable=True),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -50,15 +52,35 @@ def upgrade():
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
+        "preferences",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("gender", sa.String(length=64), nullable=True),
+        sa.Column("looking_for", sa.String(length=500), nullable=True),
+        sa.Column("connection_type", sa.String(length=64), nullable=True),
+        sa.Column("communication_type", sa.String(length=64), nullable=True),
+        sa.Column("interest_type", sa.String(length=64), nullable=True),
+        sa.Column("language_preference", sa.String(length=64), nullable=True),
+        sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_table(
+        "preference_language_mapping",
+        sa.Column("language_id", sa.Integer(), nullable=False),
+        sa.Column("preference_id", sa.Integer(), nullable=False),
+        sa.ForeignKeyConstraint(["language_id"], ["languages.id"],),
+        sa.ForeignKeyConstraint(["preference_id"], ["preferences.id"],),
+        sa.PrimaryKeyConstraint("language_id", "preference_id"),
+    )
+    op.create_table(
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("username", sa.String(length=64), nullable=True),
         sa.Column("email", sa.String(length=120), nullable=True),
         sa.Column("birthdate", sa.Date(), nullable=True),
+        sa.Column("gender", sa.String(length=64), nullable=True),
+        sa.Column("about_me", sa.String(length=500), nullable=True),
         sa.Column("email_verified", sa.Boolean(), nullable=True),
         sa.Column("password_hash", sa.String(length=128), nullable=True),
         sa.Column("onboarded", sa.Boolean(), nullable=True),
-        sa.Column("about_me", sa.String(length=500), nullable=True),
         sa.Column("country_id", sa.Integer(), nullable=True),
         sa.ForeignKeyConstraint(["country_id"], ["countries.id"],),
         sa.PrimaryKeyConstraint("id"),
@@ -113,6 +135,8 @@ def downgrade():
     op.drop_index(op.f("ix_users_username"), table_name="users")
     op.drop_index(op.f("ix_users_email"), table_name="users")
     op.drop_table("users")
+    op.drop_table("preference_language_mapping")
+    op.drop_table("preferences")
     op.drop_table("penpals")
     op.drop_table("languages")
     op.drop_index(op.f("ix_interests_activity"), table_name="interests")
