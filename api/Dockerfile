@@ -2,7 +2,7 @@
 
 FROM alpine:3.12
 
-ADD requirements.txt /home/app/
+ADD . /home/app/
 WORKDIR /home/app/
 
 RUN apk update && \
