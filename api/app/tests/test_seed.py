@@ -22,7 +22,7 @@ def init_database():
 
 def test_if_seed_countries_are_correct(test_client, init_database):
     commands.add_countries()
-    with open("../api/app/seed_data/countries.csv", newline="") as csvfile:
+    with open("app/seed_data/countries.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         country_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -37,7 +37,7 @@ def test_if_seed_countries_are_correct(test_client, init_database):
 
 def test_if_seed_interests_activity_are_correct(test_client, init_database):
     commands.add_interests()
-    with open("../api/app/seed_data/interests.csv", newline="") as csvfile:
+    with open("app/seed_data/interests.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         interest_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
@@ -50,7 +50,7 @@ def test_if_seed_interests_activity_are_correct(test_client, init_database):
 
 def test_if_seed_languages_names_are_correct(test_client, init_database):
     commands.add_languages()
-    with open("../api/app/seed_data/languages.csv", newline="") as csvfile:
+    with open("app/seed_data/languages.csv", newline="") as csvfile:
         has_header = csv.Sniffer().has_header(csvfile.read(1024))
         csvfile.seek(0)
         language_reader = csv.reader(csvfile, delimiter=",", quotechar='"')
