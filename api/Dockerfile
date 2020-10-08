@@ -2,8 +2,8 @@
 
 FROM alpine:3.12
 
-ADD . /home/app/
-WORKDIR /home/app/
+ADD . /home/api/
+WORKDIR /home/api/
 
 RUN apk update && \
     apk add --no-cache postgresql-dev gcc python3 python3-dev musl-dev openssl-dev libffi-dev && \

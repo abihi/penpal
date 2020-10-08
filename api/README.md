@@ -17,6 +17,7 @@ Create virtualenv:
 *   ($ pip freeze) get a list of all installed packages and their versions
 
 # Seed the database
+*   If using docker postgresDB: $ docker exec -it api_api_1 sh
 *   $ flask seed init 
 *   $ flask seed drop
 
