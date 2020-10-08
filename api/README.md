@@ -6,6 +6,9 @@ Create virtualenv:
 4.  $ pip3 install -r requirements.txt
 5.  $ flask db upgrade
 
+# API and PostgresDB containers
+*  $ docker-compose up --build -d   # Run the containers.
+*  $ docker-compose down   # Stop and remove everything.
 
 # Run app & update requirements.txt
 *   $ FLASK_ENV=development flask run
